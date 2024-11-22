@@ -4,6 +4,7 @@ package ie.atu.bookapp;
 public class Main {
 	// This is the main method.
 	public static void main(String[] args) {
-		System.out.println("This is the main method. I am inside the Main calss.");
+		App app = new App();
+		app.run();
 	} // End main method
 } // End Main Class

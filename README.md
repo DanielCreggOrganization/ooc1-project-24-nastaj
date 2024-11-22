@@ -90,3 +90,6 @@ Provide links to resources used:
     - Average Book Price
     - Books Published After a Specific Year
     - Back to Main Menu
+
+## External Libraries
+https://github.com/lalyos/jfiglet
