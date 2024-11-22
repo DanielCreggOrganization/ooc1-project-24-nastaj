@@ -1,4 +1,4 @@
-package ie.atu.testpackage;
+package ie.atu.bookapp;
 
  // This is the Main class. It contains the main method.
 public class Main {

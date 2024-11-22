@@ -1,8 +1,8 @@
 # OOC1 Project
 
-**Title:** Items Application Manager  
-**Name:** Patrick Murphy  
-**Student ID:** G00123456  
+**Title:** Library Management System (Booklet)
+**Name:** Jakub Nasta 
+**Student ID:** G00424689  
 
 ## Application Function
 
@@ -49,3 +49,43 @@ What did you not get finished? Discuss the issues you faced when creating your a
 Provide links to resources used:
 
 * [Tutorialspoint](https://www.tutorialspoint.com/java/) - Java Tutorials site I found helpful
+
+## Features
+* Main Menu - Main.java
+    - ASCII art
+    - Title (Booklet)
+    - Manage Library
+    - View Statistics
+    - Exit
+
+* Book Manager - BookManager.java
+    - Add a Book
+        - Book/Ebook/Audiobook?
+            * Prompt for data
+                - Log data back to user (Is everything correct?)
+                    - Y: Book/Ebook/Audiobook added successfully!
+                    - N: Go back to prompting   
+
+    - Remove a Book
+        - By ID/Name?
+            - List specified book (Are you sure?)
+                - Y: Book deleted successfully.
+                - N: Go back to prompting for ID/Name
+
+    - Show All Books
+        - Books?
+        - Audiobooks?
+        - Ebooks?
+        - Show All?
+
+        - Default sort alphabetically
+        - Filter by Name/Author/Price/Genre/Number of Pages/Publication Year
+        - Return number of books in collection
+
+* Statistics - Statistics.java
+    - Total Number of Books
+    - Most Expensive Book
+    - Least Expensive Book
+    - Average Book Price
+    - Books Published After a Specific Year
+    - Back to Main Menu
