@@ -2,7 +2,9 @@
 # OOC1 Project
 
 **Title:** Library Management System (Booklet)
+
 **Name:** Jakub Nasta 
+
 **Student ID:** G00424689  
 
 ## Application Function
