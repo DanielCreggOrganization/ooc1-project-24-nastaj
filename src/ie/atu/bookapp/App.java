@@ -9,6 +9,7 @@ public class App {
     // Running bolean variable is used for determining if the app is active (true) or exited by the user (false).
     private Scanner scanner = new Scanner(System.in);
     private boolean running = true;
+    String currentPage;
 
     // Run function is responsible for starting up the app and printing the main menu for the first time the app is launched.
     // Does not return anything and is used only once in the Main class.
