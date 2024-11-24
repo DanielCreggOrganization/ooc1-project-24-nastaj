@@ -6,15 +6,22 @@ import java.util.Scanner;
 // App class responsible for starting up the Booklet app. Prints out the main menu.
 public class App {
     // Scanner variable is used for user input. 
-    // Running bolean variable is used for determining if the app is active (true) or exited by the user (false).
+    // Running bolean variable is used for determining if the app is active (true) or paused (false).
     private Scanner scanner = new Scanner(System.in);
     private boolean running = true;
-    String currentPage;
+    private BookManager bookManager;
+    private static String previousPage;
+    private static String currentPage;
+
+    App() {
+        this.bookManager = new BookManager();
+    }
 
     // Run function is responsible for starting up the app and printing the main menu for the first time the app is launched.
     // Does not return anything and is used only once in the Main class.
     public void run() {
         while (running) {
+            App.setCurrentPage("main");
             // I have put the ASCII art in the main menu in its own class to abstract it away and not clutter the code responsible for running the app.
             ASCII.printArt();
 
@@ -29,7 +36,7 @@ public class App {
             System.out.println("How may I help you today?");
             System.out.println();
 
-            System.out.println("1. Manage Library");
+            System.out.println("1. Manage Books");
             System.out.println("2. View Statistics");
             System.out.println("0. Exit");
             System.out.println("---------------------------------------------");
@@ -40,7 +47,7 @@ public class App {
 
             switch(choice) {
                 case 1: {
-                    System.out.println("TODO: Library Manager");
+                    bookManager.printMenu();
                     running = false;
                     break;
                 }
@@ -59,6 +66,24 @@ public class App {
                     running = false;
                 }
             }
+
+            scanner.close();
         }
+    }
+
+    public static void setCurrentPage(String page) {
+        App.currentPage = page;
+    }
+
+    public static String getCurrentPage() {
+        return App.currentPage;
+    }
+
+    public static void setPreviousPage(String page) {
+        App.currentPage = page;
+    }
+
+    public static String getPreviousPage() {
+        return App.previousPage;
     }
 }
