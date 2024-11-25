@@ -6,5 +6,5 @@ public class Main {
 	public static void main(String[] args) {
 		App app = new App();
 		app.run();
-	} // End main method1
+	} // End main method
 } // End Main Class

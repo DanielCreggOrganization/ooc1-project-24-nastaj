@@ -93,5 +93,5 @@ Provide links to resources used:
     - Books Published After a Specific Year
     - Back to Main Menu
 
-## External Libraries
-https://github.com/lalyos/jfiglet
+## Resources
+https://www.geeksforgeeks.org/gfact-51-java-scanner-nextchar/

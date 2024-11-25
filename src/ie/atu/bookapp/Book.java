@@ -15,4 +15,13 @@ public class Book {
     }
 
     // TODO: Getters and setters
+
+    // Overriding the toString() method to print out the contents of ArrayList in a formatted way
+    @Override
+    public String toString() {
+        return "Book {title='" + title + '\'' +
+               ", author='" + author + '\'' +
+               ", price=" + price +
+               ", publicationYear=" + publicationYear;
+    }
 }

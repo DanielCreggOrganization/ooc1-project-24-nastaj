@@ -12,6 +12,10 @@ public class BookManager {
     private ArrayList<Ebook> ebooks;
     private ArrayList <Audiobook> audiobooks;
 
+    BookManager() {
+        this.booksPrinted = new ArrayList<>();
+    }
+
     // TODO: Getters and setters
     public void printMenu() {
         App.setCurrentPage("manager");
@@ -70,7 +74,66 @@ public class BookManager {
     }
 
     public void printPrintedBookMenu() {
+        String title;
+        String author;
+        double price;
+        int publicationYear;
+        int pageCount;
+        String choice;
+
         ClearConsole.clearConsole();
+
+        // Move the prompting menu into separate method 
+        System.out.println("Enter details");
+        System.out.println("=================");
+
+        System.out.print("Title: ");
+        title = scanner.nextLine();
+
+        System.out.print("Author: ");
+        author = scanner.nextLine();
+
+        System.out.print("Price: ");
+        price = scanner.nextDouble();
+
+        System.out.print("Publication Year: ");
+        publicationYear = scanner.nextInt();
+
+        System.out.print("Page Count: ");
+        pageCount = scanner.nextInt();
+
+        System.out.println("==============");
+        System.out.println("Is this correct?");
+        System.out.println("--------------");
+        System.out.print("Y / N: ");
+        choice = scanner.next();
+
+        if (choice.equalsIgnoreCase("y") || choice.equalsIgnoreCase("yes")) {
+            BookPrinted bookPrinted = new BookPrinted(title, author, price, publicationYear, pageCount);
+            this.booksPrinted.add(bookPrinted);
+
+            System.out.println("Book added successfully!");
+            System.out.println("Add another book?");
+
+            System.out.println("--------------");
+            System.out.print("Y / N: ");
+            choice = scanner.next();
+
+            if (choice.equalsIgnoreCase("y") || choice.equalsIgnoreCase("yes")) {
+                // Prompt the user again
+                this.printAddBookMenu();
+            }
+            
+            else if (choice.equalsIgnoreCase("n") || choice.equalsIgnoreCase("no")) {
+                // TODO: Navigate the user back to Book Manager menu
+            }
+
+        }
+        else if (choice.equalsIgnoreCase("n") || choice.equalsIgnoreCase("no")) {
+            // Prompt the user again
+            this.printAddBookMenu();
+        }
+        
 
         // TODO: Further menus and functionality
     }
