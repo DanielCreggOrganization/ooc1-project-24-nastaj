@@ -47,7 +47,7 @@ public class App {
 
             switch(choice) {
                 case 1: {
-                    bookManager.printMenu();
+                    BookManager.printMenu();
                     running = false;
                     break;
                 }
@@ -80,7 +80,7 @@ public class App {
     }
 
     public static void setPreviousPage(String page) {
-        App.currentPage = page;
+        App.previousPage = page;
     }
 
     public static String getPreviousPage() {

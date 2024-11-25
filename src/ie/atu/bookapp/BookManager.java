@@ -6,18 +6,18 @@ import java.util.Scanner;
 public class BookManager {
     // Because the size of the arrays are not known at the start of the program, they should be getting resized dynamically.
     // ArrayList is perfect for that. It makes the CRUD operations on arrays much easier.
-    private Scanner scanner = new Scanner(System.in);
+    private static Scanner scanner = new Scanner(System.in);
     private ArrayList<Book> books;
-    private ArrayList <BookPrinted> booksPrinted;
+    private static ArrayList <BookPrinted> booksPrinted;
     private ArrayList<Ebook> ebooks;
     private ArrayList <Audiobook> audiobooks;
 
     BookManager() {
-        this.booksPrinted = new ArrayList<>();
+        BookManager.booksPrinted = new ArrayList<>();
     }
 
     // TODO: Getters and setters
-    public void printMenu() {
+    public static void printMenu() {
         App.setCurrentPage("manager");
         App.setPreviousPage("main");
 
@@ -32,7 +32,7 @@ public class BookManager {
         System.out.println("---------------------------------------------");
         System.out.print("Enter your choice: ");
 
-        int choice = scanner.nextInt();
+        int choice = BookManager.scanner.nextInt();
         scanner.nextLine();
 
         switch(choice) {
@@ -41,14 +41,14 @@ public class BookManager {
                 App.setCurrentPage("addBook");
                 App.setPreviousPage("manager");
 
-                this.printAddBookMenu();
+                BookManager.printAddBookMenu();
             }
         }
 
         scanner.close();
     }
 
-    public void printAddBookMenu() {
+    public static void printAddBookMenu() {
         ClearConsole.clearConsole();
 
         System.out.println("What do you want to add?");
@@ -68,12 +68,12 @@ public class BookManager {
                 App.setCurrentPage("printedBook");
                 App.setPreviousPage("addBook");
 
-                this.printPrintedBookMenu();
+                BookManager.printPrintedBookMenu();
             }
         }
     }
 
-    public void printPrintedBookMenu() {
+    public static void printPrintedBookMenu() {
         String title;
         String author;
         double price;
@@ -83,7 +83,6 @@ public class BookManager {
 
         ClearConsole.clearConsole();
 
-        // Move the prompting menu into separate method 
         System.out.println("Enter details");
         System.out.println("=================");
 
@@ -110,7 +109,7 @@ public class BookManager {
 
         if (choice.equalsIgnoreCase("y") || choice.equalsIgnoreCase("yes")) {
             BookPrinted bookPrinted = new BookPrinted(title, author, price, publicationYear, pageCount);
-            this.booksPrinted.add(bookPrinted);
+            BookManager.booksPrinted.add(bookPrinted);
 
             System.out.println("Book added successfully!");
             System.out.println("Add another book?");
@@ -121,17 +120,17 @@ public class BookManager {
 
             if (choice.equalsIgnoreCase("y") || choice.equalsIgnoreCase("yes")) {
                 // Prompt the user again
-                this.printAddBookMenu();
+                BookManager.printPrintedBookMenu();
             }
             
             else if (choice.equalsIgnoreCase("n") || choice.equalsIgnoreCase("no")) {
-                // TODO: Navigate the user back to Book Manager menu
+                Navigation.moveTo(App.getPreviousPage());
             }
 
         }
         else if (choice.equalsIgnoreCase("n") || choice.equalsIgnoreCase("no")) {
             // Prompt the user again
-            this.printAddBookMenu();
+            BookManager.printPrintedBookMenu();
         }
         
 
