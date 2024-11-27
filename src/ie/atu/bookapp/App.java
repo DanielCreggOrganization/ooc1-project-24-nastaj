@@ -7,11 +7,9 @@ import java.util.Scanner;
 public class App {
     // Scanner variable is used for user input. 
     // Running bolean variable is used for determining if the app is active (true) or paused (false).
-    private Scanner scanner = new Scanner(System.in);
-    private boolean running = true;
+    private static Scanner scanner = new Scanner(System.in);
+    private static boolean running = true;
     private BookManager bookManager;
-    private static String previousPage;
-    private static String currentPage;
 
     App() {
         this.bookManager = new BookManager();
@@ -21,7 +19,12 @@ public class App {
     // Does not return anything and is used only once in the Main class.
     public void run() {
         while (running) {
-            App.setCurrentPage("main");
+            App.printMainMenu();
+        }
+    }
+
+    public static void printMainMenu() {
+        Navigation.setCurrentPage("main");
             // I have put the ASCII art in the main menu in its own class to abstract it away and not clutter the code responsible for running the app.
             ASCII.printArt();
 
@@ -66,24 +69,5 @@ public class App {
                     running = false;
                 }
             }
-
-            scanner.close();
-        }
-    }
-
-    public static void setCurrentPage(String page) {
-        App.currentPage = page;
-    }
-
-    public static String getCurrentPage() {
-        return App.currentPage;
-    }
-
-    public static void setPreviousPage(String page) {
-        App.previousPage = page;
-    }
-
-    public static String getPreviousPage() {
-        return App.previousPage;
     }
 }

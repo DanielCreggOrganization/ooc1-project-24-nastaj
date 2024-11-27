@@ -18,34 +18,35 @@ public class BookManager {
 
     // TODO: Getters and setters
     public static void printMenu() {
-        App.setCurrentPage("manager");
-        App.setPreviousPage("main");
+        Navigation.setCurrentPage("manager");
+        Navigation.setPreviousPage("main");
 
         ClearConsole.clearConsole();
 
         System.out.println();
         System.out.println("============ Book Manager ============");
-        System.out.println("1. Add a Book");
-        System.out.println("2. Remove a Book");
-        System.out.println("3. Find a Book");
-        System.out.println("4. Show Books");
+        System.out.println("(1) Add a Book");
+        System.out.println("(2) Remove a Book");
+        System.out.println("(3) Find a Book");
+        System.out.println("(4) Show Books");
         System.out.println("---------------------------------------------");
+        System.out.println("(B) Go Back | (M) Go to Main Menu");
+        System.out.println("---------------------------------------------");
+
         System.out.print("Enter your choice: ");
 
-        int choice = BookManager.scanner.nextInt();
-        scanner.nextLine();
+        String choice = BookManager.scanner.nextLine();
+        
 
         switch(choice) {
             // TODO: All choices for this menu
-            case 1: {
-                App.setCurrentPage("addBook");
-                App.setPreviousPage("manager");
+            case "1": {
+                Navigation.setCurrentPage("addBook");
+                Navigation.setPreviousPage("manager");
 
                 BookManager.printAddBookMenu();
             }
         }
-
-        scanner.close();
     }
 
     public static void printAddBookMenu() {
@@ -65,8 +66,8 @@ public class BookManager {
             // TODO: All choices for this menu
             case 1:
             {
-                App.setCurrentPage("printedBook");
-                App.setPreviousPage("addBook");
+                Navigation.setCurrentPage("printedBook");
+                Navigation.setPreviousPage("addBook");
 
                 BookManager.printPrintedBookMenu();
             }
@@ -94,29 +95,35 @@ public class BookManager {
 
         System.out.print("Price: ");
         price = scanner.nextDouble();
+        scanner.nextLine(); // Consume the leftover newline
 
         System.out.print("Publication Year: ");
         publicationYear = scanner.nextInt();
+        scanner.nextLine(); // Consume the leftover newline
 
         System.out.print("Page Count: ");
         pageCount = scanner.nextInt();
+        scanner.nextLine(); // Consume the leftover newline
 
         System.out.println("==============");
         System.out.println("Is this correct?");
         System.out.println("--------------");
         System.out.print("Y / N: ");
-        choice = scanner.next();
+        choice = scanner.nextLine();
 
         if (choice.equalsIgnoreCase("y") || choice.equalsIgnoreCase("yes")) {
             BookPrinted bookPrinted = new BookPrinted(title, author, price, publicationYear, pageCount);
             BookManager.booksPrinted.add(bookPrinted);
 
+            ClearConsole.clearConsole();
+
+            System.out.println(booksPrinted);
             System.out.println("Book added successfully!");
             System.out.println("Add another book?");
 
             System.out.println("--------------");
             System.out.print("Y / N: ");
-            choice = scanner.next();
+            choice = scanner.nextLine();
 
             if (choice.equalsIgnoreCase("y") || choice.equalsIgnoreCase("yes")) {
                 // Prompt the user again
@@ -124,7 +131,7 @@ public class BookManager {
             }
             
             else if (choice.equalsIgnoreCase("n") || choice.equalsIgnoreCase("no")) {
-                Navigation.moveTo(App.getPreviousPage());
+                Navigation.moveTo(Navigation.getPreviousPage());
             }
 
         }
