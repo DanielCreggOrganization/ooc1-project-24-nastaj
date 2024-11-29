@@ -5,23 +5,30 @@ public class Navigation {
     private static String currentPage;
 
     public static void moveTo(String page) {
+        ClearConsole.clearConsole();
         if(page.equals("manager")) {
-            ClearConsole.clearConsole();
-
             BookManager.printMenu();
         }
 
         if(page.equals("addBook")) {
-            ClearConsole.clearConsole();
-
             BookManager.printAddBookMenu();
         }
+
+        if(page.equals("main")) {
+            App.printMainMenu();
+        }
+    }
+
+    public static void sideMenu() {
+        System.out.println("---------------------------------------------");
+        System.out.println("(B) Go Back | (M) Go to Main Menu");
+        System.out.println("---------------------------------------------");
     }
 
     public static void sideMenu(String choice) {
         ClearConsole.clearConsole();
 
-        if(choice.equals("-1") ) {
+        if(choice.equals("b") ) {
             Navigation.moveTo(Navigation.previousPage);
         }
 
