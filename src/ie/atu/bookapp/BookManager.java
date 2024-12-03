@@ -9,11 +9,12 @@ public class BookManager {
     private static Scanner scanner = new Scanner(System.in);
     private ArrayList<Book> books;
     private static ArrayList <BookPrinted> booksPrinted;
-    private ArrayList<Ebook> ebooks;
+    private static ArrayList<Ebook> ebooks;
     private ArrayList <Audiobook> audiobooks;
 
     BookManager() {
         BookManager.booksPrinted = new ArrayList<>();
+        BookManager.ebooks = new ArrayList<>();
     }
 
     // TODO: Getters and setters
@@ -71,6 +72,13 @@ public class BookManager {
 
                 BookManager.printPrintedBookMenu();
             }
+
+            case "2": {
+                Navigation.setCurrentPage("ebook");
+                Navigation.setPreviousPage("addBook");
+
+                BookManager.printEbookMenu();
+            }
         }
     }
 
@@ -93,40 +101,98 @@ public class BookManager {
         publicationYear = BookManager.promptPublicationYear();
         pageCount = BookManager.promptPageCount();
         
-                System.out.println("==============");
-                System.out.println("Is this correct?");
-                System.out.println("--------------");
-                System.out.print("Y / N: ");
-                choice = scanner.nextLine();
+        System.out.println("==============");
+        System.out.println("Is this correct?");
+        System.out.println("--------------");
+        System.out.print("Y / N: ");
+        choice = scanner.nextLine();
         
-                if (choice.equalsIgnoreCase("y") || choice.equalsIgnoreCase("yes")) {
-                    BookPrinted bookPrinted = new BookPrinted(title, author, price, publicationYear, pageCount);
-                    BookManager.booksPrinted.add(bookPrinted);
+        if (choice.equalsIgnoreCase("y") || choice.equalsIgnoreCase("yes")) {
+            BookPrinted bookPrinted = new BookPrinted(title, author, price, publicationYear, pageCount);
+            BookManager.booksPrinted.add(bookPrinted);
         
-                    ClearConsole.clearConsole();
+            ClearConsole.clearConsole();
         
-                    System.out.println(booksPrinted);
-                    System.out.println("Book added successfully!");
-                    System.out.println("Add another book?");
+            System.out.println(booksPrinted);
+            System.out.println("Book added successfully!");
+            System.out.println("Add another book?");
         
-                    System.out.println("--------------");
-                    System.out.print("Y / N: ");
-                    choice = scanner.nextLine();
+            System.out.println("--------------");
+            System.out.print("Y / N: ");
+            choice = scanner.nextLine();
                     
-                    if (choice.equalsIgnoreCase("y") || choice.equalsIgnoreCase("yes")) {
-                        // Prompt the user again
-                        BookManager.printPrintedBookMenu();
-                    }
+            if (choice.equalsIgnoreCase("y") || choice.equalsIgnoreCase("yes")) {
+                // Prompt the user again
+                BookManager.printPrintedBookMenu();
+            }
                     
-                    else if (choice.equalsIgnoreCase("n") || choice.equalsIgnoreCase("no")) {
-                        Navigation.moveTo(Navigation.getPreviousPage());
-                    }
+            else if (choice.equalsIgnoreCase("n") || choice.equalsIgnoreCase("no")) {
+                Navigation.moveTo(Navigation.getPreviousPage());
+            }
         
-                }
-                else if (choice.equalsIgnoreCase("n") || choice.equalsIgnoreCase("no")) {
-                    // Prompt the user again
-                    BookManager.printPrintedBookMenu();
-                }
+        }
+        else if (choice.equalsIgnoreCase("n") || choice.equalsIgnoreCase("no")) {
+            // Prompt the user again
+            BookManager.printPrintedBookMenu();
+        }
+    }
+
+    public static void printEbookMenu() {
+        String title;
+        String author;
+        double price;
+        int publicationYear;
+        String choice;
+        double fileSize;
+        String format;
+
+        ClearConsole.clearConsole();
+
+        System.out.println("Enter details");
+        System.out.println("=================");
+
+        title = BookManager.promptTitle();
+        author = BookManager.promptAuthor();
+        price = BookManager.promptPrice();
+        publicationYear = BookManager.promptPublicationYear();
+        fileSize = BookManager.promptFileSize();
+        format = BookManager.promptFormat();
+
+        
+        System.out.println("==============");
+        System.out.println("Is this correct?");
+        System.out.println("--------------");
+        System.out.print("Y / N: ");
+        choice = scanner.nextLine();
+        
+        if (choice.equalsIgnoreCase("y") || choice.equalsIgnoreCase("yes")) {
+            Ebook ebook = new Ebook(title, author, price, publicationYear, fileSize, format);
+            BookManager.ebooks.add(ebook);
+        
+            ClearConsole.clearConsole();
+        
+            System.out.println(ebooks);
+            System.out.println("Ebook added successfully!");
+            System.out.println("Add another ebook?");
+        
+            System.out.println("--------------");
+            System.out.print("Y / N: ");
+            choice = scanner.nextLine();
+                    
+            if (choice.equalsIgnoreCase("y") || choice.equalsIgnoreCase("yes")) {
+                // Prompt the user again
+                BookManager.printEbookMenu();
+            }
+                    
+            else if (choice.equalsIgnoreCase("n") || choice.equalsIgnoreCase("no")) {
+                Navigation.moveTo(Navigation.getPreviousPage());
+            }
+        
+        }
+        else if (choice.equalsIgnoreCase("n") || choice.equalsIgnoreCase("no")) {
+            // Prompt the user again
+            BookManager.printEbookMenu();
+        }
     }
         
     public static String promptTitle() {
@@ -238,5 +304,46 @@ public class BookManager {
                 System.out.println("Invalid input! Please enter a valid page count.");
             }
         }
+    }
+
+    public static double promptFileSize() {
+        double fileSize;
+    
+        while (true) {
+            System.out.print("File Size (MB): ");
+    
+            String input = scanner.nextLine(); // Read the input as a string first
+    
+            if (input.isEmpty()) { // Check if the input is empty
+                System.out.println("Invalid input! File size cannot be empty.");
+                continue; // Restart the loop
+            }
+    
+            try {
+                fileSize = Double.parseDouble(input); // Attempt to parse the input as a double
+                if (fileSize >= 0) {
+                    return fileSize; // Valid non-negative file size
+                } else {
+                    System.out.println("Invalid input! File size cannot be negative.");
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input! Please enter a valid file size.");
+            }
+        }
+    }
+
+    public static String promptFormat() {
+        String format;
+
+        do {
+            System.out.print("File Format: ");
+            format = scanner.nextLine();
+
+            if (format.trim().isEmpty()) {
+                System.out.println("Invalid input! File format cannot be empty.");
+            }
+        } while (format.trim().isEmpty());
+            
+        return format;
     }
 }

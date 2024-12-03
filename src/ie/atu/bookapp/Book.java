@@ -19,7 +19,7 @@ public class Book {
     // Overriding the toString() method to print out the contents of ArrayList in a formatted way
     @Override
     public String toString() {
-        return "Book {title='" + title + '\'' +
+        return "{title='" + title + '\'' +
                ", author='" + author + '\'' +
                ", price=" + price +
                ", publicationYear=" + publicationYear;

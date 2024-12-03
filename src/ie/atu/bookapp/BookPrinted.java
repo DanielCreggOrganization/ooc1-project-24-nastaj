@@ -16,6 +16,6 @@ public class BookPrinted extends Book{
     @Override
     public String toString() {
         // Use the parent's toString() and add pageCount information
-        return super.toString() + ", pageCount=" + pageCount + "}";
+        return "Book " + super.toString() + ", pageCount=" + pageCount + "}";
     }
 }
