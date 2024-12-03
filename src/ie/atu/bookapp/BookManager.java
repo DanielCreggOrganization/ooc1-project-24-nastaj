@@ -51,9 +51,9 @@ public class BookManager {
         ClearConsole.clearConsole();
 
         System.out.println("What do you want to add?");
-        System.out.println("1. Printed Book");
-        System.out.println("2. Ebook");
-        System.out.println("3. Audiobook");
+        System.out.println("(1) Printed Book");
+        System.out.println("(2) Ebook");
+        System.out.println("(3) Audiobook");
         Navigation.sideMenu();
 
         System.out.print("Enter your choice: ");
@@ -90,14 +90,8 @@ public class BookManager {
         title = BookManager.promptTitle();
         author = BookManager.promptAuthor();
         price = BookManager.promptPrice();
-        
-                System.out.print("Publication Year: ");
-                publicationYear = scanner.nextInt();
-                scanner.nextLine(); // Consume the leftover newline
-        
-                System.out.print("Page Count: ");
-                pageCount = scanner.nextInt();
-                scanner.nextLine(); // Consume the leftover newline
+        publicationYear = BookManager.promptPublicationYear();
+        pageCount = BookManager.promptPageCount();
         
                 System.out.println("==============");
                 System.out.println("Is this correct?");
@@ -118,7 +112,7 @@ public class BookManager {
                     System.out.println("--------------");
                     System.out.print("Y / N: ");
                     choice = scanner.nextLine();
-        
+                    
                     if (choice.equalsIgnoreCase("y") || choice.equalsIgnoreCase("yes")) {
                         // Prompt the user again
                         BookManager.printPrintedBookMenu();
@@ -133,8 +127,6 @@ public class BookManager {
                     // Prompt the user again
                     BookManager.printPrintedBookMenu();
                 }
-                
-                // TODO: Further menus and functionality
     }
         
     public static String promptTitle() {
@@ -192,6 +184,58 @@ public class BookManager {
                 }
             } catch (NumberFormatException e) {
                 System.out.println("Invalid input! Please enter a valid price.");
+            }
+        }
+    }
+
+    public static int promptPublicationYear() {
+        int publicationYear;
+    
+        while (true) {
+            System.out.print("Publication Year: ");
+    
+            String input = scanner.nextLine(); // Read the input as a string first
+    
+            if (input.isEmpty()) { // Check if the input is empty
+                System.out.println("Invalid input! publicationYear cannot be empty.");
+                continue; // Restart the loop
+            }
+    
+            try {
+                publicationYear = Integer.parseInt(input); // Attempt to parse the input as an integer
+                if (publicationYear >= 0) {
+                    return publicationYear; // Valid non-negative publication year
+                } else {
+                    System.out.println("Invalid input! Publication year cannot be negative.");
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input! Please enter a valid publication year.");
+            }
+        }
+    }
+
+    public static int promptPageCount() {
+        int pageCount;
+    
+        while (true) {
+            System.out.print("Page Count: ");
+    
+            String input = scanner.nextLine(); // Read the input as a string first
+    
+            if (input.isEmpty()) { // Check if the input is empty
+                System.out.println("Invalid input! Page count cannot be empty.");
+                continue; // Restart the loop
+            }
+    
+            try {
+                pageCount = Integer.parseInt(input); // Attempt to parse the input as an integer
+                if (pageCount >= 0) {
+                    return pageCount; // Valid non-negative publication year
+                } else {
+                    System.out.println("Invalid input! Page count cannot be negative.");
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input! Please enter a valid page count.");
             }
         }
     }
