@@ -1,6 +1,6 @@
 package ie.atu.bookapp;
 
-public class Book {
+public abstract class Book {
     private String title;
     private String author;
     private double price;
@@ -13,8 +13,6 @@ public class Book {
         this.price = price;
         this.publicationYear = publicationYear;
     }
-
-    // TODO: Getters and setters
 
     // Overriding the toString() method to print out the contents of ArrayList in a formatted way
     @Override

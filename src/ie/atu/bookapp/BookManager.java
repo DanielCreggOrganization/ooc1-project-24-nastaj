@@ -10,11 +10,12 @@ public class BookManager {
     private ArrayList<Book> books;
     private static ArrayList <BookPrinted> booksPrinted;
     private static ArrayList<Ebook> ebooks;
-    private ArrayList <Audiobook> audiobooks;
+    private static ArrayList <Audiobook> audiobooks;
 
     BookManager() {
         BookManager.booksPrinted = new ArrayList<>();
         BookManager.ebooks = new ArrayList<>();
+        BookManager.audiobooks = new ArrayList<>();
     }
 
     // TODO: Getters and setters
@@ -78,6 +79,13 @@ public class BookManager {
                 Navigation.setPreviousPage("addBook");
 
                 BookManager.printEbookMenu();
+            }
+
+            case "3": {
+                Navigation.setCurrentPage("audiobook");
+                Navigation.setPreviousPage("addBook");
+
+                BookManager.printAudiobookMenu();
             }
         }
     }
@@ -182,6 +190,64 @@ public class BookManager {
             if (choice.equalsIgnoreCase("y") || choice.equalsIgnoreCase("yes")) {
                 // Prompt the user again
                 BookManager.printEbookMenu();
+            }
+                    
+            else if (choice.equalsIgnoreCase("n") || choice.equalsIgnoreCase("no")) {
+                Navigation.moveTo(Navigation.getPreviousPage());
+            }
+        
+        }
+        else if (choice.equalsIgnoreCase("n") || choice.equalsIgnoreCase("no")) {
+            // Prompt the user again
+            BookManager.printEbookMenu();
+        }
+    }
+
+    public static void printAudiobookMenu() {
+        String title;
+        String author;
+        double price;
+        int publicationYear;
+        String choice;
+        int duration;
+        String narrator;
+
+        ClearConsole.clearConsole();
+
+        System.out.println("Enter details");
+        System.out.println("=================");
+
+        title = BookManager.promptTitle();
+        author = BookManager.promptAuthor();
+        price = BookManager.promptPrice();
+        publicationYear = BookManager.promptPublicationYear();
+        duration = BookManager.promptDuration();
+        narrator = BookManager.promptNarrator();
+
+        
+        System.out.println("==============");
+        System.out.println("Is this correct?");
+        System.out.println("--------------");
+        System.out.print("Y / N: ");
+        choice = scanner.nextLine();
+        
+        if (choice.equalsIgnoreCase("y") || choice.equalsIgnoreCase("yes")) {
+            Audiobook audiobook = new Audiobook(title, author, price, publicationYear, duration, narrator);
+            BookManager.audiobooks.add(audiobook);
+        
+            ClearConsole.clearConsole();
+        
+            System.out.println(ebooks);
+            System.out.println("Audiobook added successfully!");
+            System.out.println("Add another audiobook?");
+        
+            System.out.println("--------------");
+            System.out.print("Y / N: ");
+            choice = scanner.nextLine();
+                    
+            if (choice.equalsIgnoreCase("y") || choice.equalsIgnoreCase("yes")) {
+                // Prompt the user again
+                BookManager.printAudiobookMenu();
             }
                     
             else if (choice.equalsIgnoreCase("n") || choice.equalsIgnoreCase("no")) {
@@ -345,5 +411,46 @@ public class BookManager {
         } while (format.trim().isEmpty());
             
         return format;
+    }
+
+    public static int promptDuration() {
+        int duration;
+    
+        while (true) {
+            System.out.print("Duration: ");
+    
+            String input = scanner.nextLine(); // Read the input as a string first
+    
+            if (input.isEmpty()) { // Check if the input is empty
+                System.out.println("Invalid input! Duration cannot be empty.");
+                continue; // Restart the loop
+            }
+    
+            try {
+                duration = Integer.parseInt(input); // Attempt to parse the input as an integer
+                if (duration >= 0) {
+                    return duration; // Valid non-negative duration
+                } else {
+                    System.out.println("Invalid input! Duration cannot be negative.");
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input! Please enter a valid duration.");
+            }
+        }
+    }
+
+    public static String promptNarrator() {
+        String narrator;
+
+        do {
+            System.out.print("Narrator: ");
+            narrator = scanner.nextLine();
+
+            if (narrator.trim().isEmpty()) {
+                System.out.println("Invalid input! Narrator cannot be empty.");
+            }
+        } while (narrator.trim().isEmpty());
+            
+        return narrator;
     }
 }
