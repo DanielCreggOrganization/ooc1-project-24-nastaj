@@ -7,12 +7,13 @@ public class BookManager {
     // Because the size of the arrays are not known at the start of the program, they should be getting resized dynamically.
     // ArrayList is perfect for that. It makes the CRUD operations on arrays much easier.
     private static Scanner scanner = new Scanner(System.in);
-    private ArrayList<Book> books;
+    private static ArrayList<Book> books;
     private static ArrayList <BookPrinted> booksPrinted;
     private static ArrayList<Ebook> ebooks;
     private static ArrayList <Audiobook> audiobooks;
 
     BookManager() {
+        BookManager.books = new ArrayList<>();
         BookManager.booksPrinted = new ArrayList<>();
         BookManager.ebooks = new ArrayList<>();
         BookManager.audiobooks = new ArrayList<>();
@@ -40,9 +41,7 @@ public class BookManager {
         
         switch(choice) {
             // TODO: All choices for this menu
-            case "1": {
-                BookManager.printAddBookMenu();
-            }
+            case "1": BookManager.printAddBookMenu();
         }
     }
 
@@ -65,37 +64,22 @@ public class BookManager {
 
         switch(choice) {
             // TODO: All choices for this menu
-            case "1":
-            {
-                Navigation.setCurrentPage("printedBook");
-                Navigation.setPreviousPage("addBook");
-
-                BookManager.printPrintedBookMenu();
-            }
-
-            case "2": {
-                Navigation.setCurrentPage("ebook");
-                Navigation.setPreviousPage("addBook");
-
-                BookManager.printEbookMenu();
-            }
-
-            case "3": {
-                Navigation.setCurrentPage("audiobook");
-                Navigation.setPreviousPage("addBook");
-
-                BookManager.printAudiobookMenu();
-            }
+            case "1": BookManager.printBookMenu();
+            case "2": BookManager.printEbookMenu();
+            case "3": BookManager.printAudiobookMenu();
         }
     }
 
-    public static void printPrintedBookMenu() {
+    public static void printBookMenu() {
         String title;
         String author;
         double price;
         int publicationYear;
         int pageCount;
         String choice;
+
+        Navigation.setCurrentPage("book");
+        Navigation.setPreviousPage("addBook");
 
         ClearConsole.clearConsole();
 
@@ -118,6 +102,7 @@ public class BookManager {
         if (choice.equalsIgnoreCase("y") || choice.equalsIgnoreCase("yes")) {
             BookPrinted bookPrinted = new BookPrinted(title, author, price, publicationYear, pageCount);
             BookManager.booksPrinted.add(bookPrinted);
+            BookManager.books.add(bookPrinted);
         
             ClearConsole.clearConsole();
         
@@ -131,7 +116,7 @@ public class BookManager {
                     
             if (choice.equalsIgnoreCase("y") || choice.equalsIgnoreCase("yes")) {
                 // Prompt the user again
-                BookManager.printPrintedBookMenu();
+                BookManager.printBookMenu();
             }
                     
             else if (choice.equalsIgnoreCase("n") || choice.equalsIgnoreCase("no")) {
@@ -141,7 +126,7 @@ public class BookManager {
         }
         else if (choice.equalsIgnoreCase("n") || choice.equalsIgnoreCase("no")) {
             // Prompt the user again
-            BookManager.printPrintedBookMenu();
+            BookManager.printBookMenu();
         }
     }
 
@@ -153,6 +138,9 @@ public class BookManager {
         String choice;
         double fileSize;
         String format;
+
+        Navigation.setCurrentPage("ebook");
+        Navigation.setPreviousPage("addBook");
 
         ClearConsole.clearConsole();
 
@@ -175,6 +163,7 @@ public class BookManager {
         if (choice.equalsIgnoreCase("y") || choice.equalsIgnoreCase("yes")) {
             Ebook ebook = new Ebook(title, author, price, publicationYear, fileSize, format);
             BookManager.ebooks.add(ebook);
+            BookManager.books.add(ebook);
         
             ClearConsole.clearConsole();
         
@@ -211,6 +200,9 @@ public class BookManager {
         int duration;
         String narrator;
 
+        Navigation.setCurrentPage("audiobook");
+        Navigation.setPreviousPage("addBook");
+
         ClearConsole.clearConsole();
 
         System.out.println("Enter details");
@@ -233,6 +225,7 @@ public class BookManager {
         if (choice.equalsIgnoreCase("y") || choice.equalsIgnoreCase("yes")) {
             Audiobook audiobook = new Audiobook(title, author, price, publicationYear, duration, narrator);
             BookManager.audiobooks.add(audiobook);
+            BookManager.books.add(audiobook);
         
             ClearConsole.clearConsole();
         
