@@ -5,9 +5,9 @@ public class Audiobook extends Book{
     private String narrator;
 
     // Constructor using super tied to Book class
-    Audiobook(String title, String author, double price, int publicationYear, int duration, String narrator) {
+    Audiobook(int id, String title, String author, double price, int publicationYear, int duration, String narrator) {
         // From Book class
-        super(title, author, price, publicationYear);
+        super(id, title, author, price, publicationYear);
 
         // From Audiobook class
         this.duration = duration;
