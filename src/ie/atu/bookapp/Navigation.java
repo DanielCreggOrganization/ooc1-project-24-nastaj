@@ -17,6 +17,10 @@ public class Navigation {
         if(page.equals("main")) {
             App.printMainMenu();
         }
+
+        if(page.equals("removeBook")) {
+            BookManager.printRemoveBookMenu();
+        }
     }
 
     public static void sideMenu() {

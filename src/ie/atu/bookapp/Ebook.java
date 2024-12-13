@@ -5,9 +5,9 @@ public class Ebook extends Book {
     private String format; // e.g. EPUB, PDF
 
     // Constructor using super tied to Book class
-    public Ebook(int id, String title, String author, double price, int publicationYear, double fileSize, String format) {
+    public Ebook(String title, String author, double price, int publicationYear, double fileSize, String format) {
         // From Book class
-        super(id, title, author, price, publicationYear);
+        super(title, author, price, publicationYear);
 
         // From Ebook class
         this.fileSize = fileSize;
