@@ -45,7 +45,70 @@ public class BookManager {
             case "1": BookManager.printAddBookMenu();
             case "2": BookManager.printRemoveBookMenu();
             case "3": BookManager.printFindBookMenu();
+            case "4": BookManager.printShowBooksMenu();
         }
+    }
+
+    public static void printShowBooksMenu() {
+        Navigation.setCurrentPage("showBooks");
+        Navigation.setPreviousPage("manager");
+        ClearConsole.clearConsole();
+
+        System.out.println("Show Books");
+        System.out.println("=================");
+        System.out.println("What books do you want to show?");
+        System.out.println("(1) Printed Books");
+        System.out.println("(2) Ebooks");
+        System.out.println("(3) Audiobooks");
+        System.out.println("(4) Show All");
+        Navigation.sideMenu();
+
+        System.out.print("Enter your choice: ");
+
+        String choice = scanner.nextLine();
+
+        Navigation.sideMenu(choice);
+
+        switch(choice) {
+            // TODO: All choices for this menu
+            case "1": 
+                BookManager.showBooks("printed");
+                break;
+            case "2": 
+                BookManager.showBooks("ebooks");
+                break;
+            case "3": 
+                BookManager.showBooks("audiobooks");
+                break;
+            case "4": 
+                BookManager.showBooks("all");
+                break;
+        }
+    }
+
+    private static void showBooks(String type) {
+        Navigation.setCurrentPage("showBooksResults");
+        Navigation.setPreviousPage("manager");
+        ClearConsole.clearConsole();
+
+        int results = 0;
+        switch(type) {
+            case "printed":
+                results = booksPrinted.size();
+                break; 
+            case "ebooks":
+                results = ebooks.size();
+                break;
+            case "audiobooks":
+                results = audiobooks.size();
+                break;
+            case "all":
+                results = books.size();
+                break;
+        }
+        System.out.println("Number of Books in Library: " + results);
+
+        displayBooks(type);
     }
 
     public static void printAddBookMenu() {
@@ -264,8 +327,6 @@ public class BookManager {
         Navigation.setPreviousPage("manager");
         ClearConsole.clearConsole();
 
-
-
         System.out.println("Remove a Book");
         System.out.println("=================");
         System.out.println("Remove a book by:");
@@ -294,8 +355,6 @@ public class BookManager {
         Navigation.setCurrentPage("removeById");
         Navigation.setPreviousPage("removeBook");
         ClearConsole.clearConsole();
-
-        BookManager.displayBooks();
 
         if (BookManager.books.isEmpty()) {
             Navigation.sideMenu();
@@ -349,8 +408,6 @@ public class BookManager {
         Navigation.setCurrentPage("removeByTitle");
         Navigation.setPreviousPage("removeBook");
         ClearConsole.clearConsole();
-
-        BookManager.displayBooks();
 
         if (BookManager.books.isEmpty()) {
             Navigation.sideMenu();
@@ -456,19 +513,52 @@ public class BookManager {
         return matchingBooks;
     }
 
-    private static void displayBooks() {
-        if (BookManager.books.isEmpty()) {
-            System.out.println("No books available.");
-            return;
+    private static void displayBooks(String type) {
+        // Check the type and display the appropriate list
+        System.out.println(type);
+        if (type.equals("printed")) {
+            if (BookManager.booksPrinted.isEmpty()) {
+                System.out.println("No printed books available.");
+                return;
+            }
+    
+            System.out.printf("| %-4s | %-25s | %-20s | %-7s | %-6s |%n", "ID", "Title", "Author", "Price", "Page Count");
+            System.out.println("+------+---------------------------+----------------------+---------+--------+");
+            for (BookPrinted book : BookManager.booksPrinted) {
+                System.out.printf("| %-4d | %-25s | %-20s | $%-6.2f | %-6d |%n",
+                        book.getId(), book.getTitle(), book.getAuthor(), book.getPrice(), book.getPageCount());
+            }
+            System.out.println("+------+---------------------------+----------------------+---------+--------+");
+    
+        } else if (type.equalsIgnoreCase("ebooks")) {
+            if (BookManager.ebooks.isEmpty()) {
+                System.out.println("No ebooks available.");
+                return;
+            }
+    
+            System.out.printf("| %-4s | %-25s | %-20s | %-7s | %-6s | %-8s |%n", "ID", "Title", "Author", "Price", "Size", "Format");
+            System.out.println("+------+---------------------------+----------------------+---------+--------+----------+");
+            for (Ebook ebook : BookManager.ebooks) {
+                System.out.printf("| %-4d | %-25s | %-20s | $%-6.2f | %-6.1f MB | %-8s |%n",
+                        ebook.getId(), ebook.getTitle(), ebook.getAuthor(), ebook.getPrice(), ebook.getFileSize(), ebook.getFormat());
+            }
+            System.out.println("+------+---------------------------+----------------------+---------+--------+----------+");
+    
+        } else if (type.equalsIgnoreCase("audiobooks")) {
+            if (BookManager.audiobooks.isEmpty()) {
+                System.out.println("No audiobooks available.");
+                return;
+            }
+    
+            System.out.printf("| %-4s | %-25s | %-20s | %-7s | %-6s | %-15s |%n", "ID", "Title", "Author", "Price", "Duration", "Narrator");
+            System.out.println("+------+---------------------------+----------------------+---------+--------+-----------------+");
+            for (Audiobook audiobook : BookManager.audiobooks) {
+                System.out.printf("| %-4d | %-25s | %-20s | $%-6.2f | %-1dh | %-15s |%n",
+                        audiobook.getId(), audiobook.getTitle(), audiobook.getAuthor(), audiobook.getPrice(), audiobook.getDuration(), audiobook.getNarrator());
+            }
+            System.out.println("+------+---------------------------+----------------------+---------+--------+-----------------+");
+            
         }
-
-        System.out.printf("| %-4s | %-25s | %-20s | %-7s |%n", "ID", "Title", "Author", "Price");
-        System.out.println("+------+---------------------------+----------------------+---------+");
-        for (Book book : books) {
-            System.out.printf("| %-4d | %-25s | %-20s | $%-6.2f |%n",
-                    book.getId(), book.getTitle(), book.getAuthor(), book.getPrice());
-        }
-        System.out.println("+------+---------------------------+----------------------+---------+");
     }
 
     public static void printFindBookMenu() {

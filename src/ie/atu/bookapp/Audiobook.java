@@ -15,4 +15,11 @@ public class Audiobook extends Book{
     }
 
     // TODO: Setters and getters
+    public int getDuration() {
+        return this.duration;
+    }
+
+    public String getNarrator() {
+        return this.narrator;
+    }
 }

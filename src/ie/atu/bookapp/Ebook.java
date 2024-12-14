@@ -15,6 +15,13 @@ public class Ebook extends Book {
     }
 
     // TODO: Setters and getters
+    public double getFileSize() {
+        return this.fileSize;
+    }
+
+    public String getFormat() {
+        return this.format;
+    }
 
     // Overriding the toString() method
     @Override

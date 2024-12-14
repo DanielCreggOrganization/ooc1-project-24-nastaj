@@ -12,6 +12,10 @@ public class BookPrinted extends Book{
         this.pageCount = pageCount;
     }
 
+    public int getPageCount() {
+        return this.pageCount;
+    }
+
     // Overriding the toString() method
     @Override
     public String toString() {
