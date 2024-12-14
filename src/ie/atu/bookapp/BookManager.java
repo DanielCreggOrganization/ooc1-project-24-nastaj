@@ -44,6 +44,7 @@ public class BookManager {
             // TODO: All choices for this menu
             case "1": BookManager.printAddBookMenu();
             case "2": BookManager.printRemoveBookMenu();
+            case "3": BookManager.printFindBookMenu();
         }
     }
 
@@ -263,6 +264,8 @@ public class BookManager {
         Navigation.setPreviousPage("manager");
         ClearConsole.clearConsole();
 
+
+
         System.out.println("Remove a Book");
         System.out.println("=================");
         System.out.println("Remove a book by:");
@@ -466,5 +469,103 @@ public class BookManager {
                     book.getId(), book.getTitle(), book.getAuthor(), book.getPrice());
         }
         System.out.println("+------+---------------------------+----------------------+---------+");
+    }
+
+    public static void printFindBookMenu() {
+        Navigation.setCurrentPage("findBook");
+        Navigation.setPreviousPage("manager");
+        ClearConsole.clearConsole();
+
+        System.out.println("Find a Book");
+        System.out.println("=================");
+        System.out.println("Find a book by:");
+        System.out.println("(1) ID");
+        System.out.println("(2) Title");
+        Navigation.sideMenu();
+
+        System.out.print("Enter your choice: ");
+
+        String choice = scanner.nextLine();
+        
+        Navigation.sideMenu(choice);
+        switch (choice) {
+            case "1":
+                BookManager.findBookById();
+                break;
+            case "2":
+                BookManager.findBookByTitle();
+                break;
+            default:
+                BookManager.printFindBookMenu();
+        }
+    }
+
+    private static void findBookByTitle() {
+        if (BookManager.books.isEmpty()) {
+            Navigation.sideMenu();
+            System.out.print("Enter your choice: ");
+            String choice = scanner.nextLine();
+            Navigation.sideMenu(choice);
+        }
+    }
+
+    private static void findBookById() {
+        Navigation.setCurrentPage("findById");
+        Navigation.setPreviousPage("findBook");
+        ClearConsole.clearConsole();
+
+        if (BookManager.books.isEmpty()) {
+            System.out.println("No books available.");
+            Navigation.sideMenu();
+            System.out.print("Enter your choice: ");
+            String choice = scanner.nextLine();
+            Navigation.sideMenu(choice);
+        }
+        
+            while (true) {
+                System.out.print("Enter Book ID: ");
+                String bookId = scanner.nextLine().trim();
+    
+                // Validate that the input is not empty
+                if (bookId.isEmpty()) {
+                    System.out.println("Book ID cannot be empty. Please try again.\n");
+                    continue; // Restart the loop
+                }
+    
+                if (!bookId.matches("\\d+")) { // Checks if the input is numeric
+                    System.out.println("Invalid Book ID. Please enter numbers only.\n");
+                    continue; // Restart the loop
+                }
+    
+                Book book = findBookById(bookId);
+                if (book != null) {
+                    System.out.println("Found result");
+                    System.out.println(book);
+                    
+                    Navigation.sideMenu();
+                    System.out.print("Enter your choice: ");
+                    String choice = scanner.nextLine();
+                    Navigation.sideMenu(choice);
+                    return; // Exit the method after successful find
+                } else {
+                    System.out.println("No book found with the given ID.");
+                    System.out.println("Do you want to try again?");
+                    System.out.println("--------------");
+                    System.out.print("Y / N: ");
+                    String choice = scanner.nextLine().trim();
+    
+                    // Validate user input for retry confirmation
+                    if (choice.equalsIgnoreCase("y") || choice.equalsIgnoreCase("yes")) {
+                        continue; // Retry entering a Book ID
+                    } else if (choice.equalsIgnoreCase("n") || choice.equalsIgnoreCase("no")) {
+                        Navigation.moveTo(Navigation.getPreviousPage());
+                        return; // Exit the method and navigate back
+                    } else {
+                        System.out.println("Invalid choice. Returning to the previous menu.");
+                        Navigation.moveTo(Navigation.getPreviousPage());
+                        return; // Exit the method with invalid input handling
+                    }
+                }
+        }
     }
 }

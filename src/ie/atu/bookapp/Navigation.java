@@ -6,6 +6,7 @@ public class Navigation {
 
     public static void moveTo(String page) {
         ClearConsole.clearConsole();
+        
         if(page.equals("manager")) {
             BookManager.printMenu();
         }
@@ -20,6 +21,10 @@ public class Navigation {
 
         if(page.equals("removeBook")) {
             BookManager.printRemoveBookMenu();
+        }
+
+        if (page.equals("findBook")) {
+            BookManager.printFindBookMenu();
         }
     }
 
