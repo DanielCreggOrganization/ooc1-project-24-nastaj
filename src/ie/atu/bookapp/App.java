@@ -13,6 +13,7 @@ public class App {
 
     App() {
         this.bookManager = new BookManager();
+        BookManager.populateBooks();
     }
 
     // Run function is responsible for starting up the app and printing the main menu for the first time the app is launched.
