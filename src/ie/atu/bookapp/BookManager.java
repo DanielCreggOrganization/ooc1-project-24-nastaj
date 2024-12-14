@@ -52,6 +52,8 @@ public class BookManager {
         Navigation.setPreviousPage("manager");
         ClearConsole.clearConsole();
 
+        System.out.println("Add Book");
+        System.out.println("=================");
         System.out.println("What do you want to add?");
         System.out.println("(1) Printed Book");
         System.out.println("(2) Ebook");
@@ -82,11 +84,12 @@ public class BookManager {
 
         Navigation.setCurrentPage("book");
         Navigation.setPreviousPage("addBook");
-
         ClearConsole.clearConsole();
 
-        System.out.println("Enter details");
+        System.out.println("Printed Book");
         System.out.println("=================");
+        System.out.println("Enter details");
+        System.out.println("--------------");
 
         title = InputHandler.promptString("Title");
         author = InputHandler.promptString("Author");
@@ -107,8 +110,7 @@ public class BookManager {
             BookManager.books.add(bookPrinted);
         
             ClearConsole.clearConsole();
-        
-            System.out.println(booksPrinted);
+
             System.out.println("Book added successfully!");
             System.out.println("Add another book?");
         
@@ -143,11 +145,12 @@ public class BookManager {
 
         Navigation.setCurrentPage("ebook");
         Navigation.setPreviousPage("addBook");
-
         ClearConsole.clearConsole();
 
-        System.out.println("Enter details");
+        System.out.println("Ebook");
         System.out.println("=================");
+        System.out.println("Enter details");
+        System.out.println("--------------");
 
         title = InputHandler.promptString("Title");
         author = InputHandler.promptString("Author");
@@ -169,7 +172,6 @@ public class BookManager {
         
             ClearConsole.clearConsole();
         
-            System.out.println(ebooks);
             System.out.println("Ebook added successfully!");
             System.out.println("Add another ebook?");
         
@@ -204,11 +206,12 @@ public class BookManager {
 
         Navigation.setCurrentPage("audiobook");
         Navigation.setPreviousPage("addBook");
-
         ClearConsole.clearConsole();
 
-        System.out.println("Enter details");
+        System.out.println("Audiobook");
         System.out.println("=================");
+        System.out.println("Enter details");
+        System.out.println("--------------");
 
         title = InputHandler.promptString("Title");
         author = InputHandler.promptString("Author");
@@ -231,7 +234,6 @@ public class BookManager {
         
             ClearConsole.clearConsole();
         
-            System.out.println(ebooks);
             System.out.println("Audiobook added successfully!");
             System.out.println("Add another audiobook?");
         
@@ -275,10 +277,10 @@ public class BookManager {
         Navigation.sideMenu(choice);
         switch (choice) {
             case "1":
-                removeBookById();
+                BookManager.removeBookById();
                 break;
             case "2":
-                removeBookByTitle();
+                BookManager.removeBookByTitle();
                 break;
             default:
                 BookManager.printRemoveBookMenu();
@@ -291,6 +293,13 @@ public class BookManager {
         ClearConsole.clearConsole();
 
         BookManager.displayBooks();
+
+        if (BookManager.books.isEmpty()) {
+            Navigation.sideMenu();
+            System.out.print("Enter your choice: ");
+            String choice = scanner.nextLine();
+            Navigation.sideMenu(choice);
+        }
 
         while (true) {
             System.out.print("Enter Book ID to remove: ");
@@ -313,13 +322,15 @@ public class BookManager {
                 return; // Exit the method after successful deletion
             } else {
                 System.out.println("No book found with the given ID.");
-                System.out.print("Do you want to try again? (Y/N): ");
+                System.out.println("Do you want to try again?");
+                System.out.println("--------------");
+                System.out.print("Y / N: ");
                 String choice = scanner.nextLine().trim();
 
                 // Validate user input for retry confirmation
-                if (choice.equalsIgnoreCase("Y")) {
+                if (choice.equalsIgnoreCase("y") || choice.equalsIgnoreCase("yes")) {
                     continue; // Retry entering a Book ID
-                } else if (choice.equalsIgnoreCase("N")) {
+                } else if (choice.equalsIgnoreCase("n") || choice.equalsIgnoreCase("no")) {
                     Navigation.moveTo(Navigation.getPreviousPage());
                     return; // Exit the method and navigate back
                 } else {
@@ -335,6 +346,15 @@ public class BookManager {
         Navigation.setCurrentPage("removeByTitle");
         Navigation.setPreviousPage("removeBook");
         ClearConsole.clearConsole();
+
+        BookManager.displayBooks();
+
+        if (BookManager.books.isEmpty()) {
+            Navigation.sideMenu();
+            System.out.print("Enter your choice: ");
+            String choice = scanner.nextLine();
+            Navigation.sideMenu(choice);
+        }
 
         while (true) {
             System.out.print("Enter Book Title to Remove: ");
@@ -362,9 +382,11 @@ public class BookManager {
                 }
             } else {
                 System.out.println("No books found with the given name.");
-                System.out.print("Do you want to try again? (Y/N): ");
+                System.out.println("Do you want to try again?");
+                System.out.println("--------------");
+                System.out.print("Y / N: ");
                 String choice = scanner.nextLine();
-                if (choice.equalsIgnoreCase("N")) {
+                if (choice.equalsIgnoreCase("n") || choice.equalsIgnoreCase("no")) {
                     Navigation.moveTo(Navigation.getPreviousPage());
                     break;
                 }
@@ -373,13 +395,13 @@ public class BookManager {
     }
 
     private static void confirmAndDelete(Book book) {
-        System.out.println("Are you sure you want to delete the following book?");
-        System.out.println(book);
-        System.out.print("Y/N: ");
+        System.out.println(book + "\n");
+        System.out.println("Are you sure you want to delete the following book?\n");
+        System.out.print("Y / N: ");
 
         String confirmation = scanner.nextLine();
 
-        if (confirmation.equalsIgnoreCase("Y")) {
+        if (confirmation.equalsIgnoreCase("y") || confirmation.equalsIgnoreCase("yes")) {
             // Remove the book from the appropriate list
             if (book instanceof BookPrinted) {
                 booksPrinted.remove(book);

@@ -42,10 +42,16 @@ public abstract class Book {
     // Overriding the toString() method to print out the contents of ArrayList in a formatted way
     @Override
     public String toString() {
-        return "{id='" + id + '\'' +
-               ", title='" + title + '\'' +
-               ", author='" + author + '\'' +
-               ", price=" + price +
-               ", publicationYear=" + publicationYear;
+        StringBuilder sb = new StringBuilder();
+        sb.append("====================================\n");
+        sb.append("            Book Details            \n");
+        sb.append("====================================\n");
+        sb.append("ID:                ").append(id).append("\n");
+        sb.append("Title:             ").append(title).append("\n");
+        sb.append("Author:            ").append(author).append("\n");
+        sb.append("Price:             $").append(price).append("\n");
+        sb.append("Publication Year:  ").append(publicationYear).append("\n");
+
+        return sb.toString();
     }
 }
