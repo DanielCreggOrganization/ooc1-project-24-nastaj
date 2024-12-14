@@ -9,13 +9,13 @@ public class BookManager {
     // ArrayList is perfect for that. It makes the CRUD operations on arrays much easier.
     private static Scanner scanner = new Scanner(System.in);
     private static ArrayList<Book> books;
-    private static ArrayList <BookPrinted> booksPrinted;
+    private static ArrayList <PrintedBook> printedBooks;
     private static ArrayList<Ebook> ebooks;
     private static ArrayList <Audiobook> audiobooks;
 
     BookManager() {
         BookManager.books = new ArrayList<>();
-        BookManager.booksPrinted = new ArrayList<>();
+        BookManager.printedBooks = new ArrayList<>();
         BookManager.ebooks = new ArrayList<>();
         BookManager.audiobooks = new ArrayList<>();
     }
@@ -94,7 +94,7 @@ public class BookManager {
         int results = 0;
         switch(type) {
             case "printed":
-                results = booksPrinted.size();
+                results = printedBooks.size();
                 break; 
             case "ebooks":
                 results = ebooks.size();
@@ -108,7 +108,12 @@ public class BookManager {
         }
         System.out.println("Number of Books in Library: " + results);
 
-        displayBooks(type);
+        if (!type.equals("all")) {
+            displayBooks(type);
+        }
+        else {
+            displayAllBooks();
+        }
     }
 
     public static void printAddBookMenu() {
@@ -169,9 +174,9 @@ public class BookManager {
         choice = scanner.nextLine();
         
         if (choice.equalsIgnoreCase("y") || choice.equalsIgnoreCase("yes")) {
-            BookPrinted bookPrinted = new BookPrinted(title, author, price, publicationYear, pageCount);
-            BookManager.booksPrinted.add(bookPrinted);
-            BookManager.books.add(bookPrinted);
+            PrintedBook PrintedBook = new PrintedBook(title, author, price, publicationYear, pageCount);
+            BookManager.printedBooks.add(PrintedBook);
+            BookManager.books.add(PrintedBook);
         
             ClearConsole.clearConsole();
 
@@ -463,8 +468,8 @@ public class BookManager {
 
         if (confirmation.equalsIgnoreCase("y") || confirmation.equalsIgnoreCase("yes")) {
             // Remove the book from the appropriate list
-            if (book instanceof BookPrinted) {
-                booksPrinted.remove(book);
+            if (book instanceof PrintedBook) {
+                printedBooks.remove(book);
             } else if (book instanceof Ebook) {
                 ebooks.remove(book);
             } else if (book instanceof Audiobook) {
@@ -484,7 +489,7 @@ public class BookManager {
         int id = Integer.parseInt(bookId);
 
         // Search in all categories for a book with the given ID
-        for (Book book : booksPrinted) {
+        for (Book book : printedBooks) {
             if (book.getId() == id) return book;
         }
         for (Book book : ebooks) {
@@ -501,7 +506,7 @@ public class BookManager {
         List<Book> matchingBooks = new ArrayList<>();
 
         // Search in all categories for books with the given name
-        for (Book book : booksPrinted) {
+        for (Book book : printedBooks) {
             if (book.getTitle().equalsIgnoreCase(title)) matchingBooks.add(book);
         }
         for (Book book : ebooks) {
@@ -517,14 +522,14 @@ public class BookManager {
         // Check the type and display the appropriate list
         System.out.println(type);
         if (type.equals("printed")) {
-            if (BookManager.booksPrinted.isEmpty()) {
+            if (BookManager.printedBooks.isEmpty()) {
                 System.out.println("No printed books available.");
                 return;
             }
     
             System.out.printf("| %-4s | %-25s | %-20s | %-7s | %-6s |%n", "ID", "Title", "Author", "Price", "Page Count");
             System.out.println("+------+---------------------------+----------------------+---------+--------+");
-            for (BookPrinted book : BookManager.booksPrinted) {
+            for (PrintedBook book : BookManager.printedBooks) {
                 System.out.printf("| %-4d | %-25s | %-20s | $%-6.2f | %-6d |%n",
                         book.getId(), book.getTitle(), book.getAuthor(), book.getPrice(), book.getPageCount());
             }
@@ -559,6 +564,37 @@ public class BookManager {
             System.out.println("+------+---------------------------+----------------------+---------+--------+-----------------+");
             
         }
+    }
+
+    private static void displayAllBooks() {
+        if (BookManager.books.isEmpty()) {
+            System.out.println("No books available.");
+            return;
+        }
+    
+        // Table header with appropriate column widths
+        System.out.printf("| %-4s | %-25s | %-20s | %-8s | %-12s | %-22s |%n", "ID", "Title", "Author", "Price", "Type", "Extra Info");
+        System.out.println("+------+---------------------------+----------------------+----------+--------------+---------------------------+");
+    
+        // Loop through all books
+        for (Book book : BookManager.books) {
+            // Print common details
+            System.out.printf("| %-4d | %-25s | %-20s | $%-7.2f | %-12s | ",
+                    book.getId(), book.getTitle(), book.getAuthor(), book.getPrice(), book.getClass().getSimpleName());
+    
+            // Print specific details based on type of book
+            if (book instanceof PrintedBook) {
+                PrintedBook printedBook = (PrintedBook) book;
+                System.out.printf("%-22d Pages%n", printedBook.getPageCount());
+            } else if (book instanceof Ebook) {
+                Ebook ebook = (Ebook) book;
+                System.out.printf("%-10.2f MB | %-10s%n", ebook.getFileSize(), ebook.getFormat());
+            } else if (book instanceof Audiobook) {
+                Audiobook audiobook = (Audiobook) book;
+                System.out.printf("%-10d hrs | Narrator: %-10s%n", audiobook.getDuration(), audiobook.getNarrator());
+            }
+        }
+        System.out.println("+------+---------------------------+----------------------+----------+--------------+---------------------------+");;
     }
 
     public static void printFindBookMenu() {
@@ -696,10 +732,10 @@ public class BookManager {
     }
 
     public static void populateBooks() {
-        // Adding BooksPrinted (Physical Books)
-        booksPrinted.add(new BookPrinted("The Odyssey", "Homer", 17.99, 800, 450));
-        booksPrinted.add(new BookPrinted("Brave New World", "Aldous Huxley", 19.99, 1932, 268));
-        booksPrinted.add(new BookPrinted("The Brothers Karamazov", "Fyodor Dostoevsky", 22.99, 1880, 350));
+        // Adding printedBooks (Physical Books)
+        printedBooks.add(new PrintedBook("The Odyssey", "Homer", 17.99, 800, 450));
+        printedBooks.add(new PrintedBook("Brave New World", "Aldous Huxley", 19.99, 1932, 268));
+        printedBooks.add(new PrintedBook("The Brothers Karamazov", "Fyodor Dostoevsky", 22.99, 1880, 350));
 
         // Adding Ebooks
         ebooks.add(new Ebook("Sapiens", "Yuval Noah Harari", 9.99, 2011, 5.5, "EPUB"));
@@ -716,7 +752,7 @@ public class BookManager {
         audiobooks.add(new Audiobook("The Alchemist", "Paulo Coelho", 14.99, 1988, 7, "Jeremy Irons"));
 
          // Adding all books to the general 'books' ArrayList
-         books.addAll(booksPrinted);  // Add all booksPrinted to books
+         books.addAll(printedBooks);  // Add all printedBooks to books
          books.addAll(ebooks);        // Add all ebooks to books
          books.addAll(audiobooks);    // Add all audiobooks to books
     }
