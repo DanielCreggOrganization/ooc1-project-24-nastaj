@@ -501,11 +501,47 @@ public class BookManager {
     }
 
     private static void findBookByTitle() {
+        Navigation.setCurrentPage("findByTitle");
+        Navigation.setPreviousPage("findBook");
+        ClearConsole.clearConsole();
+
         if (BookManager.books.isEmpty()) {
+            System.out.println("No books available.");
             Navigation.sideMenu();
             System.out.print("Enter your choice: ");
             String choice = scanner.nextLine();
             Navigation.sideMenu(choice);
+        }
+
+        while (true) {
+            System.out.print("Enter Book Title: ");
+            String title = scanner.nextLine();
+
+            List<Book> matchingBooks = findBooksByTitle(title);
+
+            if (!matchingBooks.isEmpty()) {
+                System.out.println("Found result(s):");
+
+                for (int i = 0; i < matchingBooks.size(); i++) {
+                    System.out.println(matchingBooks.get(i));
+                }
+
+                Navigation.sideMenu();
+                System.out.print("Enter your choice: ");
+                String choice = scanner.nextLine();
+                Navigation.sideMenu(choice);
+                return;
+            } else {
+                System.out.println("No books found with the given name.");
+                System.out.println("Do you want to try again?");
+                System.out.println("--------------");
+                System.out.print("Y / N: ");
+                String choice = scanner.nextLine();
+                if (choice.equalsIgnoreCase("n") || choice.equalsIgnoreCase("no")) {
+                    Navigation.moveTo(Navigation.getPreviousPage());
+                    break;
+                }
+            }
         }
     }
 
