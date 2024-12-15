@@ -1,6 +1,7 @@
 package ie.atu.bookapp;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
 
@@ -42,10 +43,18 @@ public class BookManager {
         
         switch(choice) {
             // TODO: All choices for this menu
-            case "1": BookManager.printAddBookMenu();
-            case "2": BookManager.printRemoveBookMenu();
-            case "3": BookManager.printFindBookMenu();
-            case "4": BookManager.printShowBooksMenu();
+            case "1": 
+                BookManager.printAddBookMenu();
+                break;
+            case "2": 
+                BookManager.printRemoveBookMenu();
+                break;
+            case "3": 
+                BookManager.printFindBookMenu();
+                break;
+            case "4": 
+                BookManager.printShowBooksMenu();
+                break;
         }
     }
 
@@ -88,7 +97,7 @@ public class BookManager {
 
     private static void showBooks(String type) {
         Navigation.setCurrentPage("showBooksResults");
-        Navigation.setPreviousPage("manager");
+        Navigation.setPreviousPage("showBooks");
         ClearConsole.clearConsole();
 
         int results = 0;
@@ -106,13 +115,79 @@ public class BookManager {
                 results = books.size();
                 break;
         }
-        System.out.println("Number of Books in Library: " + results);
+
+        // Prompt the user to select sorting criteria
+        String sortBy = "default";
+
+        // Apply sorting and display based on the selected criteria
+        if (!type.equals("all")) {
+            displayBooks(type, sortBy, results);
+        } else {
+            displayAllBooks(type, sortBy, results);
+        }
+    }
+    
+    public static void printSortMenu(String type, int results) {
+        Navigation.setCurrentPage("sortMenu");
+        Navigation.setPreviousPage("showBooks");
+        ClearConsole.clearConsole();
+
+        System.out.println("Sort " + type + " books by:");
+        System.out.println("(1) Title (A-Z)");
+        System.out.println("(2) Title (Z-A)");
+        System.out.println("(3) Author");
+        System.out.println("(4) Price (Ascending)");
+        System.out.println("(5) Price (Descending)");
+
+        if (type.equals("printed")) {
+            System.out.println("(6) Page Count");
+        } else if (type.equals("ebooks")) {
+            System.out.println("(6) File Size");
+        } else if (type.equals("audiobooks")) {
+            System.out.println("(6) Duration");
+        }
+        
+        System.out.println("(0) Default (No Sorting)");
+
+        System.out.print("Enter your choice: ");
+
+        String sortBy = "";
+        String choice = scanner.nextLine();
+        switch(choice) {
+            case "1": 
+                sortBy = "titleasc";
+                break;
+
+            case "2": 
+                sortBy = "titledesc";
+                break;
+
+            case "3": 
+                sortBy = "author";
+                break;
+
+            case "4": 
+                sortBy = "priceasc";
+                break;
+
+            case "5": 
+                sortBy = "pricedesc";
+                break;
+
+            case "6":
+                if (type.equals("printed")) sortBy = "pages";
+                if (type.equals("ebooks")) sortBy = "filesize";
+                if (type.equals("audiobooks")) sortBy = "duration";
+                break;
+
+            default: sortBy = "default";
+        }
 
         if (!type.equals("all")) {
-            displayBooks(type);
+            displayBooks(type, sortBy, results);
         }
         else {
-            displayAllBooks();
+            displayAllBooks(type, sortBy, results);
         }
     }
 
@@ -137,9 +212,15 @@ public class BookManager {
 
         switch(choice) {
             // TODO: All choices for this menu
-            case "1": BookManager.printBookMenu();
-            case "2": BookManager.printEbookMenu();
-            case "3": BookManager.printAudiobookMenu();
+            case "1": 
+                BookManager.printBookMenu();
+                break;
+            case "2": 
+                BookManager.printEbookMenu();
+                break;
+            case "3": 
+                BookManager.printAudiobookMenu();
+                break;
         }
     }
 
@@ -518,7 +599,7 @@ public class BookManager {
         return matchingBooks;
     }
 
-    private static void displayBooks(String type) {
+    private static void displayBooks(String type, String sortBy, int results) {
         // Check the type and display the appropriate list
         System.out.println(type);
         if (type.equals("printed")) {
@@ -526,10 +607,14 @@ public class BookManager {
                 System.out.println("No printed books available.");
                 return;
             }
-    
+
+            // Apply sorting
+            sortPrintedBooks(sortBy);
+            
+            System.out.println("Number of Printed Books in library: " + results);
             System.out.printf("| %-4s | %-25s | %-20s | %-7s | %-6s |%n", "ID", "Title", "Author", "Price", "Page Count");
             System.out.println("+------+---------------------------+----------------------+---------+--------+");
-            for (PrintedBook book : BookManager.printedBooks) {
+            for (PrintedBook book : printedBooks) {
                 System.out.printf("| %-4d | %-25s | %-20s | $%-6.2f | %-6d |%n",
                         book.getId(), book.getTitle(), book.getAuthor(), book.getPrice(), book.getPageCount());
             }
@@ -540,7 +625,11 @@ public class BookManager {
                 System.out.println("No ebooks available.");
                 return;
             }
-    
+
+            // Apply sorting
+            sortEbooks(sortBy);
+
+            System.out.println("Number of Ebooks in library: " + results);
             System.out.printf("| %-4s | %-25s | %-20s | %-7s | %-6s | %-8s |%n", "ID", "Title", "Author", "Price", "Size", "Format");
             System.out.println("+------+---------------------------+----------------------+---------+--------+----------+");
             for (Ebook ebook : BookManager.ebooks) {
@@ -554,7 +643,11 @@ public class BookManager {
                 System.out.println("No audiobooks available.");
                 return;
             }
-    
+
+            // Apply sorting
+            sortAudiobooks(sortBy);
+
+            System.out.println("Number of Audiobooks in library: " + results);
             System.out.printf("| %-4s | %-25s | %-20s | %-7s | %-6s | %-15s |%n", "ID", "Title", "Author", "Price", "Duration", "Narrator");
             System.out.println("+------+---------------------------+----------------------+---------+--------+-----------------+");
             for (Audiobook audiobook : BookManager.audiobooks) {
@@ -562,15 +655,28 @@ public class BookManager {
                         audiobook.getId(), audiobook.getTitle(), audiobook.getAuthor(), audiobook.getPrice(), audiobook.getDuration(), audiobook.getNarrator());
             }
             System.out.println("+------+---------------------------+----------------------+---------+--------+-----------------+");
-            
         }
+
+        Navigation.sideMenu();
+        System.out.println("(S) Sort By");
+        System.out.println("---------------------------------------------");
+        System.out.print("Enter your choice: ");
+        String choice = scanner.nextLine();
+        if (choice.equalsIgnoreCase("s")) {
+            printSortMenu(type, results);
+        }
+        Navigation.sideMenu(choice);
     }
 
-    private static void displayAllBooks() {
+    private static void displayAllBooks(String type, String sortBy, int results) {
         if (BookManager.books.isEmpty()) {
             System.out.println("No books available.");
             return;
         }
+
+        // Apply sorting
+        System.out.println(sortBy);
+        sortAllBooks(sortBy);
     
         // Table header with appropriate column widths
         System.out.printf("| %-4s | %-25s | %-20s | %-8s | %-12s | %-22s |%n", "ID", "Title", "Author", "Price", "Type", "Extra Info");
@@ -594,7 +700,17 @@ public class BookManager {
                 System.out.printf("%-10d hrs | Narrator: %-10s%n", audiobook.getDuration(), audiobook.getNarrator());
             }
         }
-        System.out.println("+------+---------------------------+----------------------+----------+--------------+---------------------------+");;
+        System.out.println("+------+---------------------------+----------------------+----------+--------------+---------------------------+");
+
+        Navigation.sideMenu();
+        System.out.println("---------------------------------------------");
+        System.out.println("(S) Sort By");
+        System.out.print("Enter your choice: ");
+        String choice = scanner.nextLine();
+        if (choice.equalsIgnoreCase("s")) {
+            printSortMenu(type, results);
+        }
+        Navigation.sideMenu(choice);
     }
 
     public static void printFindBookMenu() {
@@ -755,5 +871,66 @@ public class BookManager {
          books.addAll(printedBooks);  // Add all printedBooks to books
          books.addAll(ebooks);        // Add all ebooks to books
          books.addAll(audiobooks);    // Add all audiobooks to books
+    }
+
+    private static <T extends Book> void sortBooks(ArrayList<T> books, String sortBy) {
+        switch (sortBy.toLowerCase()) {
+            case "titleasc":
+                books.sort(Comparator.comparing(Book::getTitle));
+                break;
+
+            case "titledesc":
+                books.sort(Comparator.comparing(Book::getTitle).reversed());
+                break;
+
+            case "author":
+                books.sort(Comparator.comparing(Book::getAuthor));
+                break;
+
+            case "priceasc":
+                books.sort(Comparator.comparingDouble(Book::getPrice));
+                break;
+
+            case "pricedesc":
+                books.sort(Comparator.comparingDouble(Book::getPrice).reversed());
+                break;
+
+            case "pages":
+                if (books.get(0) instanceof PrintedBook) {
+                    books.sort(Comparator.comparingInt(b -> ((PrintedBook) b).getPageCount()));
+                }
+                break;
+
+            case "filesize":
+                if (books.get(0) instanceof Ebook) {
+                    books.sort(Comparator.comparingDouble(b -> ((Ebook) b).getFileSize()));
+                }
+                break;
+
+            case "duration":
+                if (books.get(0) instanceof Audiobook) {
+                    books.sort(Comparator.comparingInt(b -> ((Audiobook) b).getDuration()));
+                }
+                break;
+
+            default:
+                books.sort(Comparator.comparingInt(Book::getId));
+        }
+    }
+    
+    public static void sortAllBooks(String sortBy) {
+        sortBooks(BookManager.books, sortBy);
+    }
+    
+    public static void sortPrintedBooks(String sortBy) {
+        sortBooks(BookManager.printedBooks, sortBy);
+    }
+    
+    public static void sortEbooks(String sortBy) {
+        sortBooks(BookManager.ebooks, sortBy);
+    }
+    
+    public static void sortAudiobooks(String sortBy) {
+        sortBooks(BookManager.audiobooks, sortBy);
     }
 }
