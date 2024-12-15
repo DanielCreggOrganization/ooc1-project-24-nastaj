@@ -931,4 +931,60 @@ public class BookManager {
     public static void sortAudiobooks(String sortBy) {
         sortBooks(BookManager.audiobooks, sortBy);
     }
+
+    public static int getTotalBooks(String type) {
+        if(type.equals("Printed Book")) {
+            return printedBooks.size();
+        }
+        else if(type.equals("Ebook")) {
+            return ebooks.size();
+        }
+        else if(type.equals("Audiobook")) {
+            return audiobooks.size();
+        }
+        else {
+            return books.size();
+        }
+    }
+
+    public static PrintedBook getPrintedStats(String field) {
+        if(field.equals("maxPrice")) {
+            PrintedBook mostExpensivePrinted = printedBooks.stream()
+            .max(Comparator.comparingDouble(PrintedBook::getPrice))
+            .orElse(null); // orElse(null) returns null if the list is empty
+            
+            return mostExpensivePrinted; // Return the book
+        }
+        else if(field.equals("minPrice")) {
+            PrintedBook leastExpensivePrinted = printedBooks.stream()
+            .min(Comparator.comparingDouble(PrintedBook::getPrice))
+            .orElse(null); // orElse(null) returns null if the list is empty
+            
+            return leastExpensivePrinted; // Return the book
+        }
+    }
+    
+    public static Ebook getEbookStats(String field) {
+        Ebook mostExpensiveEbook = ebooks.stream()
+        .max(Comparator.comparingDouble(Ebook::getPrice))
+        .orElse(null);
+            
+        return mostExpensiveEbook; 
+    }
+
+    public static Audiobook getAudiobookStats(String field) {
+        Audiobook mostExpensiveAudiobook = audiobooks.stream()
+        .max(Comparator.comparingDouble(Audiobook::getPrice))
+        .orElse(null);
+            
+        return mostExpensiveAudiobook;
+    }
+
+    public static Book getBookStats(String field) {
+        Book mostExpensiveBook = books.stream()
+        .max(Comparator.comparingDouble(Book::getPrice))
+        .orElse(null);
+            
+        return mostExpensiveBook;
+    }
 }
