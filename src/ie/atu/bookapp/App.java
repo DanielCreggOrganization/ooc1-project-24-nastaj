@@ -7,12 +7,11 @@ import java.util.Scanner;
 public class App {
     // Scanner variable is used for user input. 
     // Running bolean variable is used for determining if the app is active (true) or paused (false).
-    private static Scanner scanner = new Scanner(System.in);
+    static Scanner scanner = new Scanner(System.in);
     private static boolean running = true;
-    private BookManager bookManager;
-
+    
     App() {
-        this.bookManager = new BookManager();
+        new BookManager();
         BookManager.populateBooks();
     }
 
@@ -40,9 +39,9 @@ public class App {
             System.out.println("How may I help you today?");
             System.out.println();
 
-            System.out.println("1. Manage Books");
-            System.out.println("2. View Statistics");
-            System.out.println("0. Exit");
+            System.out.println("(1) Manage Books");
+            System.out.println("(2) View Statistics");
+            System.out.println("(3) Exit");
             System.out.println("---------------------------------------------");
             System.out.print("Enter your choice: ");
             
@@ -56,7 +55,7 @@ public class App {
                     break;
                 }
                 case 2: {
-                    System.out.println("TODO: Statistics Panel");
+                    Statistics.printMenu();
                     running = false;
                     break;
                 }

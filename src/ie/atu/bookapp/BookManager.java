@@ -3,12 +3,10 @@ package ie.atu.bookapp;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Scanner;
 
 public class BookManager {
     // Because the size of the arrays are not known at the start of the program, they should be getting resized dynamically.
     // ArrayList is perfect for that. It makes the CRUD operations on arrays much easier.
-    private static Scanner scanner = new Scanner(System.in);
     private static ArrayList<Book> books;
     private static ArrayList <PrintedBook> printedBooks;
     private static ArrayList<Ebook> ebooks;
@@ -37,7 +35,7 @@ public class BookManager {
 
         System.out.print("Enter your choice: ");
 
-        String choice = BookManager.scanner.nextLine();
+        String choice = App.scanner.nextLine();
 
         Navigation.sideMenu(choice);
         
@@ -74,7 +72,7 @@ public class BookManager {
 
         System.out.print("Enter your choice: ");
 
-        String choice = scanner.nextLine();
+        String choice = App.scanner.nextLine();
 
         Navigation.sideMenu(choice);
 
@@ -152,7 +150,7 @@ public class BookManager {
         System.out.print("Enter your choice: ");
 
         String sortBy = "";
-        String choice = scanner.nextLine();
+        String choice = App.scanner.nextLine();
         switch(choice) {
             case "1": 
                 sortBy = "titleasc";
@@ -206,7 +204,7 @@ public class BookManager {
 
         System.out.print("Enter your choice: ");
 
-        String choice = scanner.nextLine();
+        String choice = App.scanner.nextLine();
 
         Navigation.sideMenu(choice);
 
@@ -252,7 +250,7 @@ public class BookManager {
         System.out.println("--------------");
         System.out.print("Y / N: ");
 
-        choice = scanner.nextLine();
+        choice = App.scanner.nextLine();
         
         if (choice.equalsIgnoreCase("y") || choice.equalsIgnoreCase("yes")) {
             PrintedBook PrintedBook = new PrintedBook(title, author, price, publicationYear, pageCount);
@@ -266,7 +264,7 @@ public class BookManager {
         
             System.out.println("--------------");
             System.out.print("Y / N: ");
-            choice = scanner.nextLine();
+            choice = App.scanner.nextLine();
                     
             if (choice.equalsIgnoreCase("y") || choice.equalsIgnoreCase("yes")) {
                 // Prompt the user again
@@ -313,7 +311,7 @@ public class BookManager {
         System.out.println("Is this correct?");
         System.out.println("--------------");
         System.out.print("Y / N: ");
-        choice = scanner.nextLine();
+        choice = App.scanner.nextLine();
         
         if (choice.equalsIgnoreCase("y") || choice.equalsIgnoreCase("yes")) {
             Ebook ebook = new Ebook(title, author, price, publicationYear, fileSize, format);
@@ -327,7 +325,7 @@ public class BookManager {
         
             System.out.println("--------------");
             System.out.print("Y / N: ");
-            choice = scanner.nextLine();
+            choice = App.scanner.nextLine();
                     
             if (choice.equalsIgnoreCase("y") || choice.equalsIgnoreCase("yes")) {
                 // Prompt the user again
@@ -375,7 +373,7 @@ public class BookManager {
         System.out.println("Is this correct?");
         System.out.println("--------------");
         System.out.print("Y / N: ");
-        choice = scanner.nextLine();
+        choice = App.scanner.nextLine();
         
         if (choice.equalsIgnoreCase("y") || choice.equalsIgnoreCase("yes")) {
             Audiobook audiobook = new Audiobook(title, author, price, publicationYear, duration, narrator);
@@ -389,7 +387,7 @@ public class BookManager {
         
             System.out.println("--------------");
             System.out.print("Y / N: ");
-            choice = scanner.nextLine();
+            choice = App.scanner.nextLine();
                     
             if (choice.equalsIgnoreCase("y") || choice.equalsIgnoreCase("yes")) {
                 // Prompt the user again
@@ -422,7 +420,7 @@ public class BookManager {
 
         System.out.print("Enter your choice: ");
 
-        String choice = scanner.nextLine();
+        String choice = App.scanner.nextLine();
         
         Navigation.sideMenu(choice);
         switch (choice) {
@@ -445,13 +443,13 @@ public class BookManager {
         if (BookManager.books.isEmpty()) {
             Navigation.sideMenu();
             System.out.print("Enter your choice: ");
-            String choice = scanner.nextLine();
+            String choice = App.scanner.nextLine();
             Navigation.sideMenu(choice);
         }
 
         while (true) {
             System.out.print("Enter Book ID to remove: ");
-            String bookId = scanner.nextLine().trim();
+            String bookId = App.scanner.nextLine().trim();
 
             // Validate that the input is not empty
             if (bookId.isEmpty()) {
@@ -473,7 +471,7 @@ public class BookManager {
                 System.out.println("Do you want to try again?");
                 System.out.println("--------------");
                 System.out.print("Y / N: ");
-                String choice = scanner.nextLine().trim();
+                String choice = App.scanner.nextLine().trim();
 
                 // Validate user input for retry confirmation
                 if (choice.equalsIgnoreCase("y") || choice.equalsIgnoreCase("yes")) {
@@ -498,13 +496,13 @@ public class BookManager {
         if (BookManager.books.isEmpty()) {
             Navigation.sideMenu();
             System.out.print("Enter your choice: ");
-            String choice = scanner.nextLine();
+            String choice = App.scanner.nextLine();
             Navigation.sideMenu(choice);
         }
 
         while (true) {
             System.out.print("Enter Book Title to Remove: ");
-            String title = scanner.nextLine();
+            String title = App.scanner.nextLine();
 
             List<Book> matchingBooks = findBooksByTitle(title);
 
@@ -517,7 +515,7 @@ public class BookManager {
 
                 System.out.print("Which book do you want to delete?: ");
 
-                String choice = scanner.nextLine();
+                String choice = App.scanner.nextLine();
                 int index = Integer.parseInt(choice) - 1;
 
                 if (index >= 0 && index < matchingBooks.size()) {
@@ -531,7 +529,7 @@ public class BookManager {
                 System.out.println("Do you want to try again?");
                 System.out.println("--------------");
                 System.out.print("Y / N: ");
-                String choice = scanner.nextLine();
+                String choice = App.scanner.nextLine();
                 if (choice.equalsIgnoreCase("n") || choice.equalsIgnoreCase("no")) {
                     Navigation.moveTo(Navigation.getPreviousPage());
                     break;
@@ -545,7 +543,7 @@ public class BookManager {
         System.out.println("Are you sure you want to delete the following book?\n");
         System.out.print("Y / N: ");
 
-        String confirmation = scanner.nextLine();
+        String confirmation = App.scanner.nextLine();
 
         if (confirmation.equalsIgnoreCase("y") || confirmation.equalsIgnoreCase("yes")) {
             // Remove the book from the appropriate list
@@ -661,7 +659,7 @@ public class BookManager {
         System.out.println("(S) Sort By");
         System.out.println("---------------------------------------------");
         System.out.print("Enter your choice: ");
-        String choice = scanner.nextLine();
+        String choice = App.scanner.nextLine();
         if (choice.equalsIgnoreCase("s")) {
             printSortMenu(type, results);
         }
@@ -706,7 +704,7 @@ public class BookManager {
         System.out.println("---------------------------------------------");
         System.out.println("(S) Sort By");
         System.out.print("Enter your choice: ");
-        String choice = scanner.nextLine();
+        String choice = App.scanner.nextLine();
         if (choice.equalsIgnoreCase("s")) {
             printSortMenu(type, results);
         }
@@ -727,7 +725,7 @@ public class BookManager {
 
         System.out.print("Enter your choice: ");
 
-        String choice = scanner.nextLine();
+        String choice = App.scanner.nextLine();
         
         Navigation.sideMenu(choice);
         switch (choice) {
@@ -751,13 +749,13 @@ public class BookManager {
             System.out.println("No books available.");
             Navigation.sideMenu();
             System.out.print("Enter your choice: ");
-            String choice = scanner.nextLine();
+            String choice = App.scanner.nextLine();
             Navigation.sideMenu(choice);
         }
 
         while (true) {
             System.out.print("Enter Book Title: ");
-            String title = scanner.nextLine();
+            String title = App.scanner.nextLine();
 
             List<Book> matchingBooks = findBooksByTitle(title);
 
@@ -770,7 +768,7 @@ public class BookManager {
 
                 Navigation.sideMenu();
                 System.out.print("Enter your choice: ");
-                String choice = scanner.nextLine();
+                String choice = App.scanner.nextLine();
                 Navigation.sideMenu(choice);
                 return;
             } else {
@@ -778,7 +776,7 @@ public class BookManager {
                 System.out.println("Do you want to try again?");
                 System.out.println("--------------");
                 System.out.print("Y / N: ");
-                String choice = scanner.nextLine();
+                String choice = App.scanner.nextLine();
                 if (choice.equalsIgnoreCase("n") || choice.equalsIgnoreCase("no")) {
                     Navigation.moveTo(Navigation.getPreviousPage());
                     break;
@@ -796,13 +794,13 @@ public class BookManager {
             System.out.println("No books available.");
             Navigation.sideMenu();
             System.out.print("Enter your choice: ");
-            String choice = scanner.nextLine();
+            String choice = App.scanner.nextLine();
             Navigation.sideMenu(choice);
         }
         
             while (true) {
                 System.out.print("Enter Book ID: ");
-                String bookId = scanner.nextLine().trim();
+                String bookId = App.scanner.nextLine().trim();
     
                 // Validate that the input is not empty
                 if (bookId.isEmpty()) {
@@ -822,7 +820,7 @@ public class BookManager {
                     
                     Navigation.sideMenu();
                     System.out.print("Enter your choice: ");
-                    String choice = scanner.nextLine();
+                    String choice = App.scanner.nextLine();
                     Navigation.sideMenu(choice);
                     return; // Exit the method after successful find
                 } else {
@@ -830,7 +828,7 @@ public class BookManager {
                     System.out.println("Do you want to try again?");
                     System.out.println("--------------");
                     System.out.print("Y / N: ");
-                    String choice = scanner.nextLine().trim();
+                    String choice = App.scanner.nextLine().trim();
     
                     // Validate user input for retry confirmation
                     if (choice.equalsIgnoreCase("y") || choice.equalsIgnoreCase("yes")) {
