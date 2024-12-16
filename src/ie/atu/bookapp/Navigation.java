@@ -54,6 +54,13 @@ public class Navigation {
         }
     }
 
+    public static String handleChoice() {
+        System.out.print("Enter your choice: ");
+        String choice = App.scanner.nextLine();
+        Navigation.sideMenu(choice);
+        return choice;
+    }
+
     public static void setCurrentPage(String page) {
         Navigation.currentPage = page;
     }

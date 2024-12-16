@@ -1,0 +1,294 @@
+package ie.atu.bookapp;
+
+public class Menu {
+    public static void printShowBooksMenu() {
+        Navigation.setCurrentPage("showBooks");
+        Navigation.setPreviousPage("manager");
+        ClearConsole.clearConsole();
+
+        System.out.println("Show Books");
+        System.out.println("=================");
+        System.out.println("What books do you want to show?");
+        System.out.println("(1) Printed Books");
+        System.out.println("(2) Ebooks");
+        System.out.println("(3) Audiobooks");
+        System.out.println("(4) Show All");
+        Navigation.sideMenu();
+
+        String choice = Navigation.handleChoice();
+
+        switch(choice) {
+            // TODO: All choices for this menu
+            case "1": 
+                Manager.showBooks("printed");
+                break;
+            case "2": 
+                Manager.showBooks("ebooks");
+                break;
+            case "3": 
+                Manager.showBooks("audiobooks");
+                break;
+            case "4": 
+                Manager.showBooks("all");
+                break;
+        }
+    }
+
+    public static void printSortMenu(String type, int results) {
+        Navigation.setCurrentPage("sortMenu");
+        Navigation.setPreviousPage("showBooks");
+        ClearConsole.clearConsole();
+
+        System.out.println("Sort " + type + " books by:");
+        System.out.println("(1) Title (A-Z)");
+        System.out.println("(2) Title (Z-A)");
+        System.out.println("(3) Author");
+        System.out.println("(4) Price (Ascending)");
+        System.out.println("(5) Price (Descending)");
+
+        if (type.equals("printed")) {
+            System.out.println("(6) Page Count");
+        } else if (type.equals("ebooks")) {
+            System.out.println("(6) File Size");
+        } else if (type.equals("audiobooks")) {
+            System.out.println("(6) Duration");
+        }
+        
+        System.out.println("(0) Default (No Sorting)");
+
+        System.out.print("Enter your choice: ");
+
+        String sortBy = "";
+        String choice = App.scanner.nextLine();
+        switch(choice) {
+            case "1": 
+                sortBy = "titleasc";
+                break;
+
+            case "2": 
+                sortBy = "titledesc";
+                break;
+
+            case "3": 
+                sortBy = "author";
+                break;
+
+            case "4": 
+                sortBy = "priceasc";
+                break;
+
+            case "5": 
+                sortBy = "pricedesc";
+                break;
+
+            case "6":
+                if (type.equals("printed")) sortBy = "pages";
+                if (type.equals("ebooks")) sortBy = "filesize";
+                if (type.equals("audiobooks")) sortBy = "duration";
+                break;
+
+            default: sortBy = "default";
+        }
+
+        if (!type.equals("all")) {
+            displayBooks(type, sortBy, results);
+        }
+        else {
+            displayAllBooks(type, sortBy, results);
+        }
+    }
+
+    public static void printAddBookMenu() {
+        Navigation.setCurrentPage("addBook");
+        Navigation.setPreviousPage("manager");
+        ClearConsole.clearConsole();
+
+        System.out.println("Add Book");
+        System.out.println("=================");
+        System.out.println("What do you want to add?");
+        System.out.println("(1) Printed Book");
+        System.out.println("(2) Ebook");
+        System.out.println("(3) Audiobook");
+        Navigation.sideMenu();
+
+        String choice = Navigation.handleChoice();
+
+        switch(choice) {
+            // TODO: All choices for this menu
+            case "1": 
+                Manager.printBookMenu();
+                break;
+            case "2": 
+                Manager.printEbookMenu();
+                break;
+            case "3": 
+                Manager.printAudiobookMenu();
+                break;
+        }
+    }
+
+    public static void printUpdateBookMenu() {
+        Navigation.setCurrentPage("updateBook");
+        Navigation.setPreviousPage("manager");
+        ClearConsole.clearConsole();
+
+        if (Manager.books.isEmpty()) {
+            System.out.println("No books available.");
+            Navigation.sideMenu();
+            Navigation.handleChoice();
+        }
+        
+            String bookId = "";
+            while (true) {
+                System.out.print("Enter Book ID: ");
+                bookId = App.scanner.nextLine().trim();
+    
+                // Validate that the input is not empty
+                if (bookId.isEmpty()) {
+                    System.out.println("Book ID cannot be empty. Please try again.\n");
+                    continue; // Restart the loop
+                }
+    
+                if (!bookId.matches("\\d+")) { // Checks if the input is numeric
+                    System.out.println("Invalid Book ID. Please enter numbers only.\n");
+                    continue; // Restart the loop
+                }
+                else {
+                    break;
+                }
+            }
+
+        // Find the book by ID
+        Book bookToUpdate = findBookById(bookId);
+        
+        if (bookToUpdate == null) {
+            System.out.println("Book with ID " + bookId + " not found.");
+            return;
+        }
+
+        ClearConsole.clearConsole();
+    
+        System.out.println(bookToUpdate);
+        System.out.println("====================================\n");
+        System.out.println("Enter the field you want to update: ");
+        System.out.println("(1) Title");
+        System.out.println("(2) Author");
+        System.out.println("(3) Price");
+    
+        if (bookToUpdate instanceof PrintedBook) {
+            System.out.println("(4) Page Count");
+        } else if (bookToUpdate instanceof Ebook) {
+            System.out.println("(4) File Size");
+        } else if (bookToUpdate instanceof Audiobook) {
+            System.out.println("(4) Duration");
+        }
+    
+        System.out.print("Enter your choice: ");
+        String choice = App.scanner.nextLine();
+    
+        switch (choice) {
+            case "1":
+                System.out.print("Enter new title: ");
+                String newTitle = App.scanner.nextLine();
+                bookToUpdate.setTitle(newTitle);
+                break;
+    
+            case "2":
+                System.out.print("Enter new author: ");
+                String newAuthor = App.scanner.nextLine();
+                bookToUpdate.setAuthor(newAuthor);
+                break;
+    
+            case "3":
+                System.out.print("Enter new price: ");
+                double newPrice = App.scanner.nextDouble();
+                bookToUpdate.setPrice(newPrice);
+                break;
+    
+            case "4":
+                if (bookToUpdate instanceof PrintedBook) {
+                    System.out.print("Enter new page count: ");
+                    int newPageCount = App.scanner.nextInt();
+                    ((PrintedBook) bookToUpdate).setPageCount(newPageCount);
+                } 
+                else if (bookToUpdate instanceof Ebook) {
+                    System.out.print("Enter new file size (MB): ");
+                    double newFileSize = App.scanner.nextDouble();
+                    ((Ebook) bookToUpdate).setFileSize(newFileSize);
+                } 
+                else if (bookToUpdate instanceof Audiobook) {
+                    System.out.print("Enter new duration (hours): ");
+                    int newDuration = App.scanner.nextInt();
+                    ((Audiobook) bookToUpdate).setDuration(newDuration);
+                } 
+                else {
+                    System.out.println("Invalid choice for this book type.");
+                }
+                break;
+    
+            default:
+                System.out.println("Invalid choice. No updates made.");
+                return;
+        }
+    
+            ClearConsole.clearConsole();
+            System.out.println(bookToUpdate);
+            System.out.println("====================================");
+            System.out.println("Book updated successfully!");
+
+            Navigation.sideMenu();
+            Navigation.handleChoice();
+    }
+    
+    public static void printRemoveBookMenu() {
+        Navigation.setCurrentPage("removeBook");
+        Navigation.setPreviousPage("manager");
+        ClearConsole.clearConsole();
+
+        System.out.println("Remove a Book");
+        System.out.println("=================");
+        System.out.println("Remove a book by:");
+        System.out.println("(1) ID");
+        System.out.println("(2) Title");
+        Navigation.sideMenu();
+
+        String choice = Navigation.handleChoice();
+        
+        switch (choice) {
+            case "1":
+                Manager.removeBookById();
+                break;
+            case "2":
+                Manager.removeBookByTitle();
+                break;
+            default:
+                Manager.printRemoveBookMenu();
+        }
+    }
+
+    public static void printFindBookMenu() {
+        Navigation.setCurrentPage("findBook");
+        Navigation.setPreviousPage("manager");
+        ClearConsole.clearConsole();
+
+        System.out.println("Find a Book");
+        System.out.println("=================");
+        System.out.println("Find a book by:");
+        System.out.println("(1) ID");
+        System.out.println("(2) Title");
+        Navigation.sideMenu();
+
+        String choice = Navigation.handleChoice();
+
+        switch (choice) {
+            case "1":
+                Manager.findBookById();
+                break;
+            case "2":
+                Manager.findBookByTitle();
+                break;
+            default:
+                Manager.printFindBookMenu();
+        }
+    }
+}
