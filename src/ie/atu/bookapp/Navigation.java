@@ -30,6 +30,10 @@ public class Navigation {
         if (page.equals("showBooks")) {
             BookManager.printShowBooksMenu();
         }
+
+        if (page.equals("stats")) {
+            Statistics.printMenu();
+        }
     }
 
     public static void sideMenu() {
