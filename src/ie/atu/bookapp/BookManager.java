@@ -992,8 +992,11 @@ public class BookManager {
             System.out.println("Book with ID " + bookId + " not found.");
             return;
         }
+
+        ClearConsole.clearConsole();
     
         System.out.println(bookToUpdate);
+        System.out.println("====================================\n");
         System.out.println("Enter the field you want to update: ");
         System.out.println("(1) Title");
         System.out.println("(2) Author");
@@ -1055,7 +1058,9 @@ public class BookManager {
                 return;
         }
     
+            ClearConsole.clearConsole();
             System.out.println(bookToUpdate);
+            System.out.println("====================================");
             System.out.println("Book updated successfully!");
 
             Navigation.sideMenu();

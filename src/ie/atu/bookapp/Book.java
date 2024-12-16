@@ -60,7 +60,7 @@ public abstract class Book {
         sb.append("Title:             ").append(title).append("\n");
         sb.append("Author:            ").append(author).append("\n");
         sb.append("Price:             $").append(price).append("\n");
-        sb.append("Publication Year:  ").append(publicationYear).append("\n");
+        sb.append("Publication Year:  ").append(publicationYear);
 
         return sb.toString();
     }
