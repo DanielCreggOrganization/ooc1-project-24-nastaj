@@ -23,6 +23,14 @@ public class Ebook extends Book {
         return this.format;
     }
 
+    public void setFileSize(double fileSize) {
+        this.fileSize = fileSize;
+    }
+
+    public void setFormat(String format) {
+        this.format = format;
+    }
+
     // Overriding the toString() method
     @Override
     public String toString() {

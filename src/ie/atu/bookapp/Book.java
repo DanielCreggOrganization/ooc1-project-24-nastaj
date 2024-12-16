@@ -37,7 +37,17 @@ public abstract class Book {
         return this.publicationYear;
     }
 
-    
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
 
     // Overriding the toString() method to print out the contents of ArrayList in a formatted way
     @Override

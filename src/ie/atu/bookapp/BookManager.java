@@ -28,9 +28,10 @@ public class BookManager {
         System.out.println();
         System.out.println("============ Book Manager ============");
         System.out.println("(1) Add a Book");
-        System.out.println("(2) Remove a Book");
-        System.out.println("(3) Find a Book");
-        System.out.println("(4) Show Books");
+        System.out.println("(2) Update a Book");
+        System.out.println("(3) Remove a Book");
+        System.out.println("(4) Find a Book");
+        System.out.println("(5) Show Books");
         Navigation.sideMenu();
 
         System.out.print("Enter your choice: ");
@@ -45,12 +46,15 @@ public class BookManager {
                 BookManager.printAddBookMenu();
                 break;
             case "2": 
-                BookManager.printRemoveBookMenu();
+                BookManager.updateBook();
                 break;
             case "3": 
-                BookManager.printFindBookMenu();
+                BookManager.printRemoveBookMenu();
                 break;
             case "4": 
+                BookManager.printFindBookMenu();
+                break;
+            case "5": 
                 BookManager.printShowBooksMenu();
                 break;
         }
@@ -946,6 +950,117 @@ public class BookManager {
 
     public static ArrayList<Book> getAllBooks() {
         return BookManager.books;
-    } 
+    }
+     
+    public static void updateBook() {
+        Navigation.setCurrentPage("updateBook");
+        Navigation.setPreviousPage("manager");
+        ClearConsole.clearConsole();
 
+        if (BookManager.books.isEmpty()) {
+            System.out.println("No books available.");
+            Navigation.sideMenu();
+            System.out.print("Enter your choice: ");
+            String choice = App.scanner.nextLine();
+            Navigation.sideMenu(choice);
+        }
+        
+            String bookId = "";
+            while (true) {
+                System.out.print("Enter Book ID: ");
+                bookId = App.scanner.nextLine().trim();
+    
+                // Validate that the input is not empty
+                if (bookId.isEmpty()) {
+                    System.out.println("Book ID cannot be empty. Please try again.\n");
+                    continue; // Restart the loop
+                }
+    
+                if (!bookId.matches("\\d+")) { // Checks if the input is numeric
+                    System.out.println("Invalid Book ID. Please enter numbers only.\n");
+                    continue; // Restart the loop
+                }
+                else {
+                    break;
+                }
+            }
+
+        // Find the book by ID
+        Book bookToUpdate = findBookById(bookId);
+        
+        if (bookToUpdate == null) {
+            System.out.println("Book with ID " + bookId + " not found.");
+            return;
+        }
+    
+        System.out.println(bookToUpdate);
+        System.out.println("Enter the field you want to update: ");
+        System.out.println("(1) Title");
+        System.out.println("(2) Author");
+        System.out.println("(3) Price");
+    
+        if (bookToUpdate instanceof PrintedBook) {
+            System.out.println("(4) Page Count");
+        } else if (bookToUpdate instanceof Ebook) {
+            System.out.println("(4) File Size");
+        } else if (bookToUpdate instanceof Audiobook) {
+            System.out.println("(4) Duration");
+        }
+    
+        System.out.print("Enter your choice: ");
+        String choice = App.scanner.nextLine();
+    
+        switch (choice) {
+            case "1":
+                System.out.print("Enter new title: ");
+                String newTitle = App.scanner.nextLine();
+                bookToUpdate.setTitle(newTitle);
+                break;
+    
+            case "2":
+                System.out.print("Enter new author: ");
+                String newAuthor = App.scanner.nextLine();
+                bookToUpdate.setAuthor(newAuthor);
+                break;
+    
+            case "3":
+                System.out.print("Enter new price: ");
+                double newPrice = App.scanner.nextDouble();
+                bookToUpdate.setPrice(newPrice);
+                break;
+    
+            case "4":
+                if (bookToUpdate instanceof PrintedBook) {
+                    System.out.print("Enter new page count: ");
+                    int newPageCount = App.scanner.nextInt();
+                    ((PrintedBook) bookToUpdate).setPageCount(newPageCount);
+                } 
+                else if (bookToUpdate instanceof Ebook) {
+                    System.out.print("Enter new file size (MB): ");
+                    double newFileSize = App.scanner.nextDouble();
+                    ((Ebook) bookToUpdate).setFileSize(newFileSize);
+                } 
+                else if (bookToUpdate instanceof Audiobook) {
+                    System.out.print("Enter new duration (hours): ");
+                    int newDuration = App.scanner.nextInt();
+                    ((Audiobook) bookToUpdate).setDuration(newDuration);
+                } 
+                else {
+                    System.out.println("Invalid choice for this book type.");
+                }
+                break;
+    
+            default:
+                System.out.println("Invalid choice. No updates made.");
+                return;
+        }
+    
+            System.out.println(bookToUpdate);
+            System.out.println("Book updated successfully!");
+
+            Navigation.sideMenu();
+            System.out.print("Enter your choice: ");
+            choice = App.scanner.nextLine();
+            Navigation.sideMenu(choice);
+    } 
 }

@@ -22,4 +22,12 @@ public class Audiobook extends Book{
     public String getNarrator() {
         return this.narrator;
     }
+
+    public void setDuration(int duration) {
+        this.duration = duration;
+    }
+
+    public void setNarrator(String narrator) {
+        this.narrator = narrator;
+    }
 }
