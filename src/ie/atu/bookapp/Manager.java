@@ -49,6 +49,8 @@ public class Manager {
             case "5": 
                 Menu.printShowBooksMenu();
                 break;
+            default:
+                printMenu();
         }
     }
 
@@ -70,27 +72,28 @@ public class Manager {
 
     public static void populateBooks() {
         // Adding printedBooks (Physical Books)
-        printedBooks.add(new PrintedBook("The Odyssey", "Homer", 17.99, 800, 450));
-        printedBooks.add(new PrintedBook("Brave New World", "Aldous Huxley", 19.99, 1932, 268));
-        printedBooks.add(new PrintedBook("The Brothers Karamazov", "Fyodor Dostoevsky", 22.99, 1880, 350));
-
+        printedBooks.add(new PrintedBook("The Odyssey", "Homer", "Epic Poetry", 17.99, 800, 450));
+        printedBooks.add(new PrintedBook("Brave New World", "Aldous Huxley", "Dystopian", 19.99, 1932, 268));
+        printedBooks.add(new PrintedBook("The Brothers Karamazov", "Fyodor Dostoevsky", "Philosophical Fiction", 22.99, 1880, 350));
+    
         // Adding Ebooks
-        ebooks.add(new Ebook("Sapiens", "Yuval Noah Harari", 9.99, 2011, 5.5, "EPUB"));
-        ebooks.add(new Ebook("Effective Java", "Joshua Bloch", 8.99, 2018, 3.2, "PDF"));
-        ebooks.add(new Ebook("Becoming", "Michelle Obama", 12.99, 2018, 6.8, "EPUB"));
-        ebooks.add(new Ebook("Educated", "Tara Westover", 10.99, 2018, 4.5, "PDF"));
-        ebooks.add(new Ebook("The Silent Patient", "Alex Michaelides", 6.99, 2019, 2.8, "EPUB"));
-
+        ebooks.add(new Ebook("Sapiens", "Yuval Noah Harari", "Non-Fiction", 9.99, 2011, 5.5, "EPUB"));
+        ebooks.add(new Ebook("Effective Java", "Joshua Bloch", "Programming", 8.99, 2018, 3.2, "PDF"));
+        ebooks.add(new Ebook("Becoming", "Michelle Obama", "Autobiography", 12.99, 2018, 6.8, "EPUB"));
+        ebooks.add(new Ebook("Educated", "Tara Westover", "Memoir", 10.99, 2018, 4.5, "PDF"));
+        ebooks.add(new Ebook("The Silent Patient", "Alex Michaelides", "Psychological Thriller", 6.99, 2019, 2.8, "EPUB"));
+    
         // Adding Audiobooks
-        audiobooks.add(new Audiobook("The Night Circus", "Erin Morgenstern", 25.99, 2011, 12, "Jim Dale"));
-        audiobooks.add(new Audiobook("Dune", "Frank Herbert", 29.99, 1965, 21, "Simon Vance"));
-        audiobooks.add(new Audiobook("The Goldfinch", "Donna Tartt", 24.99, 2013, 32, "David Pittu"));
-        audiobooks.add(new Audiobook("Becoming", "Michelle Obama", 24.99, 2018, 19, "Michelle Obama"));
-        audiobooks.add(new Audiobook("The Alchemist", "Paulo Coelho", 14.99, 1988, 7, "Jeremy Irons"));
-
-         // Adding all books to the general 'books' ArrayList
-         books.addAll(printedBooks);  // Add all printedBooks to books
-         books.addAll(ebooks);        // Add all ebooks to books
-         books.addAll(audiobooks);    // Add all audiobooks to books
+        audiobooks.add(new Audiobook("The Night Circus", "Erin Morgenstern", "Fantasy", 25.99, 2011, 12, "Jim Dale"));
+        audiobooks.add(new Audiobook("Dune", "Frank Herbert", "Science Fiction", 29.99, 1965, 21, "Simon Vance"));
+        audiobooks.add(new Audiobook("The Goldfinch", "Donna Tartt", "Literary Fiction", 24.99, 2013, 32, "David Pittu"));
+        audiobooks.add(new Audiobook("Becoming", "Michelle Obama", "Autobiography", 24.99, 2018, 19, "Michelle Obama"));
+        audiobooks.add(new Audiobook("The Alchemist", "Paulo Coelho", "Philosophical Fiction", 14.99, 1988, 7, "Jeremy Irons"));
+    
+        // Adding all books to the general 'books' ArrayList
+        books.addAll(printedBooks); // Add all printedBooks to books
+        books.addAll(ebooks);       // Add all ebooks to books
+        books.addAll(audiobooks);   // Add all audiobooks to books
     }
+    
 }

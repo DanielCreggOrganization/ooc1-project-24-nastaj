@@ -30,6 +30,8 @@ public class Menu {
             case "4": 
                 Display.showBooks("all");
                 break;
+            default:
+                printShowBooksMenu();
         }
     }
 
@@ -42,15 +44,16 @@ public class Menu {
         System.out.println("(1) Title (A-Z)");
         System.out.println("(2) Title (Z-A)");
         System.out.println("(3) Author");
-        System.out.println("(4) Price (Ascending)");
-        System.out.println("(5) Price (Descending)");
+        System.out.println("(4) Genre");
+        System.out.println("(5) Price (Ascending)");
+        System.out.println("(6) Price (Descending)");
 
         if (type.equals("printed")) {
-            System.out.println("(6) Page Count");
+            System.out.println("(7) Page Count");
         } else if (type.equals("ebooks")) {
-            System.out.println("(6) File Size");
+            System.out.println("(7) File Size");
         } else if (type.equals("audiobooks")) {
-            System.out.println("(6) Duration");
+            System.out.println("(7) Duration");
         }
         
         System.out.println("(0) Default (No Sorting)");
@@ -73,14 +76,18 @@ public class Menu {
                 break;
 
             case "4": 
-                sortBy = "priceasc";
+                sortBy = "genre";
                 break;
 
             case "5": 
+                sortBy = "priceasc";
+                break;
+
+            case "6": 
                 sortBy = "pricedesc";
                 break;
 
-            case "6":
+            case "7":
                 if (type.equals("printed")) sortBy = "pages";
                 if (type.equals("ebooks")) sortBy = "filesize";
                 if (type.equals("audiobooks")) sortBy = "duration";
@@ -122,6 +129,8 @@ public class Menu {
             case "3": 
                 Add.audiobook();
                 break;
+            default:
+                Menu.printAddBookMenu();
         }
     }
 
@@ -167,18 +176,18 @@ public class Menu {
         ClearConsole.clearConsole();
     
         System.out.println(bookToUpdate);
-        System.out.println("====================================\n");
         System.out.println("Enter the field you want to update: ");
         System.out.println("(1) Title");
         System.out.println("(2) Author");
-        System.out.println("(3) Price");
+        System.out.println("(3) Genre");
+        System.out.println("(4) Price");
     
         if (bookToUpdate instanceof PrintedBook) {
-            System.out.println("(4) Page Count");
+            System.out.println("(5) Page Count");
         } else if (bookToUpdate instanceof Ebook) {
-            System.out.println("(4) File Size");
+            System.out.println("(5) File Size");
         } else if (bookToUpdate instanceof Audiobook) {
-            System.out.println("(4) Duration");
+            System.out.println("(5) Duration");
         }
     
         System.out.print("Enter your choice: ");
@@ -196,14 +205,20 @@ public class Menu {
                 String newAuthor = App.scanner.nextLine();
                 bookToUpdate.setAuthor(newAuthor);
                 break;
-    
+
             case "3":
+                System.out.print("Enter new genre: ");
+                String newGenre = App.scanner.nextLine();
+                bookToUpdate.setGenre(newGenre);
+                break;
+    
+            case "4":
                 System.out.print("Enter new price: ");
                 double newPrice = App.scanner.nextDouble();
                 bookToUpdate.setPrice(newPrice);
                 break;
     
-            case "4":
+            case "5":
                 if (bookToUpdate instanceof PrintedBook) {
                     System.out.print("Enter new page count: ");
                     int newPageCount = App.scanner.nextInt();

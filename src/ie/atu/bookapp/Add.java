@@ -4,6 +4,7 @@ public class Add {
     public static void book() {
         String title;
         String author;
+        String genre;
         double price;
         int publicationYear;
         int pageCount;
@@ -20,6 +21,7 @@ public class Add {
 
         title = InputHandler.promptString("Title");
         author = InputHandler.promptString("Author");
+        genre = InputHandler.promptString("Genre");
         price = InputHandler.promptDouble("Price");
         publicationYear = InputHandler.promptInt("Publication Year");
         pageCount = InputHandler.promptInt("Page Count");
@@ -32,7 +34,7 @@ public class Add {
         choice = App.scanner.nextLine();
         
         if (choice.equalsIgnoreCase("y") || choice.equalsIgnoreCase("yes")) {
-            PrintedBook PrintedBook = new PrintedBook(title, author, price, publicationYear, pageCount);
+            PrintedBook PrintedBook = new PrintedBook(title, author, genre, price, publicationYear, pageCount);
             Manager.getPrintedBooks().add(PrintedBook);
             Manager.getAllBooks().add(PrintedBook);
         
@@ -64,6 +66,7 @@ public class Add {
     public static void ebook() {
         String title;
         String author;
+        String genre;
         double price;
         int publicationYear;
         String choice;
@@ -81,6 +84,7 @@ public class Add {
 
         title = InputHandler.promptString("Title");
         author = InputHandler.promptString("Author");
+        genre = InputHandler.promptString("Genre");
         price = InputHandler.promptDouble("Price");
         publicationYear = InputHandler.promptInt("Publication Year");
         fileSize = InputHandler.promptDouble("File Size (MB)");
@@ -93,7 +97,7 @@ public class Add {
         choice = App.scanner.nextLine();
         
         if (choice.equalsIgnoreCase("y") || choice.equalsIgnoreCase("yes")) {
-            Ebook ebook = new Ebook(title, author, price, publicationYear, fileSize, format);
+            Ebook ebook = new Ebook(title, author, genre, price, publicationYear, fileSize, format);
             Manager.getEbooks().add(ebook);
             Manager.getAllBooks().add(ebook);
         
@@ -125,6 +129,7 @@ public class Add {
     public static void audiobook() {
         String title;
         String author;
+        String genre;
         double price;
         int publicationYear;
         String choice;
@@ -142,6 +147,7 @@ public class Add {
 
         title = InputHandler.promptString("Title");
         author = InputHandler.promptString("Author");
+        genre = InputHandler.promptString("Genre");
         price = InputHandler.promptDouble("Price");
         publicationYear = InputHandler.promptInt("Publication Year");
         duration = InputHandler.promptInt("Duration");
@@ -155,7 +161,7 @@ public class Add {
         choice = App.scanner.nextLine();
         
         if (choice.equalsIgnoreCase("y") || choice.equalsIgnoreCase("yes")) {
-            Audiobook audiobook = new Audiobook(title, author, price, publicationYear, duration, narrator);
+            Audiobook audiobook = new Audiobook(title, author, genre, price, publicationYear, duration, narrator);
             Manager.getAudiobooks().add(audiobook);
             Manager.getAllBooks().add(audiobook);
         

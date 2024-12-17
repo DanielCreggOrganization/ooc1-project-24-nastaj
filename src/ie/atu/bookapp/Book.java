@@ -5,14 +5,16 @@ public abstract class Book {
     private int id;
     private String title;
     private String author;
+    private String genre;
     private double price;
     private int publicationYear;
 
     // Constructor
-    public Book(String title, String author, double price, int publicationYear) {
+    public Book(String title, String author, String genre, double price, int publicationYear) {
         this.id = nextId++;
         this.title = title;
         this.author = author;
+        this.genre = genre;
         this.price = price;
         this.publicationYear = publicationYear;
     }
@@ -27,6 +29,10 @@ public abstract class Book {
 
     public String getAuthor() {
         return this.author;
+    }
+
+    public String getGenre() {
+        return this.genre;
     }
 
     public double getPrice() {
@@ -45,6 +51,10 @@ public abstract class Book {
         this.author = author;
     }
 
+    public void setGenre(String genre) {
+        this.genre = genre;
+    }
+
     public void setPrice(double price) {
         this.price = price;
     }
@@ -59,8 +69,9 @@ public abstract class Book {
         sb.append("ID:                ").append(id).append("\n");
         sb.append("Title:             ").append(title).append("\n");
         sb.append("Author:            ").append(author).append("\n");
+        sb.append("Genre:            ").append(genre).append("\n");
         sb.append("Price:             $").append(price).append("\n");
-        sb.append("Publication Year:  ").append(publicationYear);
+        sb.append("Publication Year:  ").append(publicationYear).append("\n");
 
         return sb.toString();
     }

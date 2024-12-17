@@ -5,9 +5,9 @@ public class Audiobook extends Book{
     private String narrator;
 
     // Constructor using super tied to Book class
-    Audiobook(String title, String author, double price, int publicationYear, int duration, String narrator) {
+    Audiobook(String title, String author, String genre, double price, int publicationYear, int duration, String narrator) {
         // From Book class
-        super(title, author, price, publicationYear);
+        super(title, author, genre, price, publicationYear);
 
         // From Audiobook class
         this.duration = duration;
@@ -28,5 +28,19 @@ public class Audiobook extends Book{
 
     public void setNarrator(String narrator) {
         this.narrator = narrator;
+    }
+
+    @Override
+    public String toString() {
+        // Use the parent's toString() and add pageCount information
+        StringBuilder sb = new StringBuilder();
+
+        sb.append(super.toString());
+        sb.append("Duration:        ").append(duration).append("\n");
+        sb.append("Narrator:        ").append(narrator).append("\n");
+        sb.append("Type:              ").append("Audiobook").append("\n");
+        sb.append("====================================");
+
+        return sb.toString();
     }
 }

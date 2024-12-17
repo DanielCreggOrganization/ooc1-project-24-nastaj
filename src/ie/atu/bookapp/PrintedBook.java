@@ -4,9 +4,9 @@ public class PrintedBook extends Book{
     private int pageCount;
 
     // Constructor using super tied to Book class
-    public PrintedBook(String title, String author, double price, int publicationYear, int pageCount) {
+    public PrintedBook(String title, String author, String genre, double price, int publicationYear, int pageCount) {
         // From Book class
-        super(title, author, price, publicationYear);
+        super(title, author, genre, price, publicationYear);
 
         // From PrintedBook class
         this.pageCount = pageCount;

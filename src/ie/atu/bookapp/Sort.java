@@ -26,6 +26,10 @@ public class Sort {
                 books.sort(Comparator.comparingDouble(Book::getPrice).reversed());
                 break;
 
+            case "genre":
+                books.sort(Comparator.comparing(Book::getGenre));
+                break;
+
             case "pages":
                 if (books.get(0) instanceof PrintedBook) {
                     books.sort(Comparator.comparingInt(b -> ((PrintedBook) b).getPageCount()));

@@ -5,9 +5,9 @@ public class Ebook extends Book {
     private String format; // e.g. EPUB, PDF
 
     // Constructor using super tied to Book class
-    public Ebook(String title, String author, double price, int publicationYear, double fileSize, String format) {
+    public Ebook(String title, String author, String genre, double price, int publicationYear, double fileSize, String format) {
         // From Book class
-        super(title, author, price, publicationYear);
+        super(title, author, genre, price, publicationYear);
 
         // From Ebook class
         this.fileSize = fileSize;
@@ -30,10 +30,17 @@ public class Ebook extends Book {
         this.format = format;
     }
 
-    // Overriding the toString() method
     @Override
     public String toString() {
-        // Use the parent's toString() and add fileSize and format information
-        return "Ebook " + super.toString() + ", fileSize=" + fileSize + '\'' + ", format=" + format + "}";
+        // Use the parent's toString() and add pageCount information
+        StringBuilder sb = new StringBuilder();
+
+        sb.append(super.toString());
+        sb.append("File Size:        ").append(fileSize).append("\n");
+        sb.append("File Format:        ").append(format).append("\n");
+        sb.append("Type:              ").append("Ebook").append("\n");
+        sb.append("====================================");
+
+        return sb.toString();
     }
 }
