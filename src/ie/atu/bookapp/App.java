@@ -29,7 +29,7 @@ public class App {
      */
     public void run() {
         while (running) {
-            App.printMainMenu();
+            printMainMenu(); // Continuously show the main menu
         }
     }
 
@@ -65,22 +65,26 @@ public class App {
         switch (choice) {
             case "1": {
                 Manager.printMenu(); // Navigate to book management
-                running = false;
                 break;
             }
             case "2": {
                 Statistics.printMenu(); // Navigate to statistics menu
-                running = false;
                 break;
             }
             case "3": {
                 System.out.println("Exiting the application...");
-                running = false; // Exit the application
-                break;
+                running = false; // Set running to false to exit the loop
+                break; // Exit the switch case
             }
             default: {
                 System.out.println("Invalid option. Please try again.");
             }
+        }
+
+        // Ensure that after exiting, the loop is properly checked
+        if (!running) {
+            System.out.println("Goodbye!");
+            System.exit(0);
         }
     }
 }

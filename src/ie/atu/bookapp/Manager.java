@@ -2,14 +2,23 @@ package ie.atu.bookapp;
 
 import java.util.ArrayList;
 
+/**
+ * The Manager class handles book management, including adding, updating, removing, and displaying books.
+ * It contains the main logic for managing different types of books in the system.
+ */
 public class Manager {
+
+    // ArrayLists to store different types of books: printed books, ebooks, and audiobooks.
     // Because the size of the arrays are not known at the start of the program, they should be getting resized dynamically.
     // ArrayList is perfect for that. It makes the CRUD operations on arrays much easier.
     private static ArrayList<Book> books;
-    private static ArrayList <PrintedBook> printedBooks;
+    private static ArrayList<PrintedBook> printedBooks;
     private static ArrayList<Ebook> ebooks;
-    private static ArrayList <Audiobook> audiobooks;
+    private static ArrayList<Audiobook> audiobooks;
 
+    /**
+     * Constructor initializes the ArrayLists for managing different types of books.
+     */
     Manager() {
         Manager.books = new ArrayList<>();
         Manager.printedBooks = new ArrayList<>();
@@ -17,6 +26,9 @@ public class Manager {
         Manager.audiobooks = new ArrayList<>();
     }
 
+    /**
+     * Displays the book management menu with options to add, update, remove, find, or show books.
+     */
     public static void printMenu() {
         Navigation.setCurrentPage("manager");
         Navigation.setPreviousPage("main");
@@ -31,6 +43,7 @@ public class Manager {
         System.out.println("(5) Show Books");
         Navigation.sideMenu();
 
+        // Handle user input choice and navigate to the corresponding menu
         String choice = Navigation.handleChoice();
         
         switch(choice) {
@@ -50,26 +63,47 @@ public class Manager {
                 Menu.printShowBooksMenu();
                 break;
             default:
-                printMenu();
+                printMenu(); // Invalid input, re-display the menu
         }
     }
 
+    /**
+     * Returns the list of printed books.
+     * @return ArrayList of PrintedBook objects
+     */
     public static ArrayList<PrintedBook> getPrintedBooks() {
         return Manager.printedBooks;
     }
     
+    /**
+     * Returns the list of ebooks.
+     * @return ArrayList of Ebook objects
+     */
     public static ArrayList<Ebook> getEbooks() {
         return Manager.ebooks;
     }
 
+    /**
+     * Returns the list of audiobooks.
+     * @return ArrayList of Audiobook objects
+     */
     public static ArrayList<Audiobook> getAudiobooks() {
         return Manager.audiobooks;
-    } 
+    }
 
+    /**
+     * Returns the complete list of all types of books (printed, ebook, audiobook).
+     * @return ArrayList of all Book objects
+     */
     public static ArrayList<Book> getAllBooks() {
         return Manager.books;
     }
 
+    /**
+     * Populates the books lists with some sample data for testing.
+     * This method adds predefined books to the printed books, ebooks, and audiobooks lists,
+     * and then adds them to the general 'books' list.
+     */
     public static void populateBooks() {
         // Adding printedBooks (Physical Books)
         printedBooks.add(new PrintedBook("The Odyssey", "Homer", "Epic Poetry", 17.99, 800, 450));
@@ -95,5 +129,4 @@ public class Manager {
         books.addAll(ebooks);       // Add all ebooks to books
         books.addAll(audiobooks);   // Add all audiobooks to books
     }
-    
 }

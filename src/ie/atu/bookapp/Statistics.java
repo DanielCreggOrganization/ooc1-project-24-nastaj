@@ -4,47 +4,61 @@ import java.util.ArrayList;
 import java.util.Comparator;
 
 public class Statistics {
+
+    /**
+     * Displays the statistics menu and handles user input for viewing statistics of different book types.
+     */
     public static void printMenu() {
+        // Set the current and previous page for navigation
         Navigation.setCurrentPage("stats");
         Navigation.setPreviousPage("main");
+
+        // Clear the console screen
         ClearConsole.clearConsole();
 
-        System.out.println();
+        // Display the menu options
         System.out.println("============ Statistics ============");
         System.out.println("What details do you want to view?");
         System.out.println("(1) All");
         System.out.println("(2) Printed Books");
         System.out.println("(3) Ebooks");
         System.out.println("(4) Audiobooks");
+
+        // Display the side menu for navigation
         Navigation.sideMenu();
 
+        // Prompt the user for a choice
         System.out.print("Enter your choice: ");
-
         String choice = App.scanner.nextLine();
 
+        // Handle user input to navigate to the appropriate statistics section
         Navigation.sideMenu(choice);
         
         switch(choice) {
             case "1": 
-                Statistics.printStatsAll();
+                printStatsAll();
                 break;
             case "2": 
-                Statistics.printStatsPrinted();
+                printStatsPrinted();
                 break;
             case "3": 
-                Statistics.printStatsEbook();;
+                printStatsEbook();
                 break;
             case "4": 
-                Statistics.printStatsAudiobook();
+                printStatsAudiobook();
                 break;
         }
 
+        // Display the side menu again after displaying the statistics
         Navigation.sideMenu();
         System.out.print("Enter your choice: ");
         choice = App.scanner.nextLine();
         Navigation.sideMenu(choice);
     }
 
+    /**
+     * Prints statistics for printed books.
+     */
     private static void printStatsPrinted() {
         Navigation.setCurrentPage("statsPrinted");
         Navigation.setPreviousPage("stats");
@@ -56,50 +70,30 @@ public class Statistics {
         PrintedBook longestBook = getPrintedStats("maxPages");
         PrintedBook shortestBook = getPrintedStats("minPages");
 
+        // Print detailed statistics for printed books
         System.out.println("============ Printed Details ============");
-        sb.append("Total number of books: ");
-        sb.append(getTotalBooks("Printed Book"));
-        sb.append("\n");
+        sb.append("Total number of books: ").append(getTotalBooks("Printed Book")).append("\n");
+        sb.append("Most expensive book: ").append(maxPrinted.getTitle())
+          .append(" by ").append(maxPrinted.getAuthor()).append(" (")
+          .append(maxPrinted.getPrice()).append("$)\n");
+        sb.append("Least expensive book: ").append(minPrinted.getTitle())
+          .append(" by ").append(minPrinted.getAuthor()).append(" (")
+          .append(minPrinted.getPrice()).append("$)\n");
+        sb.append("Average price of books: ").append(getAveragePrice("Printed Book")).append("$\n");
+        sb.append("Longest book: ").append(longestBook.getTitle())
+          .append(" by ").append(longestBook.getAuthor()).append(" (")
+          .append(longestBook.getPageCount()).append(" pages)\n");
+        sb.append("Shortest book: ").append(shortestBook.getTitle())
+          .append(" by ").append(shortestBook.getAuthor()).append(" (")
+          .append(shortestBook.getPageCount()).append(" pages)\n");
 
-        sb.append("Most expensive book: ");
-        sb.append(maxPrinted.getTitle());
-        sb.append(" by ");
-        sb.append(maxPrinted.getAuthor());
-        sb.append(" (");
-        sb.append(maxPrinted.getPrice());
-        sb.append("$)\n");
-
-        sb.append("Least expensive book: ");
-        sb.append(minPrinted.getTitle());
-        sb.append(" by ");
-        sb.append(minPrinted.getAuthor());
-        sb.append(" (");
-        sb.append(minPrinted.getPrice());
-        sb.append("$)\n");
-
-        sb.append("Average price of books: ");
-        sb.append(getAveragePrice("Printed Book"));
-        sb.append("$\n");
-
-        sb.append("Longest book: ");
-        sb.append(longestBook.getTitle());
-        sb.append(" by ");
-        sb.append(longestBook.getAuthor());
-        sb.append(" (");
-        sb.append(longestBook.getPageCount());
-        sb.append(" pages)\n");
-
-        sb.append("Shortest book: ");
-        sb.append(shortestBook.getTitle());
-        sb.append(" by ");
-        sb.append(shortestBook.getAuthor());
-        sb.append(" (");
-        sb.append(shortestBook.getPageCount());
-        sb.append(" pages)\n");
-
+        // Output the statistics
         System.out.println(sb.toString());
     }
 
+    /**
+     * Prints statistics for ebooks.
+     */
     private static void printStatsEbook() {
         Navigation.setCurrentPage("statsEbook");
         Navigation.setPreviousPage("stats");
@@ -108,53 +102,33 @@ public class Statistics {
         StringBuilder sb = new StringBuilder();
         Ebook maxEbook = getEbookStats("maxPrice");
         Ebook minEbook = getEbookStats("minPrice");
-        Ebook largestEbook = getFileSizeStats("max");
-        Ebook smallestEbook = getFileSizeStats("min");
+        Ebook largestEbook = getEbookStats("maxSize");
+        Ebook smallestEbook = getEbookStats("minSize");
 
+        // Print detailed statistics for ebooks
         System.out.println("============ Ebook Details ============");
-        sb.append("Total number of books: ");
-        sb.append(getTotalBooks("Ebook"));
-        sb.append("\n");
+        sb.append("Total number of books: ").append(getTotalBooks("Ebook")).append("\n");
+        sb.append("Most expensive ebook: ").append(maxEbook.getTitle())
+          .append(" by ").append(maxEbook.getAuthor()).append(" (")
+          .append(maxEbook.getPrice()).append("$)\n");
+        sb.append("Least expensive ebook: ").append(minEbook.getTitle())
+          .append(" by ").append(minEbook.getAuthor()).append(" (")
+          .append(minEbook.getPrice()).append("$)\n");
+        sb.append("Average price of ebooks: ").append(getAveragePrice("Ebook")).append("\n");
+        sb.append("Largest ebook: ").append(largestEbook.getTitle())
+          .append(" by ").append(largestEbook.getAuthor()).append(" (")
+          .append(largestEbook.getFileSize()).append(" MB)\n");
+        sb.append("Smallest ebook: ").append(smallestEbook.getTitle())
+          .append(" by ").append(smallestEbook.getAuthor()).append(" (")
+          .append(smallestEbook.getFileSize()).append(" MB)\n");
 
-        sb.append("Most expensive ebook: ");
-        sb.append(maxEbook.getTitle());
-        sb.append(" by ");
-        sb.append(maxEbook.getAuthor());
-        sb.append(" (");
-        sb.append(maxEbook.getPrice());
-        sb.append("$)\n");
-
-        sb.append("Least expensive ebook: ");
-        sb.append(minEbook.getTitle());
-        sb.append(" by ");
-        sb.append(minEbook.getAuthor());
-        sb.append(" (");
-        sb.append(minEbook.getPrice());
-        sb.append("$)\n");
-
-        sb.append("Average price of ebooks: ");
-        sb.append(getAveragePrice("Ebook"));
-        sb.append("\n");
-
-        sb.append("Largest ebook: ");
-        sb.append(largestEbook.getTitle());
-        sb.append(" by ");
-        sb.append(largestEbook.getAuthor());
-        sb.append(" (");
-        sb.append(largestEbook.getFileSize());
-        sb.append(" MB)\n");
-
-        sb.append("Smallest ebook: ");
-        sb.append(smallestEbook.getTitle());
-        sb.append(" by ");
-        sb.append(smallestEbook.getAuthor());
-        sb.append(" (");
-        sb.append(smallestEbook.getFileSize());
-        sb.append(" MB)\n");
-
+        // Output the statistics
         System.out.println(sb.toString());
     }
 
+    /**
+     * Prints statistics for audiobooks.
+     */
     private static void printStatsAudiobook() {
         Navigation.setCurrentPage("statsAudiobook");
         Navigation.setPreviousPage("stats");
@@ -166,50 +140,30 @@ public class Statistics {
         Audiobook longestAudiobook = getAudiobookStats("longest");
         Audiobook shortestAudiobook = getAudiobookStats("shortest");
 
+        // Print detailed statistics for audiobooks
         System.out.println("============ Audiobook Details ============");
-        sb.append("Total number of books: ");
-        sb.append(getTotalBooks("Audiobook"));
-        sb.append("\n");
+        sb.append("Total number of books: ").append(getTotalBooks("Audiobook")).append("\n");
+        sb.append("Most expensive audiobook: ").append(maxAudiobook.getTitle())
+          .append(" by ").append(maxAudiobook.getAuthor()).append(" (")
+          .append(maxAudiobook.getPrice()).append("$)\n");
+        sb.append("Least expensive audiobook: ").append(minAudiobook.getTitle())
+          .append(" by ").append(minAudiobook.getAuthor()).append(" (")
+          .append(minAudiobook.getPrice()).append("$)\n");
+        sb.append("Average price of audiobooks: ").append(getAveragePrice("Audiobook")).append("\n");
+        sb.append("Longest audiobook: ").append(longestAudiobook.getTitle())
+          .append(" by ").append(longestAudiobook.getAuthor()).append(" (")
+          .append(longestAudiobook.getPrice()).append("hrs)\n");
+        sb.append("Shortest audiobook: ").append(shortestAudiobook.getTitle())
+          .append(" by ").append(shortestAudiobook.getAuthor()).append(" (")
+          .append(shortestAudiobook.getPrice()).append("hrs)\n");
 
-        sb.append("Most expensive audiobook: ");
-        sb.append(maxAudiobook.getTitle());
-        sb.append(" by ");
-        sb.append(maxAudiobook.getAuthor());
-        sb.append(" (");
-        sb.append(maxAudiobook.getPrice());
-        sb.append("$)\n");
-
-        sb.append("Least expensive audiobook: ");
-        sb.append(minAudiobook.getTitle());
-        sb.append(" by ");
-        sb.append(minAudiobook.getAuthor());
-        sb.append(" (");
-        sb.append(minAudiobook.getPrice());
-        sb.append("$)\n");
-
-        sb.append("Average price of audiobooks: ");
-        sb.append(getAveragePrice("Audiobook"));
-        sb.append("\n");
-
-        sb.append("Longest audiobook: ");
-        sb.append(longestAudiobook.getTitle());
-        sb.append(" by ");
-        sb.append(longestAudiobook.getAuthor());
-        sb.append(" (");
-        sb.append(longestAudiobook.getPrice());
-        sb.append("hrs)\n");
-
-        sb.append("Shortest audiobook: ");
-        sb.append(shortestAudiobook.getTitle());
-        sb.append(" by ");
-        sb.append(shortestAudiobook.getAuthor());
-        sb.append(" (");
-        sb.append(shortestAudiobook.getPrice());
-        sb.append("hrs)\n");
-
+        // Output the statistics
         System.out.println(sb.toString());
     }
 
+    /**
+     * Prints overall statistics for all books.
+     */
     private static void printStatsAll() {
         Navigation.setCurrentPage("statsAll");
         Navigation.setPreviousPage("stats");
@@ -219,35 +173,26 @@ public class Statistics {
         Book maxPrinted = getBookStats("maxPrice");
         Book minPrinted = getBookStats("minPrice");
 
+        // Print overall statistics for all books
         System.out.println("============ Overall Details ============");
-        sb.append("Total number of books: ");
-        sb.append(getTotalBooks("All"));
-        sb.append("\n");
+        sb.append("Total number of books: ").append(getTotalBooks("All")).append("\n");
+        sb.append("Most expensive book: ").append(maxPrinted.getTitle())
+          .append(" by ").append(maxPrinted.getAuthor()).append(" (")
+          .append(maxPrinted.getPrice()).append("$)\n");
+        sb.append("Least expensive book: ").append(minPrinted.getTitle())
+          .append(" by ").append(minPrinted.getAuthor()).append(" (")
+          .append(minPrinted.getPrice()).append("$)\n");
+        sb.append("Average price of books: ").append(getAveragePrice("All")).append("$\n");
 
-        sb.append("Most expensive book: ");
-        sb.append(maxPrinted.getTitle());
-        sb.append(" by ");
-        sb.append(maxPrinted.getAuthor());
-        sb.append(" (");
-        sb.append(maxPrinted.getPrice());
-        sb.append("$)\n");
-
-        sb.append("Least expensive book: ");
-        sb.append(minPrinted.getTitle());
-        sb.append(" by ");
-        sb.append(minPrinted.getAuthor());
-        sb.append(" (");
-        sb.append(minPrinted.getPrice());
-        sb.append("$)\n");
-
-        sb.append("Average price of books: ");
-        sb.append(getAveragePrice("All"));
-        sb.append("$\n");
-
+        // Output the statistics
         System.out.println(sb.toString());
     }
 
+    /**
+     * Returns the total number of books for a given type (Printed Book, Ebook, Audiobook, or All).
+     */
     public static int getTotalBooks(String type) {
+        // Return the size of the corresponding book list
         if(type.equals("Printed Book")) {
             return Manager.getPrintedBooks().size();
         }
@@ -262,13 +207,17 @@ public class Statistics {
         }
     }
 
+    /**
+     * Returns the average price of books for a given type.
+     */
     public static double getAveragePrice(String type) {
         double average = 0;
 
+        // Calculate the average price for the corresponding book list
         if(type.equals("Printed Book")) {
             average = Manager.getPrintedBooks().stream()
-            .mapToDouble(Book::getPrice) // Map each book to its price
-            .average()                  // Calculate the average
+            .mapToDouble(Book::getPrice)
+            .average()
             .orElse(0.0);     
         }
         else if (type.equals("Ebook")) {
@@ -281,130 +230,113 @@ public class Statistics {
             average = Manager.getAllBooks().stream().mapToDouble(Book::getPrice).average().orElse(0.0); 
         }
 
-        // Round to two decimal places
+        // Return the rounded average price
         return Math.round(average * 100.0) / 100.0;
     }
 
+    /**
+     * Returns the book with the specified field for printed books (e.g., max price, min price, max pages, min pages).
+     */
     public static PrintedBook getPrintedStats(String field) {
         ArrayList<PrintedBook> printedBooks = Manager.getPrintedBooks();
 
         if(field.equals("maxPrice")) {
-            PrintedBook mostExpensive = printedBooks.stream()
-            .max(Comparator.comparingDouble(PrintedBook::getPrice))
-            .orElse(null); // orElse(null) returns null if the list is empty
-            
-            return mostExpensive; // Return the book
+            return printedBooks.stream()
+                    .max(Comparator.comparingDouble(PrintedBook::getPrice))
+                    .orElse(null); 
         }
         else if(field.equals("minPrice")) {
-            PrintedBook leastExpensive = printedBooks.stream()
-            .min(Comparator.comparingDouble(PrintedBook::getPrice))
-            .orElse(null);
-            
-            return leastExpensive;
+            return printedBooks.stream()
+                    .min(Comparator.comparingDouble(PrintedBook::getPrice))
+                    .orElse(null);
         }
         else if(field.equals("maxPages")) {
-            PrintedBook longestBook =  printedBooks.stream()
-            .max(Comparator.comparingInt(PrintedBook::getPageCount))
-            .orElse(null);
-
-            return longestBook;
+            return printedBooks.stream()
+                    .max(Comparator.comparingInt(PrintedBook::getPageCount))
+                    .orElse(null);
         }
-        else {
-            PrintedBook shortestBook =  printedBooks.stream()
-            .min(Comparator.comparingInt(PrintedBook::getPageCount))
-            .orElse(null);
-
-            return shortestBook;
+        else if(field.equals("minPages")) {
+            return printedBooks.stream()
+                    .min(Comparator.comparingInt(PrintedBook::getPageCount))
+                    .orElse(null);
         }
+        return null;
     }
-    
+
+    /**
+     * Returns the book with the specified field for ebooks (e.g., max price, min price, largest file size, smallest file size).
+     */
     public static Ebook getEbookStats(String field) {
         ArrayList<Ebook> ebooks = Manager.getEbooks();
 
         if(field.equals("maxPrice")) {
-            Ebook mostExpensive = ebooks.stream()
-            .max(Comparator.comparingDouble(Ebook::getPrice))
-            .orElse(null); // orElse(null) returns null if the list is empty
-            
-            return mostExpensive; // Return the book
+            return ebooks.stream()
+                    .max(Comparator.comparingDouble(Ebook::getPrice))
+                    .orElse(null); 
         }
-        else {
-            Ebook leastExpensivePrinted = ebooks.stream()
-            .min(Comparator.comparingDouble(Ebook::getPrice))
-            .orElse(null); // orElse(null) returns null if the list is empty
-            
-            return leastExpensivePrinted; // Return the book
+        else if(field.equals("minPrice")) {
+            return ebooks.stream()
+                    .min(Comparator.comparingDouble(Ebook::getPrice))
+                    .orElse(null);
         }
+        else if(field.equals("maxSize")) {
+            return ebooks.stream()
+                    .max(Comparator.comparingDouble(Ebook::getFileSize))
+                    .orElse(null);
+        }
+        else if(field.equals("minSize")) {
+            return ebooks.stream()
+                    .min(Comparator.comparingDouble(Ebook::getFileSize))
+                    .orElse(null);
+        }
+        return null;
     }
 
+    /**
+     * Returns the book with the specified field for audiobooks (e.g., max price, min price, longest, shortest).
+     */
     public static Audiobook getAudiobookStats(String field) {
         ArrayList<Audiobook> audiobooks = Manager.getAudiobooks();
 
         if(field.equals("maxPrice")) {
-            Audiobook mostExpensive = audiobooks.stream()
-            .max(Comparator.comparingDouble(Audiobook::getPrice))
-            .orElse(null); // orElse(null) returns null if the list is empty
-            
-            return mostExpensive; // Return the book
+            return audiobooks.stream()
+                    .max(Comparator.comparingDouble(Audiobook::getPrice))
+                    .orElse(null); 
         }
         else if(field.equals("minPrice")) {
-            Audiobook leastExpensivePrinted = audiobooks.stream()
-            .min(Comparator.comparingDouble(Audiobook::getPrice))
-            .orElse(null); // orElse(null) returns null if the list is empty
-            
-            return leastExpensivePrinted; // Return the book
+            return audiobooks.stream()
+                    .min(Comparator.comparingDouble(Audiobook::getPrice))
+                    .orElse(null);
         }
-        else if(field.equals("longest")){
-            Audiobook longestAudiobook = audiobooks.stream()
-            .max(Comparator.comparingInt(Audiobook::getDuration))
-            .orElse(null);
-            
-            return longestAudiobook;
+        else if(field.equals("longest")) {
+            return audiobooks.stream()
+                    .max(Comparator.comparingDouble(Audiobook::getDuration))
+                    .orElse(null);
         }
-        else {
-            Audiobook shortestAudiobook = audiobooks.stream()
-            .min(Comparator.comparingInt(Audiobook::getDuration))
-            .orElse(null);
-            
-            return shortestAudiobook;
+        else if(field.equals("shortest")) {
+            return audiobooks.stream()
+                    .min(Comparator.comparingDouble(Audiobook::getDuration))
+                    .orElse(null);
         }
+        return null;
     }
 
+    /**
+     * Returns the book with the specified field for all books (e.g., max price, min price).
+     */
     public static Book getBookStats(String field) {
-        ArrayList<Book> Books = Manager.getAllBooks();
+        ArrayList<Book> allBooks = Manager.getAllBooks();
 
         if(field.equals("maxPrice")) {
-            Book mostExpensive = Books.stream()
-            .max(Comparator.comparingDouble(Book::getPrice))
-            .orElse(null); // orElse(null) returns null if the list is empty
-            
-            return mostExpensive; // Return the book
+            return allBooks.stream()
+                    .max(Comparator.comparingDouble(Book::getPrice))
+                    .orElse(null); 
         }
-        else {
-            Book leastExpensivePrinted = Books.stream()
-            .min(Comparator.comparingDouble(Book::getPrice))
-            .orElse(null); // orElse(null) returns null if the list is empty
-            
-            return leastExpensivePrinted; // Return the book
+        else if(field.equals("minPrice")) {
+            return allBooks.stream()
+                    .min(Comparator.comparingDouble(Book::getPrice))
+                    .orElse(null);
         }
-    }
-
-    public static Ebook getFileSizeStats(String field) {
-        ArrayList<Ebook> ebooks = Manager.getEbooks();
-
-        if(field.equals("max")) {
-            Ebook largestFile = ebooks.stream()
-            .max(Comparator.comparingDouble(Ebook::getFileSize))
-            .orElse(null); // orElse(null) returns null if the list is empty
-            
-            return largestFile;
-        }
-        else {
-            Ebook smallestFile = ebooks.stream()
-            .min(Comparator.comparingDouble(Ebook::getFileSize))
-            .orElse(null); // orElse(null) returns null if the list is empty
-            
-            return smallestFile;
-        }
+        return null;
     }
 }
