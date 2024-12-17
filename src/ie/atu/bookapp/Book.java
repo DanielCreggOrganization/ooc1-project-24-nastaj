@@ -69,7 +69,7 @@ public abstract class Book {
         sb.append("ID:                ").append(id).append("\n");
         sb.append("Title:             ").append(title).append("\n");
         sb.append("Author:            ").append(author).append("\n");
-        sb.append("Genre:            ").append(genre).append("\n");
+        sb.append("Genre:             ").append(genre).append("\n");
         sb.append("Price:             $").append(price).append("\n");
         sb.append("Publication Year:  ").append(publicationYear).append("\n");
 

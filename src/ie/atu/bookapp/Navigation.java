@@ -34,6 +34,22 @@ public class Navigation {
         if (page.equals("stats")) {
             Statistics.printMenu();
         }
+
+        if (page.equals("resultsPrinted")) {
+            Display.showBooks("printed");
+        }
+
+        if (page.equals("ebooks")) {
+            Display.showBooks("ebooks");
+        }
+
+        if (page.equals("audiobooks")) {
+            Display.showBooks("audiobooks");
+        }
+
+        if (page.equals("all")) {
+            Display.showBooks("all");
+        }
     }
 
     public static void sideMenu() {

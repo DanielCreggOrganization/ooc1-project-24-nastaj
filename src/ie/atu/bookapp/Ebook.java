@@ -36,8 +36,8 @@ public class Ebook extends Book {
         StringBuilder sb = new StringBuilder();
 
         sb.append(super.toString());
-        sb.append("File Size:        ").append(fileSize).append("\n");
-        sb.append("File Format:        ").append(format).append("\n");
+        sb.append("File Size:         ").append(fileSize).append("\n");
+        sb.append("File Format:       ").append(format).append("\n");
         sb.append("Type:              ").append("Ebook").append("\n");
         sb.append("====================================");
 

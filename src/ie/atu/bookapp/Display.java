@@ -39,118 +39,138 @@ public class Display {
         ArrayList<PrintedBook> printedBooks = Manager.getPrintedBooks();
         ArrayList<Ebook> ebooks = Manager.getEbooks();
         ArrayList<Audiobook> audiobooks = Manager.getAudiobooks();
-
-        // Check the type and display the appropriate list
-        System.out.println(type);
+    
         if (type.equals("printed")) {
+            Navigation.setCurrentPage("resultsPrinted");
+            Navigation.setPreviousPage("showBooks");
+
             if (printedBooks.isEmpty()) {
                 System.out.println("No printed books available.");
                 return;
             }
-
+    
             // Apply sorting
             Sort.sortPrintedBooks(sortBy);
-            
-            System.out.println("Number of Printed Books in library: " + results);
-            System.out.printf("| %-4s | %-25s | %-20s | %-7s | %-6s |%n", "ID", "Title", "Author", "Price", "Page Count");
-            System.out.println("+------+---------------------------+----------------------+---------+--------+");
+    
+            System.out.println("Number of Printed Books in library: " + results + "\n");
+            System.out.printf("| %-4s | %-25s | %-20s | %-20s | %-7s | %-6s |%n", 
+                              "ID", "Title", "Author", "Genre", "Price", "Pages");
+            System.out.println("+------+---------------------------+----------------------+----------------------+---------+--------+");
             for (PrintedBook book : printedBooks) {
-                System.out.printf("| %-4d | %-25s | %-20s | $%-6.2f | %-6d |%n",
-                        book.getId(), book.getTitle(), book.getAuthor(), book.getPrice(), book.getPageCount());
+                System.out.printf("| %-4d | %-25s | %-20s | %-20s | $%-6.2f | %-6d |%n",
+                        book.getId(), book.getTitle(), book.getAuthor(), book.getGenre(), book.getPrice(), book.getPageCount());
             }
-            System.out.println("+------+---------------------------+----------------------+---------+--------+");
+            System.out.println("+------+---------------------------+----------------------+----------------------+---------+--------+");
     
         } else if (type.equalsIgnoreCase("ebooks")) {
+            Navigation.setCurrentPage("resultsEbook");
+            Navigation.setPreviousPage("showBooks");
+
             if (ebooks.isEmpty()) {
                 System.out.println("No ebooks available.");
                 return;
             }
-
+    
             // Apply sorting
             Sort.sortEbooks(sortBy);
-
-            System.out.println("Number of Ebooks in library: " + results);
-            System.out.printf("| %-4s | %-25s | %-20s | %-7s | %-6s | %-8s |%n", "ID", "Title", "Author", "Price", "Size", "Format");
-            System.out.println("+------+---------------------------+----------------------+---------+--------+----------+");
+    
+            System.out.println("Number of Ebooks in library: " + results + "\n");
+            System.out.printf("| %-4s | %-25s | %-20s | %-20s | %-7s | %-6s | %-8s |%n", 
+                              "ID", "Title", "Author", "Genre", "Price", "Size", "Format");
+            System.out.println("+------+---------------------------+----------------------+----------------------+---------+--------+----------+");
             for (Ebook ebook : ebooks) {
-                System.out.printf("| %-4d | %-25s | %-20s | $%-6.2f | %-6.1f MB | %-8s |%n",
-                        ebook.getId(), ebook.getTitle(), ebook.getAuthor(), ebook.getPrice(), ebook.getFileSize(), ebook.getFormat());
+                System.out.printf("| %-4d | %-25s | %-20s | %-20s | $%-6.2f | %-6.1f MB | %-8s |%n",
+                        ebook.getId(), ebook.getTitle(), ebook.getAuthor(), ebook.getGenre(), ebook.getPrice(), ebook.getFileSize(), ebook.getFormat());
             }
-            System.out.println("+------+---------------------------+----------------------+---------+--------+----------+");
+            System.out.println("+------+---------------------------+----------------------+----------------------+---------+--------+----------+");
     
         } else if (type.equalsIgnoreCase("audiobooks")) {
+            Navigation.setCurrentPage("resultsAudiobook");
+            Navigation.setPreviousPage("showBooks");
+
             if (audiobooks.isEmpty()) {
                 System.out.println("No audiobooks available.");
                 return;
             }
-
+    
             // Apply sorting
             Sort.sortAudiobooks(sortBy);
-
-            System.out.println("Number of Audiobooks in library: " + results);
-            System.out.printf("| %-4s | %-25s | %-20s | %-7s | %-6s | %-15s |%n", "ID", "Title", "Author", "Price", "Duration", "Narrator");
-            System.out.println("+------+---------------------------+----------------------+---------+--------+-----------------+");
+    
+            System.out.println("Number of Audiobooks in library: " + results + "\n");
+            System.out.printf("| %-4s | %-25s | %-20s | %-20s | %-7s | %-6s | %-15s |%n", 
+                              "ID", "Title", "Author", "Genre", "Price", "Duration", "Narrator");
+            System.out.println("+------+---------------------------+----------------------+----------------------+---------+--------+-----------------+");
             for (Audiobook audiobook : audiobooks) {
-                System.out.printf("| %-4d | %-25s | %-20s | $%-6.2f | %-1dh | %-15s |%n",
-                        audiobook.getId(), audiobook.getTitle(), audiobook.getAuthor(), audiobook.getPrice(), audiobook.getDuration(), audiobook.getNarrator());
+                System.out.printf("| %-4d | %-25s | %-20s | %-20s | $%-6.2f | %-1dh | %-15s |%n",
+                        audiobook.getId(), audiobook.getTitle(), audiobook.getAuthor(), audiobook.getGenre(), audiobook.getPrice(), audiobook.getDuration(), audiobook.getNarrator());
             }
-            System.out.println("+------+---------------------------+----------------------+---------+--------+-----------------+");
+            System.out.println("+------+---------------------------+----------------------+----------------------+---------+--------+-----------------+");
         }
 
+        // Display navigation options
         Navigation.sideMenu();
-        System.out.println("(S) Sort By");
+        System.out.println("(S) Sort By | (R) Remove a Book | (U) Update a Book");
         System.out.println("---------------------------------------------");
         System.out.print("Enter your choice: ");
+
         String choice = App.scanner.nextLine();
         if (choice.equalsIgnoreCase("s")) {
             Menu.printSortMenu(type, results);
         }
+        else if (choice.equalsIgnoreCase("r")) {
+            Menu.printRemoveBookMenu();
+        }
+        else if (choice.equalsIgnoreCase("u")) {
+            Menu.printUpdateBookMenu();
+        }
+        
         Navigation.sideMenu(choice);
     }
 
     public static void displayAllBooks(String type, String sortBy, int results) {
-        ArrayList<Book> books = Manager.getAllBooks();
+        Navigation.setCurrentPage("resultsAll");
+        Navigation.setPreviousPage("showBooks");
 
+        ArrayList<Book> books = Manager.getAllBooks();
+    
         if (books.isEmpty()) {
             System.out.println("No books available.");
             return;
         }
-
+    
         // Apply sorting
         Sort.sortAllBooks(sortBy);
     
         // Table header with appropriate column widths
-        System.out.printf("| %-4s | %-25s | %-20s | %-8s | %-12s | %-22s |%n", "ID", "Title", "Author", "Price", "Type", "Extra Info");
-        System.out.println("+------+---------------------------+----------------------+----------+--------------+---------------------------+");
+        System.out.printf("| %-4s | %-25s | %-20s | %-20s | %-8s | %-12s |%n", 
+                          "ID", "Title", "Author", "Genre", "Price", "Type");
+        System.out.println("+------+---------------------------+----------------------+----------------------+----------+--------------+");
     
         // Loop through all books
         for (Book book : books) {
             // Print common details
-            System.out.printf("| %-4d | %-25s | %-20s | $%-7.2f | %-12s | ",
-                    book.getId(), book.getTitle(), book.getAuthor(), book.getPrice(), book.getClass().getSimpleName());
-    
-            // Print specific details based on type of book
-            if (book instanceof PrintedBook) {
-                PrintedBook printedBook = (PrintedBook) book;
-                System.out.printf("%-22d Pages%n", printedBook.getPageCount());
-            } else if (book instanceof Ebook) {
-                Ebook ebook = (Ebook) book;
-                System.out.printf("%-10.2f MB | %-10s%n", ebook.getFileSize(), ebook.getFormat());
-            } else if (book instanceof Audiobook) {
-                Audiobook audiobook = (Audiobook) book;
-                System.out.printf("%-10d hrs | Narrator: %-10s%n", audiobook.getDuration(), audiobook.getNarrator());
-            }
+            System.out.printf("| %-4d | %-25s | %-20s | %-20s | $%-7.2f | %-12s |%n",
+                    book.getId(), book.getTitle(), book.getAuthor(), book.getGenre(), book.getPrice(), book.getClass().getSimpleName());
         }
-        System.out.println("+------+---------------------------+----------------------+----------+--------------+---------------------------+");
-
+        System.out.println("+------+---------------------------+----------------------+----------------------+----------+--------------+");
+    
+        // Display navigation options
         Navigation.sideMenu();
+        System.out.println("(S) Sort By | (R) Remove a Book | (U) Update a Book");
         System.out.println("---------------------------------------------");
-        System.out.println("(S) Sort By");
         System.out.print("Enter your choice: ");
+
         String choice = App.scanner.nextLine();
         if (choice.equalsIgnoreCase("s")) {
             Menu.printSortMenu(type, results);
         }
+        else if (choice.equalsIgnoreCase("r")) {
+            Menu.printRemoveBookMenu();
+        }
+        else if (choice.equalsIgnoreCase("u")) {
+            Menu.printUpdateBookMenu();
+        }
+
         Navigation.sideMenu(choice);
     }
 }

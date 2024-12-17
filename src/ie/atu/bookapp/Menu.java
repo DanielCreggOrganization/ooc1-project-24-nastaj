@@ -135,8 +135,11 @@ public class Menu {
     }
 
     public static void printUpdateBookMenu() {
+        if (Navigation.getCurrentPage().equals("manager")) {
+            Navigation.setPreviousPage("manager");
+        }
+        
         Navigation.setCurrentPage("updateBook");
-        Navigation.setPreviousPage("manager");
         ClearConsole.clearConsole();
 
         if (Manager.getAllBooks().isEmpty()) {
@@ -190,6 +193,7 @@ public class Menu {
             System.out.println("(5) Duration");
         }
     
+        System.out.println("------------------------------------");
         System.out.print("Enter your choice: ");
         String choice = App.scanner.nextLine();
     
@@ -246,7 +250,6 @@ public class Menu {
     
             ClearConsole.clearConsole();
             System.out.println(bookToUpdate);
-            System.out.println("====================================");
             System.out.println("Book updated successfully!");
 
             Navigation.sideMenu();
@@ -254,8 +257,10 @@ public class Menu {
     }
     
     public static void printRemoveBookMenu() {
+        if (Navigation.getCurrentPage().equals("manager")) {
+            Navigation.setPreviousPage("manager");
+        }
         Navigation.setCurrentPage("removeBook");
-        Navigation.setPreviousPage("manager");
         ClearConsole.clearConsole();
 
         System.out.println("Remove a Book");
