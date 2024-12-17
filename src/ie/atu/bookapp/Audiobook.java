@@ -14,7 +14,6 @@ public class Audiobook extends Book{
         this.narrator = narrator;
     }
 
-    // TODO: Setters and getters
     public int getDuration() {
         return this.duration;
     }

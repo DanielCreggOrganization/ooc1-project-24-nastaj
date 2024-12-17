@@ -8,11 +8,11 @@ public class Navigation {
         ClearConsole.clearConsole();
 
         if(page.equals("manager")) {
-            BookManager.printMenu();
+            Manager.printMenu();
         }
 
         if(page.equals("addBook")) {
-            BookManager.printAddBookMenu();
+            Menu.printAddBookMenu();
         }
 
         if(page.equals("main")) {
@@ -20,15 +20,15 @@ public class Navigation {
         }
 
         if(page.equals("removeBook")) {
-            BookManager.printRemoveBookMenu();
+            Menu.printRemoveBookMenu();
         }
 
         if (page.equals("findBook")) {
-            BookManager.printFindBookMenu();
+            Menu.printFindBookMenu();
         }
 
         if (page.equals("showBooks")) {
-            BookManager.printShowBooksMenu();
+            Menu.printShowBooksMenu();
         }
 
         if (page.equals("stats")) {

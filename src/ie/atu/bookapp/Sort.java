@@ -50,18 +50,18 @@ public class Sort {
     }
     
     public static void sortAllBooks(String sortBy) {
-        sortBooks(Manager.books, sortBy);
+        sortBooks(Manager.getAllBooks(), sortBy);
     }
     
     public static void sortPrintedBooks(String sortBy) {
-        sortBooks(Manager.printedBooks, sortBy);
+        sortBooks(Manager.getPrintedBooks(), sortBy);
     }
     
     public static void sortEbooks(String sortBy) {
-        sortBooks(Manager.ebooks, sortBy);
+        sortBooks(Manager.getEbooks(), sortBy);
     }
     
     public static void sortAudiobooks(String sortBy) {
-        sortBooks(Manager.audiobooks, sortBy);
+        sortBooks(Manager.getAudiobooks(), sortBy);
     }
 }

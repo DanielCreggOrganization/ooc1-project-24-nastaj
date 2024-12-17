@@ -3,46 +3,46 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Find {
-    private static Book findBookById(String bookId) {
+    public static Book findBookById(String bookId) {
         // Convert bookId string to int
         int id = Integer.parseInt(bookId);
     
         // Search in all categories for a book with the given ID
-        for (Book book : printedBooks) {
+        for (Book book : Manager.getPrintedBooks()) {
             if (book.getId() == id) return book;
         }
-        for (Book book : ebooks) {
+        for (Book book : Manager.getEbooks()) {
             if (book.getId() == id) return book;
         }
-        for (Book book : audiobooks) {
+        for (Book book : Manager.getAudiobooks()) {
             if (book.getId() == id) return book;
         }
     
         return null; // No book found
     }
     
-    private static List<Book> findBooksByTitle(String title) {
+    public static List<Book> findBooksByTitle(String title) {
         List<Book> matchingBooks = new ArrayList<>();
     
         // Search in all categories for books with the given name
-        for (Book book : printedBooks) {
+        for (Book book : Manager.getPrintedBooks()) {
             if (book.getTitle().equalsIgnoreCase(title)) matchingBooks.add(book);
         }
-        for (Book book : ebooks) {
+        for (Book book : Manager.getEbooks()) {
             if (book.getTitle().equalsIgnoreCase(title)) matchingBooks.add(book);
         }
-        for (Book book : audiobooks) {
+        for (Book book : Manager.getAudiobooks()) {
             if (book.getTitle().equalsIgnoreCase(title)) matchingBooks.add(book);
         }
         return matchingBooks;
     }
 
-    private static void findBookByTitle() {
+    public static void findBookByTitle() {
         Navigation.setCurrentPage("findByTitle");
         Navigation.setPreviousPage("findBook");
         ClearConsole.clearConsole();
 
-        if (Manager.books.isEmpty()) {
+        if (Manager.getAllBooks().isEmpty()) {
             System.out.println("No books available.");
             Navigation.sideMenu();
             Navigation.handleChoice();
@@ -79,12 +79,12 @@ public class Find {
         }
     }
 
-    private static void findBookById() {
+    public static void findBookById() {
         Navigation.setCurrentPage("findById");
         Navigation.setPreviousPage("findBook");
         ClearConsole.clearConsole();
 
-        if (Manager.books.isEmpty()) {
+        if (Manager.getAllBooks().isEmpty()) {
             System.out.println("No books available.");
             Navigation.sideMenu();
             Navigation.handleChoice();

@@ -11,8 +11,8 @@ public class App {
     private static boolean running = true;
     
     App() {
-        new BookManager();
-        BookManager.populateBooks();
+        new Manager();
+        Manager.populateBooks();
     }
 
     // Run function is responsible for starting up the app and printing the main menu for the first time the app is launched.
@@ -50,7 +50,7 @@ public class App {
 
             switch(choice) {
                 case 1: {
-                    BookManager.printMenu();
+                    Manager.printMenu();
                     running = false;
                     break;
                 }

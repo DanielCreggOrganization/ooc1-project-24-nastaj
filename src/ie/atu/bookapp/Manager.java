@@ -1,8 +1,6 @@
 package ie.atu.bookapp;
 
 import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
 
 public class Manager {
     // Because the size of the arrays are not known at the start of the program, they should be getting resized dynamically.
@@ -36,23 +34,38 @@ public class Manager {
         String choice = Navigation.handleChoice();
         
         switch(choice) {
-            // TODO: All choices for this menu
             case "1": 
-                Manager.printAddBookMenu();
+                Menu.printAddBookMenu();
                 break;
             case "2": 
-                Manager.printUpdateBookMenu();
+                Menu.printUpdateBookMenu();
                 break;
             case "3": 
-                Manager.printRemoveBookMenu();
+                Menu.printRemoveBookMenu();
                 break;
             case "4": 
-                Manager.printFindBookMenu();
+                Menu.printFindBookMenu();
                 break;
             case "5": 
-                Manager.printShowBooksMenu();
+                Menu.printShowBooksMenu();
                 break;
         }
+    }
+
+    public static ArrayList<PrintedBook> getPrintedBooks() {
+        return Manager.printedBooks;
+    }
+    
+    public static ArrayList<Ebook> getEbooks() {
+        return Manager.ebooks;
+    }
+
+    public static ArrayList<Audiobook> getAudiobooks() {
+        return Manager.audiobooks;
+    } 
+
+    public static ArrayList<Book> getAllBooks() {
+        return Manager.books;
     }
 
     public static void populateBooks() {
@@ -79,21 +92,5 @@ public class Manager {
          books.addAll(printedBooks);  // Add all printedBooks to books
          books.addAll(ebooks);        // Add all ebooks to books
          books.addAll(audiobooks);    // Add all audiobooks to books
-    }
-
-    public static ArrayList<PrintedBook> getPrintedBooks() {
-        return Manager.printedBooks;
-    }
-    
-    public static ArrayList<Ebook> getEbooks() {
-        return Manager.ebooks;
-    }
-
-    public static ArrayList<Audiobook> getAudiobooks() {
-        return Manager.audiobooks;
-    } 
-
-    public static ArrayList<Book> getAllBooks() {
-        return Manager.books;
     }
 }

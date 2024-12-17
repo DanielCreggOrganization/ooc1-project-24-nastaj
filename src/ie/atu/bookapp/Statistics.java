@@ -25,7 +25,6 @@ public class Statistics {
         Navigation.sideMenu(choice);
         
         switch(choice) {
-            // TODO: All choices for this menu
             case "1": 
                 Statistics.printStatsAll();
                 break;
@@ -250,16 +249,16 @@ public class Statistics {
 
     public static int getTotalBooks(String type) {
         if(type.equals("Printed Book")) {
-            return BookManager.getPrintedBooks().size();
+            return Manager.getPrintedBooks().size();
         }
         else if(type.equals("Ebook")) {
-            return BookManager.getEbooks().size();
+            return Manager.getEbooks().size();
         }
         else if(type.equals("Audiobook")) {
-            return BookManager.getAudiobooks().size();
+            return Manager.getAudiobooks().size();
         }
         else {
-            return BookManager.getAllBooks().size();
+            return Manager.getAllBooks().size();
         }
     }
 
@@ -267,19 +266,19 @@ public class Statistics {
         double average = 0;
 
         if(type.equals("Printed Book")) {
-            average = BookManager.getPrintedBooks().stream()
+            average = Manager.getPrintedBooks().stream()
             .mapToDouble(Book::getPrice) // Map each book to its price
             .average()                  // Calculate the average
             .orElse(0.0);     
         }
         else if (type.equals("Ebook")) {
-            average = BookManager.getEbooks().stream().mapToDouble(Book::getPrice).average().orElse(0.0);  
+            average = Manager.getEbooks().stream().mapToDouble(Book::getPrice).average().orElse(0.0);  
         }
         else if (type.equals("Audiobook")) {
-            average = BookManager.getAudiobooks().stream().mapToDouble(Book::getPrice).average().orElse(0.0);  
+            average = Manager.getAudiobooks().stream().mapToDouble(Book::getPrice).average().orElse(0.0);  
         }
         else {
-            average = BookManager.getAllBooks().stream().mapToDouble(Book::getPrice).average().orElse(0.0); 
+            average = Manager.getAllBooks().stream().mapToDouble(Book::getPrice).average().orElse(0.0); 
         }
 
         // Round to two decimal places
@@ -287,7 +286,7 @@ public class Statistics {
     }
 
     public static PrintedBook getPrintedStats(String field) {
-        ArrayList<PrintedBook> printedBooks = BookManager.getPrintedBooks();
+        ArrayList<PrintedBook> printedBooks = Manager.getPrintedBooks();
 
         if(field.equals("maxPrice")) {
             PrintedBook mostExpensive = printedBooks.stream()
@@ -320,7 +319,7 @@ public class Statistics {
     }
     
     public static Ebook getEbookStats(String field) {
-        ArrayList<Ebook> ebooks = BookManager.getEbooks();
+        ArrayList<Ebook> ebooks = Manager.getEbooks();
 
         if(field.equals("maxPrice")) {
             Ebook mostExpensive = ebooks.stream()
@@ -339,7 +338,7 @@ public class Statistics {
     }
 
     public static Audiobook getAudiobookStats(String field) {
-        ArrayList<Audiobook> audiobooks = BookManager.getAudiobooks();
+        ArrayList<Audiobook> audiobooks = Manager.getAudiobooks();
 
         if(field.equals("maxPrice")) {
             Audiobook mostExpensive = audiobooks.stream()
@@ -372,7 +371,7 @@ public class Statistics {
     }
 
     public static Book getBookStats(String field) {
-        ArrayList<Book> Books = BookManager.getAllBooks();
+        ArrayList<Book> Books = Manager.getAllBooks();
 
         if(field.equals("maxPrice")) {
             Book mostExpensive = Books.stream()
@@ -391,7 +390,7 @@ public class Statistics {
     }
 
     public static Ebook getFileSizeStats(String field) {
-        ArrayList<Ebook> ebooks = BookManager.getEbooks();
+        ArrayList<Ebook> ebooks = Manager.getEbooks();
 
         if(field.equals("max")) {
             Ebook largestFile = ebooks.stream()

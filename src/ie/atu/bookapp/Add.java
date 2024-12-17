@@ -33,8 +33,8 @@ public class Add {
         
         if (choice.equalsIgnoreCase("y") || choice.equalsIgnoreCase("yes")) {
             PrintedBook PrintedBook = new PrintedBook(title, author, price, publicationYear, pageCount);
-            Manager.printedBooks.add(PrintedBook);
-            Manager.books.add(PrintedBook);
+            Manager.getPrintedBooks().add(PrintedBook);
+            Manager.getAllBooks().add(PrintedBook);
         
             ClearConsole.clearConsole();
 
@@ -47,7 +47,7 @@ public class Add {
                     
             if (choice.equalsIgnoreCase("y") || choice.equalsIgnoreCase("yes")) {
                 // Prompt the user again
-                Manager.printBookMenu();
+                Add.book();
             }
                     
             else if (choice.equalsIgnoreCase("n") || choice.equalsIgnoreCase("no")) {
@@ -57,7 +57,7 @@ public class Add {
         }
         else if (choice.equalsIgnoreCase("n") || choice.equalsIgnoreCase("no")) {
             // Prompt the user again
-            Manager.printBookMenu();
+            Add.book();
         }
     }
 
@@ -94,8 +94,8 @@ public class Add {
         
         if (choice.equalsIgnoreCase("y") || choice.equalsIgnoreCase("yes")) {
             Ebook ebook = new Ebook(title, author, price, publicationYear, fileSize, format);
-            Manager.ebooks.add(ebook);
-            Manager.books.add(ebook);
+            Manager.getEbooks().add(ebook);
+            Manager.getAllBooks().add(ebook);
         
             ClearConsole.clearConsole();
         
@@ -108,7 +108,7 @@ public class Add {
                     
             if (choice.equalsIgnoreCase("y") || choice.equalsIgnoreCase("yes")) {
                 // Prompt the user again
-                Manager.printEbookMenu();
+                Add.ebook();
             }
                     
             else if (choice.equalsIgnoreCase("n") || choice.equalsIgnoreCase("no")) {
@@ -118,7 +118,7 @@ public class Add {
         }
         else if (choice.equalsIgnoreCase("n") || choice.equalsIgnoreCase("no")) {
             // Prompt the user again
-            Manager.printEbookMenu();
+            Add.ebook();
         }
     }
 
@@ -156,8 +156,8 @@ public class Add {
         
         if (choice.equalsIgnoreCase("y") || choice.equalsIgnoreCase("yes")) {
             Audiobook audiobook = new Audiobook(title, author, price, publicationYear, duration, narrator);
-            Manager.audiobooks.add(audiobook);
-            Manager.books.add(audiobook);
+            Manager.getAudiobooks().add(audiobook);
+            Manager.getAllBooks().add(audiobook);
         
             ClearConsole.clearConsole();
         
@@ -170,7 +170,7 @@ public class Add {
                     
             if (choice.equalsIgnoreCase("y") || choice.equalsIgnoreCase("yes")) {
                 // Prompt the user again
-                Manager.printAudiobookMenu();
+                Add.audiobook();
             }
                     
             else if (choice.equalsIgnoreCase("n") || choice.equalsIgnoreCase("no")) {
@@ -180,7 +180,7 @@ public class Add {
         }
         else if (choice.equalsIgnoreCase("n") || choice.equalsIgnoreCase("no")) {
             // Prompt the user again
-            Manager.printEbookMenu();
+            Add.audiobook();
         }
     }
 }

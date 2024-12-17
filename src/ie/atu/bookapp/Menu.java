@@ -18,18 +18,17 @@ public class Menu {
         String choice = Navigation.handleChoice();
 
         switch(choice) {
-            // TODO: All choices for this menu
             case "1": 
-                Manager.showBooks("printed");
+                Display.showBooks("printed");
                 break;
             case "2": 
-                Manager.showBooks("ebooks");
+                Display.showBooks("ebooks");
                 break;
             case "3": 
-                Manager.showBooks("audiobooks");
+                Display.showBooks("audiobooks");
                 break;
             case "4": 
-                Manager.showBooks("all");
+                Display.showBooks("all");
                 break;
         }
     }
@@ -91,10 +90,10 @@ public class Menu {
         }
 
         if (!type.equals("all")) {
-            displayBooks(type, sortBy, results);
+            Display.displayBooks(type, sortBy, results);
         }
         else {
-            displayAllBooks(type, sortBy, results);
+            Display.displayAllBooks(type, sortBy, results);
         }
     }
 
@@ -114,15 +113,14 @@ public class Menu {
         String choice = Navigation.handleChoice();
 
         switch(choice) {
-            // TODO: All choices for this menu
             case "1": 
-                Manager.printBookMenu();
+                Add.book();
                 break;
             case "2": 
-                Manager.printEbookMenu();
+                Add.ebook();
                 break;
             case "3": 
-                Manager.printAudiobookMenu();
+                Add.audiobook();
                 break;
         }
     }
@@ -132,7 +130,7 @@ public class Menu {
         Navigation.setPreviousPage("manager");
         ClearConsole.clearConsole();
 
-        if (Manager.books.isEmpty()) {
+        if (Manager.getAllBooks().isEmpty()) {
             System.out.println("No books available.");
             Navigation.sideMenu();
             Navigation.handleChoice();
@@ -159,7 +157,7 @@ public class Menu {
             }
 
         // Find the book by ID
-        Book bookToUpdate = findBookById(bookId);
+        Book bookToUpdate = Find.findBookById(bookId);
         
         if (bookToUpdate == null) {
             System.out.println("Book with ID " + bookId + " not found.");
@@ -256,13 +254,13 @@ public class Menu {
         
         switch (choice) {
             case "1":
-                Manager.removeBookById();
+                Remove.removeBookById();
                 break;
             case "2":
-                Manager.removeBookByTitle();
+                Remove.removeBookByTitle();
                 break;
             default:
-                Manager.printRemoveBookMenu();
+                printRemoveBookMenu();
         }
     }
 
@@ -282,13 +280,13 @@ public class Menu {
 
         switch (choice) {
             case "1":
-                Manager.findBookById();
+                Find.findBookById();
                 break;
             case "2":
-                Manager.findBookByTitle();
+                Find.findBookByTitle();
                 break;
             default:
-                Manager.printFindBookMenu();
+                printFindBookMenu();
         }
     }
 }

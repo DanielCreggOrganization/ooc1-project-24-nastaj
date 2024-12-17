@@ -14,7 +14,6 @@ public class Ebook extends Book {
         this.format = format;
     }
 
-    // TODO: Setters and getters
     public double getFileSize() {
         return this.fileSize;
     }

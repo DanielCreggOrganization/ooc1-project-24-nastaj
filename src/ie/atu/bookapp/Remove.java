@@ -3,12 +3,12 @@ package ie.atu.bookapp;
 import java.util.List;
 
 public class Remove {
-    private static void removeBookById() {
+    public static void removeBookById() {
         Navigation.setCurrentPage("removeById");
         Navigation.setPreviousPage("removeBook");
         ClearConsole.clearConsole();
 
-        if (Manager.books.isEmpty()) {
+        if (Manager.getAllBooks().isEmpty()) {
             Navigation.sideMenu();
             Navigation.handleChoice();
         }
@@ -28,7 +28,7 @@ public class Remove {
                 continue; // Restart the loop
             }
 
-            Book book = findBookById(bookId);
+            Book book = Find.findBookById(bookId);
             if (book != null) {
                 confirmAndDelete(book);
                 return; // Exit the method after successful deletion
@@ -54,12 +54,12 @@ public class Remove {
         }
     }
 
-    private static void removeBookByTitle() {
+    public static void removeBookByTitle() {
         Navigation.setCurrentPage("removeByTitle");
         Navigation.setPreviousPage("removeBook");
         ClearConsole.clearConsole();
 
-        if (Manager.books.isEmpty()) {
+        if (Manager.getAllBooks().isEmpty()) {
             Navigation.sideMenu();
             Navigation.handleChoice();
         }
@@ -68,7 +68,7 @@ public class Remove {
             System.out.print("Enter Book Title to Remove: ");
             String title = App.scanner.nextLine();
 
-            List<Book> matchingBooks = findBooksByTitle(title);
+            List<Book> matchingBooks = Find.findBooksByTitle(title);
 
             if (!matchingBooks.isEmpty()) {
                 System.out.println("Matching Books:");
@@ -102,7 +102,7 @@ public class Remove {
         }
     }
 
-    private static void confirmAndDelete(Book book) {
+    public static void confirmAndDelete(Book book) {
         System.out.println(book + "\n");
         System.out.println("Are you sure you want to delete the following book?\n");
         System.out.print("Y / N: ");
@@ -112,19 +112,17 @@ public class Remove {
         if (confirmation.equalsIgnoreCase("y") || confirmation.equalsIgnoreCase("yes")) {
             // Remove the book from the appropriate list
             if (book instanceof PrintedBook) {
-                printedBooks.remove(book);
+                Manager.getPrintedBooks().remove(book);
             } else if (book instanceof Ebook) {
-                ebooks.remove(book);
+                Manager.getEbooks().remove(book);
             } else if (book instanceof Audiobook) {
-                audiobooks.remove(book);
+                Manager.getAudiobooks().remove(book);
             }
-            books.remove(book);
+            Manager.getAllBooks().remove(book);
             System.out.println("Book deleted successfully!");
         } else {
             System.out.println("Book deletion cancelled.");
         }
         Navigation.moveTo(Navigation.getPreviousPage());
     }
-
-
 }

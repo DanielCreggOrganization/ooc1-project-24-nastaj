@@ -1,7 +1,9 @@
 package ie.atu.bookapp;
 
+import java.util.ArrayList;
+
 public class Display {
-    private static void showBooks(String type) {
+    public static void showBooks(String type) {
         Navigation.setCurrentPage("showBooksResults");
         Navigation.setPreviousPage("showBooks");
         ClearConsole.clearConsole();
@@ -9,16 +11,16 @@ public class Display {
         int results = 0;
         switch(type) {
             case "printed":
-                results = printedBooks.size();
+                results = Manager.getPrintedBooks().size();
                 break; 
             case "ebooks":
-                results = ebooks.size();
+                results = Manager.getEbooks().size();
                 break;
             case "audiobooks":
-                results = audiobooks.size();
+                results = Manager.getAudiobooks().size();
                 break;
             case "all":
-                results = books.size();
+                results = Manager.getAllBooks().size();
                 break;
         }
 
@@ -33,17 +35,21 @@ public class Display {
         }
     }
 
-    private static void displayBooks(String type, String sortBy, int results) {
+    public static void displayBooks(String type, String sortBy, int results) {
+        ArrayList<PrintedBook> printedBooks = Manager.getPrintedBooks();
+        ArrayList<Ebook> ebooks = Manager.getEbooks();
+        ArrayList<Audiobook> audiobooks = Manager.getAudiobooks();
+
         // Check the type and display the appropriate list
         System.out.println(type);
         if (type.equals("printed")) {
-            if (Manager.printedBooks.isEmpty()) {
+            if (printedBooks.isEmpty()) {
                 System.out.println("No printed books available.");
                 return;
             }
 
             // Apply sorting
-            sortPrintedBooks(sortBy);
+            Sort.sortPrintedBooks(sortBy);
             
             System.out.println("Number of Printed Books in library: " + results);
             System.out.printf("| %-4s | %-25s | %-20s | %-7s | %-6s |%n", "ID", "Title", "Author", "Price", "Page Count");
@@ -55,36 +61,36 @@ public class Display {
             System.out.println("+------+---------------------------+----------------------+---------+--------+");
     
         } else if (type.equalsIgnoreCase("ebooks")) {
-            if (Manager.ebooks.isEmpty()) {
+            if (ebooks.isEmpty()) {
                 System.out.println("No ebooks available.");
                 return;
             }
 
             // Apply sorting
-            sortEbooks(sortBy);
+            Sort.sortEbooks(sortBy);
 
             System.out.println("Number of Ebooks in library: " + results);
             System.out.printf("| %-4s | %-25s | %-20s | %-7s | %-6s | %-8s |%n", "ID", "Title", "Author", "Price", "Size", "Format");
             System.out.println("+------+---------------------------+----------------------+---------+--------+----------+");
-            for (Ebook ebook : Manager.ebooks) {
+            for (Ebook ebook : ebooks) {
                 System.out.printf("| %-4d | %-25s | %-20s | $%-6.2f | %-6.1f MB | %-8s |%n",
                         ebook.getId(), ebook.getTitle(), ebook.getAuthor(), ebook.getPrice(), ebook.getFileSize(), ebook.getFormat());
             }
             System.out.println("+------+---------------------------+----------------------+---------+--------+----------+");
     
         } else if (type.equalsIgnoreCase("audiobooks")) {
-            if (Manager.audiobooks.isEmpty()) {
+            if (audiobooks.isEmpty()) {
                 System.out.println("No audiobooks available.");
                 return;
             }
 
             // Apply sorting
-            sortAudiobooks(sortBy);
+            Sort.sortAudiobooks(sortBy);
 
             System.out.println("Number of Audiobooks in library: " + results);
             System.out.printf("| %-4s | %-25s | %-20s | %-7s | %-6s | %-15s |%n", "ID", "Title", "Author", "Price", "Duration", "Narrator");
             System.out.println("+------+---------------------------+----------------------+---------+--------+-----------------+");
-            for (Audiobook audiobook : Manager.audiobooks) {
+            for (Audiobook audiobook : audiobooks) {
                 System.out.printf("| %-4d | %-25s | %-20s | $%-6.2f | %-1dh | %-15s |%n",
                         audiobook.getId(), audiobook.getTitle(), audiobook.getAuthor(), audiobook.getPrice(), audiobook.getDuration(), audiobook.getNarrator());
             }
@@ -97,27 +103,28 @@ public class Display {
         System.out.print("Enter your choice: ");
         String choice = App.scanner.nextLine();
         if (choice.equalsIgnoreCase("s")) {
-            printSortMenu(type, results);
+            Menu.printSortMenu(type, results);
         }
         Navigation.sideMenu(choice);
     }
 
-    private static void displayAllBooks(String type, String sortBy, int results) {
-        if (Manager.books.isEmpty()) {
+    public static void displayAllBooks(String type, String sortBy, int results) {
+        ArrayList<Book> books = Manager.getAllBooks();
+
+        if (books.isEmpty()) {
             System.out.println("No books available.");
             return;
         }
 
         // Apply sorting
-        System.out.println(sortBy);
-        sortAllBooks(sortBy);
+        Sort.sortAllBooks(sortBy);
     
         // Table header with appropriate column widths
         System.out.printf("| %-4s | %-25s | %-20s | %-8s | %-12s | %-22s |%n", "ID", "Title", "Author", "Price", "Type", "Extra Info");
         System.out.println("+------+---------------------------+----------------------+----------+--------------+---------------------------+");
     
         // Loop through all books
-        for (Book book : Manager.books) {
+        for (Book book : books) {
             // Print common details
             System.out.printf("| %-4d | %-25s | %-20s | $%-7.2f | %-12s | ",
                     book.getId(), book.getTitle(), book.getAuthor(), book.getPrice(), book.getClass().getSimpleName());
@@ -142,7 +149,7 @@ public class Display {
         System.out.print("Enter your choice: ");
         String choice = App.scanner.nextLine();
         if (choice.equalsIgnoreCase("s")) {
-            printSortMenu(type, results);
+            Menu.printSortMenu(type, results);
         }
         Navigation.sideMenu(choice);
     }
