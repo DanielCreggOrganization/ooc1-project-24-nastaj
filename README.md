@@ -1,97 +1,101 @@
-[![Open in Codespaces](https://classroom.github.com/assets/launch-codespace-2972f46106e565e64193e422d61a12cf1da4916b45550586e14ef0a7c637dd04.svg)](https://classroom.github.com/open-in-codespaces?assignment_repo_id=17272459)
 # OOC1 Project
 
 **Title:** Library Management System (Booklet)
 
-**Name:** Jakub Nasta 
+**Name:** Jakub Nasta
 
-**Student ID:** G00424689  
+**Student ID:** G00424689@atu.ie
 
 ## Application Function
 
-Discuss what the application does.
+The Booklet application is a Library Management System that allows users to manage different types of books, such as printed books, ebooks, and audiobooks. The application provides functionality to sort books by various attributes, view detailed statistics about the books, and perform operations like adding, removing, or updating books.
 
 ## Running the Application
 
-Provide step by step instructions on how to run your applicaiton. Are there any prerequisite softwares required?
+To run the application, follow these steps:
 
-```list
-List the instructions step by step
-    1. Go to the Main class and press execute
-    2. Do something else
-            :
-            :
-```
+1. Ensure that you have Java installed on your system. You can download and install it from [Oracle's official site](https://www.oracle.com/java/technologies/javase-jdk11-downloads.html).
+2. Clone or download the project from the GitHub repository.
+3. Navigate to the project folder in your terminal.
+4. Compile the project using the following command:
+    ```bash
+    javac *.java
+    ```
+5. Run the application by executing the `App` class:
+    ```bash
+    java ie.atu.bookapp.App
+    ```
+6. Follow the on-screen prompts to interact with the application.
 
-## Minimum Project Requirements
+## Main Methods
 
-Describe how you have met all minimum project requirements below:
+* Methods implemented:
+* Add Item
+* Remove Item
+* Update Item
+* Find total items
+* Search Items
+* Quit
 
-* The repository contains, at minimum, two commits per week (Note: There should be many commits per day coding).
-* The project, including code and documentation, is fully contained in the provided GitHub Classroom repository.
-* Methods = Add Item, Remove Item, Update Item, Find total items, Search Items and Quit.
-* The code MUST compile.
-* The application code must be formatted in a consistent and standard way.
-* The code must contain comments. One comment per class, method and variable at minimum.
-* The documentation and commentary must be free of a grammar and speling mistakes.
+## Advanced Methods
 
-## Project Requirements above and beyond
+In addition to the minimum requirements, the application has the following features:
 
-Discuss any application features or design elements that show you went above and beyond basic requirements.
+* **Statistics functionality:** Users can view detailed statistics about books, including average prices, most expensive books, longest books, and more, for different categories of books (printed, ebook, audiobook).
+* **Book Sorting:** Users can sort books by title, price, author, genre, page count, file size, and duration for audiobooks.
+* **Menu Navigation and Clear Console:** Easy navigation through a console-based menu with clear options for managing books and viewing statistics.
 
 ## Application Architecture
 
-Discuss in detail how the application is structured. List all classes and describe their purpose. List all methods and describe what they do.
+The application is structured as follows:
+
+- **App Class:** Manages the main flow of the application. It initializes the manager, handles user input, and displays the main menu.
+- **Manager Class:** Responsible for managing all book-related data and operations, such as adding, removing, and searching for books.
+- **Book Class (and subclasses):** Represents the basic book model with attributes like title, author, price, genre, etc. The subclasses (PrintedBook, Ebook, and Audiobook) extend the Book class and add specific features.
+- **Navigation Class:** Handles page navigation and side menu interactions for a smoother user experience.
+- **Statistics Class:** Manages the display of various statistics related to the books in the library.
+- **Sort Class:** Provides functionality for sorting books based on various attributes.
+
+### List of Methods
+
+- **App Methods:**
+  - `printMainMenu()`: Displays the main menu and handles user input for navigating the app.
+  - `run()`: Starts the application and continuously displays the main menu until the user exits.
+
+- **Manager Methods:**
+  - `populateBooks()`: Populates the initial list of books.
+  - `printMenu()`: Displays a menu for managing books.
+
+- **Book Class Methods:**
+  - `getTitle()`, `getAuthor()`, `getPrice()`, etc.: Getter methods for various attributes of the books.
+
+- **Statistics Methods:**
+  - `printMenu()`: Displays the statistics menu and handles user input for selecting different stats to view.
+  - `printStatsAll()`, `printStatsPrinted()`, etc.: Displays various statistics for all books, printed books, ebooks, and audiobooks.
+  - `getTotalBooks()`, `getAveragePrice()`: Calculates and returns the total number of books and average price for a given book type.
+
+- **Sort Methods:**
+  - `sortBooks()`: Sorts books based on different criteria such as title, price, genre, etc.
 
 ## Roadblocks and Unfinished Functionality
 
-What did you not get finished? Discuss the issues you faced when creating your application Provide possible solutions to these issues. What would you have done differently if you had to do this project again?
+While the core functionality of the application is complete, there were a few challenges and areas that could be improved upon:
+
+- **Persistence:** The application does not currently save data after the application is closed. Implementing file-based storage or a database would make the application more robust.
+- **Error Handling:** More comprehensive error handling could be implemented, especially for user inputs.
+- **Advanced Text Formatting:** Better color-coding for menus and display tables to make the user experience more crisp and easier to read.
+
+If I were to work on this project again, I would focus on implementing data persistence and improving error handling for a smoother user experience.
 
 ## Resources
 
-Provide links to resources used:
-
-* [Tutorialspoint](https://www.tutorialspoint.com/java/) - Java Tutorials site I found helpful
+- [Tutorialspoint](https://www.tutorialspoint.com/java/) - Java Tutorials site I found helpful.
+- [Oracle Java Documentation](https://docs.oracle.com/javase/8/docs/api/) - Java API documentation for reference.
 
 ## Features
-* Main Menu - Main.java
-    - ASCII art
-    - Title (Booklet)
-    - Manage Library
-    - View Statistics
-    - Exit
 
-* Book Manager - BookManager.java
-    - Add a Book
-        - Book/Ebook/Audiobook?
-            * Prompt for data
-                - Log data back to user (Is everything correct?)
-                    - Y: Book/Ebook/Audiobook added successfully!
-                    - N: Go back to prompting   
+- **Book Management:** Add, remove, and update books.
+- **Sorting:** Sort books by title, author, price, genre, page count, file size, and duration.
+- **Statistics:** View detailed statistics like most expensive books, longest books, average prices, and more.
+- **User Interaction:** Console-based menu navigation and clear prompts for user interaction.
 
-    - Remove a Book
-        - By ID/Name?
-            - List specified book (Are you sure?)
-                - Y: Book deleted successfully.
-                - N: Go back to prompting for ID/Name
-
-    - Show All Books
-        - Books?
-        - Audiobooks?
-        - Ebooks?
-        - Show All?
-
-        - Default sort alphabetically
-        - Filter by Name/Author/Price/Genre/Number of Pages/Publication Year
-        - Return number of books in collection
-
-* Statistics - Statistics.java
-    - Total Number of Books
-    - Most Expensive Book
-    - Least Expensive Book
-    - Average Book Price
-    - Books Published After a Specific Year
-    - Back to Main Menu
-
-## Resources
-https://www.geeksforgeeks.org/gfact-51-java-scanner-nextchar/
