@@ -29,13 +29,26 @@ To run the application, follow these steps:
 
 ## Main Methods
 
-* Add Item
+**Add Book**
 ![](https://github.com/DanielCreggOrganization/ooc1-project-24-nastaj/blob/main/gifs/add.gif)
-* Remove Item
-* Update Item
-* Find total items
-* Search Items
-* Quit
+
+**Remove Book**
+![](https://github.com/DanielCreggOrganization/ooc1-project-24-nastaj/blob/main/gifs/remove.gif)
+
+**Update Book**
+![](https://github.com/DanielCreggOrganization/ooc1-project-24-nastaj/blob/main/gifs/update.gif)
+
+**Find Book**
+![](https://github.com/DanielCreggOrganization/ooc1-project-24-nastaj/blob/main/gifs/find.gif)
+
+**Display & Sort Books**
+![](https://github.com/DanielCreggOrganization/ooc1-project-24-nastaj/blob/main/gifs/show_sort.gif)
+
+**View Statistics**
+![](https://github.com/DanielCreggOrganization/ooc1-project-24-nastaj/blob/main/gifs/stats.gif)
+
+**Quit**
+![](https://github.com/DanielCreggOrganization/ooc1-project-24-nastaj/blob/main/gifs/quit.gif)
 
 ## Advanced Methods
 
