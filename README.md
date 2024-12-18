@@ -47,28 +47,42 @@ To run the application, follow these steps:
     
 7. Follow the on-screen prompts to interact with the application.
 
-## Main Methods
+## Features Showcase
 
 **Add Book**
+
 ![](https://github.com/DanielCreggOrganization/ooc1-project-24-nastaj/blob/main/gifs/add.gif)
 
 **Remove Book**
+
 ![](https://github.com/DanielCreggOrganization/ooc1-project-24-nastaj/blob/main/gifs/remove.gif)
 
 **Update Book**
+
 ![](https://github.com/DanielCreggOrganization/ooc1-project-24-nastaj/blob/main/gifs/update.gif)
 
 **Find Book**
+
 ![](https://github.com/DanielCreggOrganization/ooc1-project-24-nastaj/blob/main/gifs/find.gif)
 
 **Display & Sort Books**
+
 ![](https://github.com/DanielCreggOrganization/ooc1-project-24-nastaj/blob/main/gifs/show_sort.gif)
 
 **View Statistics**
+
 ![](https://github.com/DanielCreggOrganization/ooc1-project-24-nastaj/blob/main/gifs/stats.gif)
 
 **Quit**
+
 ![](https://github.com/DanielCreggOrganization/ooc1-project-24-nastaj/blob/main/gifs/quit.gif)
+
+## Features
+
+- **Book Management:** Add, remove, and update books.
+- **Sorting:** Sort books by title, author, price, genre, page count, file size, and duration.
+- **Statistics:** View detailed statistics like most expensive books, longest books, average prices, and more.
+- **User Interaction:** Console-based menu navigation and clear prompts for user interaction.
 
 ## Advanced Methods
 
@@ -86,8 +100,11 @@ The application is structured as follows:
 - **Manager Class:** Responsible for managing all book-related data and operations, such as adding, removing, and searching for books.
 - **Book Class (and subclasses):** Represents the basic book model with attributes like title, author, price, genre, etc. The subclasses (PrintedBook, Ebook, and Audiobook) extend the Book class and add specific features.
 - **Navigation Class:** Handles page navigation and side menu interactions for a smoother user experience.
+- **Menu Class:**: Handles printing menus to the console.
 - **Statistics Class:** Manages the display of various statistics related to the books in the library.
 - **Sort Class:** Provides functionality for sorting books based on various attributes.
+- **Feature Classes:** Add, Remove, Find, Sort, etc. classes for their corresponding functionalities.
+- **Utility Classess:** ASCII, InputHandler and ClearConsole classes for abstracting code, enhancing reusability and easing the development process.
 
 ### **List of Methods**
 
@@ -250,11 +267,9 @@ If I were to work on this project again, I would focus on implementing data pers
 
 - [Tutorialspoint](https://www.tutorialspoint.com/java/) - Java Tutorials site I found helpful.
 - [Oracle Java Documentation](https://docs.oracle.com/javase/8/docs/api/) - Java API documentation for reference.
-
-## Features
-
-- **Book Management:** Add, remove, and update books.
-- **Sorting:** Sort books by title, author, price, genre, page count, file size, and duration.
-- **Statistics:** View detailed statistics like most expensive books, longest books, average prices, and more.
-- **User Interaction:** Console-based menu navigation and clear prompts for user interaction.
+- [Stack Overflow](https://stackoverflow.com/questions/tagged/java) - A community-driven Q&A site for Java-related questions that I consulted many times throughout the development
+- [ChatGPT](https://chatgpt.com) - AI-driven coding assistant
+- [W3Schools](https://www.w3schools.com/java) - Many helfpul Java tutorials
+- [GeeksforGeeks](https://www.geeksforgeeks.org/java/) - Java tutorials laid out in approachable way. I used it to learn about Java Object methods and ArrayList.
+- [ScreenToGif](https://www.screentogif.com/) - App for creating gifs
 
