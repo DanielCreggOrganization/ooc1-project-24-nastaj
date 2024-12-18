@@ -30,7 +30,7 @@ To run the application, follow these steps:
 ## Main Methods
 
 * Add Item
-![](https://github.com/Your_Repository_Name/Your_GIF_Name.gif)
+![](https://github.com/DanielCreggOrganization/ooc1-project-24-nastaj/blob/main/gifs/add.gif)
 * Remove Item
 * Update Item
 * Find total items
