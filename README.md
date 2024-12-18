@@ -40,6 +40,29 @@ To run the application, follow these steps:
     
 6. Follow the on-screen prompts to interact with the application.
 
+## Compiling the Application
+
+Alternatively, if you want to compile the application yourself, follow these steps:
+
+1. After cloning the repository, navigate to the project folder in your terminal.
+   
+2. Make sure the bin folder is empty.
+
+3. Use the command to gather the sources of all files in the project:
+   ```bash
+   find src/ie/atu/bookapp -name "*.java" > sources.txt
+   ```
+
+4. Compile the Java files from the paths listed in sources.txt:
+   ```bash
+   javac -d bin @sources.txt
+   ```
+
+5. Run the application by executing the `Main` class:
+    ```bash
+    java -cp bin ie.atu.bookapp.Main
+    ```
+
 ## Features Showcase
 
 **Add Book**
