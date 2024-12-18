@@ -14,18 +14,29 @@ The Booklet application is a Library Management System that allows users to mana
 
 To run the application, follow these steps:
 
-1. Ensure that you have Java installed on your system. You can download and install it from [Oracle's official site](https://www.oracle.com/java/technologies/javase-jdk11-downloads.html).
-2. Clone or download the project from the GitHub repository.
-3. Navigate to the project folder in your terminal.
-4. Compile the project using the following command:
+1. Ensure Java is Installed  
+   Verify your Java installation by running the following command in your terminal:  
+   ```bash
+   java -version
+   ```
+   If Java is not installed, download and install it from [Oracle's Official Site](https://www.oracle.com/java/technologies/downloads/).
+2. Clone the GitHub repository using the command:
+   ```bash
+   git clone <repository-url>
+   ```
+   OR
+   Download the ZIP file of the project and extract it to your desired location.
+4. Navigate to the project folder in your terminal.
+5. Compile the project using the following command. 
     ```bash
     javac *.java
     ```
-5. Run the application by executing the `App` class:
+    Make sure you ar in the /src folder!
+6. Run the application by executing the `Main` class:
     ```bash
-    java ie.atu.bookapp.App
+    java ie.atu.bookapp.Main
     ```
-6. Follow the on-screen prompts to interact with the application.
+7. Follow the on-screen prompts to interact with the application.
 
 ## Main Methods
 
