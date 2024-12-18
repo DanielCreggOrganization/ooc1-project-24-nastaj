@@ -33,19 +33,12 @@ To run the application, follow these steps:
    
 4. Navigate to the project folder in your terminal.
    
-5. Compile the project using the following command. 
+5. Run the application by executing the `Main` class:
     ```bash
-    javac *.java
+    java -cp bin ie.atu.bookapp.Main
     ```
     
-   **Make sure you are in the /src folder!**
-   
-6. Run the application by executing the `Main` class:
-    ```bash
-    java ie.atu.bookapp.Main
-    ```
-    
-7. Follow the on-screen prompts to interact with the application.
+6. Follow the on-screen prompts to interact with the application.
 
 ## Features Showcase
 
