@@ -79,9 +79,9 @@ public class Audiobook extends Book {
         // Append the general book information (from Book class)
         sb.append(super.toString());
         // Append Audiobook-specific information
-        sb.append("Duration:        ").append(duration).append(" hours\n");
-        sb.append("Narrator:        ").append(narrator).append("\n");
-        sb.append("Type:            ").append("Audiobook").append("\n");
+        sb.append("Duration:          ").append(duration).append(" hours\n");
+        sb.append("Narrator:          ").append(narrator).append("\n");
+        sb.append("Type:              ").append("Audiobook").append("\n");
         sb.append("====================================");
 
         return sb.toString(); // Return the formatted string representation

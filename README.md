@@ -29,8 +29,8 @@ To run the application, follow these steps:
 
 ## Main Methods
 
-* Methods implemented:
 * Add Item
+![](https://github.com/Your_Repository_Name/Your_GIF_Name.gif)
 * Remove Item
 * Update Item
 * Find total items
