@@ -1,4 +1,4 @@
-package ie.atu.bookapp;
+package ie.atu.bookapp.classes;
 
 public abstract class Book {
     // Static counter to generate unique IDs for each book instance

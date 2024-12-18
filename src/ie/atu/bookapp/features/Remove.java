@@ -1,6 +1,14 @@
-package ie.atu.bookapp;
+package ie.atu.bookapp.features;
 
 import java.util.List;
+
+import ie.atu.bookapp.App;
+import ie.atu.bookapp.classes.Audiobook;
+import ie.atu.bookapp.classes.Book;
+import ie.atu.bookapp.classes.Ebook;
+import ie.atu.bookapp.classes.PrintedBook;
+import ie.atu.bookapp.nav.Navigation;
+import ie.atu.bookapp.utilities.ClearConsole;
 
 public class Remove {
 

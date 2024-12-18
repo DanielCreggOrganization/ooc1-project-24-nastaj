@@ -1,4 +1,4 @@
-package ie.atu.bookapp;
+package ie.atu.bookapp.classes;
 
 public class Ebook extends Book {
     private double fileSize; // The file size of the ebook in MB

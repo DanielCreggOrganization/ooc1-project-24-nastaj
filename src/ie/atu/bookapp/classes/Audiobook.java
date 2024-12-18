@@ -1,4 +1,4 @@
-package ie.atu.bookapp;
+package ie.atu.bookapp.classes;
 
 public class Audiobook extends Book {
     private int duration; // Duration of the audiobook in hours
@@ -17,7 +17,7 @@ public class Audiobook extends Book {
      * @param duration The duration of the audiobook in hours.
      * @param narrator The name of the narrator for the audiobook.
      */
-    Audiobook(String title, String author, String genre, double price, int publicationYear, int duration, String narrator) {
+    public Audiobook(String title, String author, String genre, double price, int publicationYear, int duration, String narrator) {
         // Call the constructor of the parent class (Book) to initialize common properties
         super(title, author, genre, price, publicationYear);
 

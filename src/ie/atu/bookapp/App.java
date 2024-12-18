@@ -2,6 +2,11 @@ package ie.atu.bookapp;
 
 import java.util.Scanner; // Import Scanner for user input
 
+import ie.atu.bookapp.features.Manager;
+import ie.atu.bookapp.features.Statistics;
+import ie.atu.bookapp.nav.Navigation;
+import ie.atu.bookapp.utilities.ASCII;
+
 /**
  * The App class is responsible for starting and managing the main flow of the Booklet application.
  * It initializes the Manager, populates the book data, and handles the main menu interactions.
@@ -9,7 +14,7 @@ import java.util.Scanner; // Import Scanner for user input
 public class App {
 
     // Scanner for user input
-    static Scanner scanner = new Scanner(System.in);
+    public static Scanner scanner = new Scanner(System.in);
 
     // Boolean variable to determine if the app is active (true) or should stop (false)
     private static boolean running = true;

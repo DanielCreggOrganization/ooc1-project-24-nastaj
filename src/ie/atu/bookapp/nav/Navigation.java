@@ -1,4 +1,10 @@
-package ie.atu.bookapp;
+package ie.atu.bookapp.nav;
+
+import ie.atu.bookapp.App;
+import ie.atu.bookapp.features.Display;
+import ie.atu.bookapp.features.Manager;
+import ie.atu.bookapp.features.Statistics;
+import ie.atu.bookapp.utilities.ClearConsole;
 
 public class Navigation {
     // Store the previous and current page names for navigation purposes

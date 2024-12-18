@@ -1,4 +1,4 @@
-package ie.atu.bookapp;
+package ie.atu.bookapp.utilities;
 
 /**
  * The ASCII class is responsible for printing ASCII art to the console.

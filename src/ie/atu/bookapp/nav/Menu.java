@@ -1,4 +1,16 @@
-package ie.atu.bookapp;
+package ie.atu.bookapp.nav;
+
+import ie.atu.bookapp.App;
+import ie.atu.bookapp.classes.Audiobook;
+import ie.atu.bookapp.classes.Book;
+import ie.atu.bookapp.classes.Ebook;
+import ie.atu.bookapp.classes.PrintedBook;
+import ie.atu.bookapp.features.Add;
+import ie.atu.bookapp.features.Display;
+import ie.atu.bookapp.features.Find;
+import ie.atu.bookapp.features.Manager;
+import ie.atu.bookapp.features.Remove;
+import ie.atu.bookapp.utilities.ClearConsole;
 
 /**
  * The Menu class manages the display of various menus related to book operations, such as adding, updating, 

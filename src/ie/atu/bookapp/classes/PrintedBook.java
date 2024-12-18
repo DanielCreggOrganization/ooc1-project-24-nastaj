@@ -1,4 +1,4 @@
-package ie.atu.bookapp;
+package ie.atu.bookapp.classes;
 
 public class PrintedBook extends Book {
     // Additional attribute specific to printed books

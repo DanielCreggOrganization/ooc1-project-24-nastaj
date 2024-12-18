@@ -1,6 +1,14 @@
-package ie.atu.bookapp;
+package ie.atu.bookapp.features;
 
 import java.util.ArrayList;
+
+import ie.atu.bookapp.classes.Audiobook;
+import ie.atu.bookapp.classes.Book;
+import ie.atu.bookapp.classes.Ebook;
+import ie.atu.bookapp.classes.PrintedBook;
+import ie.atu.bookapp.nav.Menu;
+import ie.atu.bookapp.nav.Navigation;
+import ie.atu.bookapp.utilities.ClearConsole;
 
 /**
  * The Manager class handles book management, including adding, updating, removing, and displaying books.
@@ -19,7 +27,7 @@ public class Manager {
     /**
      * Constructor initializes the ArrayLists for managing different types of books.
      */
-    Manager() {
+    public Manager() {
         Manager.books = new ArrayList<>();
         Manager.printedBooks = new ArrayList<>();
         Manager.ebooks = new ArrayList<>();

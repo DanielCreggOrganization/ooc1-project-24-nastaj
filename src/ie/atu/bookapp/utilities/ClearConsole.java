@@ -1,4 +1,4 @@
-package ie.atu.bookapp;
+package ie.atu.bookapp.utilities;
 
 public class ClearConsole {
     
